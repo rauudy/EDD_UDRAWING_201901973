@@ -3,47 +3,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Estructuras;
-import Nodos.*;
 
-/**
- *
- * @author DELL
- */
 public class ListaSimple {
-    private NodoListaSimple inicio;
+    private Cliente inicio;
     private int tamanio;
 
     public ListaSimple() {
         inicio=null;
         tamanio=0;
     }
-    
        
     public boolean estaVacia(){
         return inicio==null;
     }
     
-    public void insertar(Object inf){
-        NodoListaSimple nuevo = new NodoListaSimple(inf);
-        NodoListaSimple puntero=inicio;
+    public void insertar(int id, String nombre, int pasos, int ventanilla, int bw, int color){
+        Cliente nuevo = new Cliente();
+
+        nuevo.setId_cliente(id);
+        nuevo.setNombre_cliente(nombre);
+        nuevo.setImpr_color(color);
+        nuevo.setImpr_bw(bw);
+        nuevo.setPasos(Menu.pasos - pasos);
         
-        if (estaVacia()) {
-            inicio = nuevo;
-        } else {
-            while (puntero.siguiente!=null) {                
-                puntero = puntero.siguiente;
-            }
-            puntero.siguiente = nuevo;
-        }
-        tamanio+=1;
+        
     }
     
-    public void imprimir(){
-        NodoListaSimple actual = inicio;
-        
-        while (actual!=null) {            
-            System.out.println(actual.infor + ",");
-            actual = actual.siguiente;
-        }
-    }
+    
 }

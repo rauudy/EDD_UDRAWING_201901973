@@ -9,30 +9,32 @@ package Estructuras;
  * @author DELL
  */
 public class Cliente {
-    private int id_cliente;
     private String nombre_cliente;
+    private int id_cliente;
     private int img_color;
     private int img_bw;
+    private int impr_color;
+    private int impr_bw;
+    private int pasos;
+    private int ventanilla;
+    
+    private Cliente sig;
+    private Cliente ant;
+        
+    private PilaImage pilaImg;
 
-    public Cliente(int id_cliente, String nombre_cliente, int img_color, int img_bw) {
-        this.id_cliente = id_cliente;
-        this.nombre_cliente = nombre_cliente;
-        this.img_color = img_color;
-        this.img_bw = img_bw;
-    }
-
-    /**
-     * @return the id_cliente
-     */
-    public int getId_cliente() {
-        return id_cliente;
-    }
-
-    /**
-     * @param id_cliente the id_cliente to set
-     */
-    public void setId_cliente(int id_cliente) {
-        this.id_cliente = id_cliente;
+    public Cliente() {
+        this.nombre_cliente = "";
+        this.id_cliente = 0;
+        this.img_color = 0;
+        this.img_bw = 0;
+        this.impr_color = 0;
+        this.impr_bw = 0;
+        this.pasos = 0;
+        this.ventanilla = 0;
+        this.sig = null;
+        this.ant = null;
+        this.pilaImg = null;
     }
 
     /**
@@ -47,6 +49,20 @@ public class Cliente {
      */
     public void setNombre_cliente(String nombre_cliente) {
         this.nombre_cliente = nombre_cliente;
+    }
+
+    /**
+     * @return the id_cliente
+     */
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
+    /**
+     * @param id_cliente the id_cliente to set
+     */
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     /**
@@ -77,10 +93,105 @@ public class Cliente {
         this.img_bw = img_bw;
     }
 
-    @Override
-    public String toString() {
-        return "Cliente\n id: "+id_cliente+" Nombre: "+nombre_cliente+" ImgColor: "+img_color+" ImgB&N: "+img_bw;
+    /**
+     * @return the impr_color
+     */
+    public int getImpr_color() {
+        return impr_color;
     }
+
+    /**
+     * @param impr_color the impr_color to set
+     */
+    public void setImpr_color(int impr_color) {
+        this.impr_color = impr_color;
+    }
+
+    /**
+     * @return the impr_bw
+     */
+    public int getImpr_bw() {
+        return impr_bw;
+    }
+
+    /**
+     * @param impr_bw the impr_bw to set
+     */
+    public void setImpr_bw(int impr_bw) {
+        this.impr_bw = impr_bw;
+    }
+
+    /**
+     * @return the pasos
+     */
+    public int getPasos() {
+        return pasos;
+    }
+
+    /**
+     * @param pasos the pasos to set
+     */
+    public void setPasos(int pasos) {
+        this.pasos = pasos;
+    }
+
+    /**
+     * @return the ventanilla
+     */
+    public int getVentanilla() {
+        return ventanilla;
+    }
+
+    /**
+     * @param ventanilla the ventanilla to set
+     */
+    public void setVentanilla(int ventanilla) {
+        this.ventanilla = ventanilla;
+    }
+
+    /**
+     * @return the sig
+     */
+    public Cliente getSig() {
+        return sig;
+    }
+
+    /**
+     * @param sig the sig to set
+     */
+    public void setSig(Cliente sig) {
+        this.sig = sig;
+    }
+
+    /**
+     * @return the ant
+     */
+    public Cliente getAnt() {
+        return ant;
+    }
+
+    /**
+     * @param ant the ant to set
+     */
+    public void setAnt(Cliente ant) {
+        this.ant = ant;
+    }
+
+    /**
+     * @return the pilaImg
+     */
+    public PilaImage getPilaImg() {
+        return pilaImg;
+    }
+
+    /**
+     * @param pilaImg the pilaImg to set
+     */
+    public void setPilaImg(PilaImage pilaImg) {
+        this.pilaImg = pilaImg;
+    }
+    
+    
     
     
 }

@@ -1,71 +1,80 @@
 package Estructuras;
-import Nodos.*;
 
 public class ColaRecepcion {
-    private NodoCola inicioCola, finalCola;
-    String Cola ="";
+    private Cliente primero;
+    private int tamanio,tam2;
 
-    public ColaRecepcion(){
-        inicioCola = null;
-        finalCola = null;
-
-    }
-
-    public boolean ColaVacia(){
-        if (inicioCola == null) {
-            return true;            
-        } else {
-            return false;            
-        }
-    }
-
-    public void Insertar(String id_cliente,String nombre_cliente,String img_color,String img_bw){
-        NodoCola nuevo_nodo = new NodoCola();
-        nuevo_nodo.id_cliente = id_cliente;
-        nuevo_nodo.nombre_cliente = nombre_cliente;
-        nuevo_nodo.img_color = img_color;
-        nuevo_nodo.img_bw = img_bw;
-        nuevo_nodo.siguiente = null;
-
-        if (ColaVacia()) {
-            inicioCola = nuevo_nodo;
-            finalCola = nuevo_nodo;
-        } else {
-            finalCola.siguiente = nuevo_nodo;
-            finalCola = nuevo_nodo;            
-        }
-    }
-
-    public NodoCola Extraer(){
-        if (!ColaVacia()) {
-            String id_cliente = inicioCola.id_cliente;
-            if (inicioCola == finalCola) {
-                inicioCola = null;
-                finalCola = null;
-            } else {
-                NodoCola aux = inicioCola;
-                inicioCola = inicioCola.siguiente;
-                return aux;
-            }
-        } else {
-            System.out.println("Cola vacia.");
-        }
-        return null;
+    public ColaRecepcion() {
+        primero = null;
+        tamanio=0;
     }
     
-    public void MostrarContenido(){
-        NodoCola recorrido = inicioCola;
-        String ColaInvertida ="";
-        while(recorrido != null){
-            Cola +="ID: "+recorrido.id_cliente+" - Nombre: "+recorrido.nombre_cliente+" - Color: "+recorrido.img_color+" - BW: "+recorrido.img_bw+"->" ;
-            recorrido = recorrido.siguiente;
-        }
-        String cadena [] = Cola.split("->");
-
-        for(int i = cadena.length-1; i>=0;i--){
-            ColaInvertida += " -> "+cadena[i];
-        }
-        System.out.println(ColaInvertida);
-        Cola="";
+    public boolean estaVacio(){
+        return primero == null;
     }
+    
+    public int obtenerCola(){
+        return tam2;
+    }
+    
+    public void insertar(int id_cliente, String nombre, int color, int bw, int paso) {
+        Cliente nuevo = new Cliente();
+        nuevo.setId_cliente(id_cliente);
+        nuevo.setNombre_cliente(nombre);
+        nuevo.setImg_color(color);
+        nuevo.setImg_bw(bw);
+        nuevo.setImpr_color(color);
+        nuevo.setImpr_bw(bw);
+        nuevo.setPasos(paso);
+        
+
+        if (estaVacio()) {
+            primero = nuevo;
+        } else {
+            Cliente temp = primero;
+
+            while (temp.getSig() != null) {
+                temp = temp.getSig();
+            }
+            temp.setSig(nuevo);
+        }
+        tamanio+=1;
+        tam2++;
+        
+    }
+    
+    public Cliente desencolar() {
+        Cliente temp = primero;
+        if (estaVacio()) {
+            System.out.println("-- No Hay Clientes --");
+        } else {
+            Cliente temp2 = temp.getSig();
+            primero = temp2;
+        }
+        tamanio--;
+        return temp;
+    }
+    
+    public void imprimirCola(){
+        if (tamanio == 0) {
+            System.out.println("Pila vacia");
+        } else {
+            Cliente temp = primero;
+            while (temp != null) {
+                System.out.println("Id:" + temp.getId_cliente());
+                System.out.println("Nombre:" + temp.getNombre_cliente());
+                System.out.println("Color:" + temp.getImg_color());
+                System.out.println("BW:" + temp.getImg_bw());
+                System.out.println("");
+                temp = temp.getSig();
+            }
+
+        }
+    }
+    
+    
+    
+    
+
+    
 }

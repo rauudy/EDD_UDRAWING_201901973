@@ -9,7 +9,7 @@ public class Image {
     private Image sig;
 
 
-    public Image(int id_cliente, int id_img, int pasos, String color, Image sig) {
+    public Image() {
         this.id_cliente = 0;
         this.id_img = 0;
         this.pasos = 0;

@@ -17,6 +17,7 @@ public class Cliente {
     private int impr_bw;
     private int pasos;
     private int ventanilla;
+    private boolean atendido;
     
     private Cliente sig;
     private Cliente ant;
@@ -32,9 +33,10 @@ public class Cliente {
         this.impr_bw = 0;
         this.pasos = 0;
         this.ventanilla = 0;
+        this.atendido = false;
         this.sig = null;
         this.ant = null;
-        this.pilaImg = null;
+        this.pilaImg = new PilaImage();
     }
 
     /**
@@ -189,6 +191,20 @@ public class Cliente {
      */
     public void setPilaImg(PilaImage pilaImg) {
         this.pilaImg = pilaImg;
+    }
+
+    /**
+     * @return the atendido
+     */
+    public boolean isAtendido() {
+        return atendido;
+    }
+
+    /**
+     * @param atendido the atendido to set
+     */
+    public void setAtendido(boolean atendido) {
+        this.atendido = atendido;
     }
     
     

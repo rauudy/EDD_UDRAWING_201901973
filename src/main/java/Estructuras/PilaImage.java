@@ -1,11 +1,8 @@
 package Estructuras;
 
-import Proyecto1.*;
-import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 
 public class PilaImage {
 
@@ -22,7 +19,11 @@ public class PilaImage {
     }
 
     public void push(int id_cliente, int id_img, String color) {
-        Image nuevo = new Image(id_cliente,id_img,0,color,null);
+        Image nuevo = new Image();
+        
+        nuevo.setId_cliente(id_cliente);
+        nuevo.setId_img(id_img);
+        nuevo.setColor(color);
 
         if (estaVacia()) {
             cima = nuevo;
@@ -43,17 +44,17 @@ public class PilaImage {
     }
     
     public Image pop() {
-        Image temp = cima;
+        Image aux = cima;
         String Color = "";
         if (cima == null) {
 
         } else {
             if (cima.getPasos()== 0) {
-                Image temp2 = temp.getSig();
+                Image aux2 = aux.getSig();
 
-                cima = temp2;
-                //Cliente Duenio = Menu.LEspera.buscar(temp.getId_cliente());
-                if (temp.getColor().equals("Color")) {
+                cima = aux2;
+                //Cliente Duenio = Menu.LEspera.buscar(aux.getId_cliente());
+                if (aux.getColor().equals("Color")) {
                     Color = "Color";
                 } else {
                     Color = "Blanco y Negro";
@@ -72,7 +73,7 @@ public class PilaImage {
 
         }
 
-        return temp;
+        return aux;
 
     }
 
@@ -81,7 +82,7 @@ public class PilaImage {
     }
 
     public void push_Impr(int id_cliente, int id_img, int pasos, String color) {
-        Image nuevo = new Image(id_cliente,id_img,pasos,color,null);
+        Image nuevo = new Image();
         
         nuevo.setId_cliente(id_cliente);
         nuevo.setId_img(id_img);
@@ -101,20 +102,32 @@ public class PilaImage {
     }
     
     
-
-    public void imprimir_Pila() {
-        if (estaVacia()) {
-            System.out.println("------ La PILA esta Vacia ------");
-        } else {
-            Image aux = cima;
-            while (aux != null) {
-                System.out.println("Id_Cliente: " + String.valueOf(aux.getId_cliente()));
-                System.out.println("Id_Imagen: " + String.valueOf(aux.getId_img()));
-                System.out.println("color: " + aux.getColor() + "\n");
-                aux = aux.getSig();
+    public String graphviz_pila(String no) {
+        Image aux = cima;
+        String dot = "";
+        int contador = 0;
+        while (aux != null) {
+            if (aux.getColor().equals("Color")) {
+                dot = dot + " " + no + "." + String.valueOf(contador) + "[label= \"Imagen Color; Id Cliente: " + aux.getId_cliente()+ "\"  shape=rectangular fontsize=20]\n";
+            } else {
+                dot = dot + " " + no + "." + String.valueOf(contador) + "[label= \" Imagen BlancoNegro; Id Cliente: " + aux.getId_cliente()+ "\" shape=rectangular fontsize=20]\n";
             }
-
+            contador++;
+            aux = aux.getSig();
         }
+        contador = 0;
+        dot = dot + " " + no + "->" + no + ".0; \n";
+        aux = cima;
+        while (aux != null) {
+            Image aux2 = aux.getSig();
+
+            if (aux2 != null) {
+                dot = dot + no + "." + String.valueOf(contador) + "->" + no + "." + String.valueOf(contador + 1) + ";\n";
+            }
+            contador++;
+            aux = aux.getSig();
+        }
+        return dot;
     }
 
     public void menosPasos() {
@@ -122,14 +135,12 @@ public class PilaImage {
             cima.setPasos(cima.getPasos() - 1);
         }
     }
-
     
-
     public void GraphvizColor() {
         Image aux = cima;
         int cont = 0;
         String dot = "";
-        dot = "digraph G{ rankdir=TB; labelloc=t; label=\"Colas Impresion\"; fontsize=50; \n U[label=\"Impresora Color\" shape=square fontsize=30]";
+        dot = "digraph G{ rankdir=TB; labelloc=t; label=\"Colas Impresion\"; fontsize=50; \n U[label=\"Impresora Color\" shape=square fontsize=30];\n";
 
         while (aux != null) {
             dot = dot + String.valueOf(cont) + "[label= \"Cliente: " + String.valueOf(aux.getId_cliente()) + " ,Id Imagen: " + String.valueOf(aux.getId_img()) + " ,Imagen A Color\"];  \n";
@@ -145,12 +156,12 @@ public class PilaImage {
             Image aux2 = aux.getSig();
             if (aux2 != null) {
 
-                dot = dot + String.valueOf(cont2) + "->" + String.valueOf(cont2 + 1) + ";";
+                dot = dot + String.valueOf(cont2) + "->" + String.valueOf(cont2 + 1) + ";\n";
             }
             cont2++;
             aux = aux.getSig();
         }
-        String dot2 = Menu.pilaC.GraphvizBw();
+        String dot2 = Menu.pilaC.graphiz_BW();
         dot = dot + "\n \n" + dot2 + "}";
         System.out.println(dot);
         
@@ -172,7 +183,7 @@ public class PilaImage {
             
             ProcessBuilder proceso = null;
 
-            proceso = new ProcessBuilder("dot", "-Tpng", "-o", "impr.png", "Impresoras.dot");
+            proceso = new ProcessBuilder("dot", "-Tpng", "-o", "Impresoras.png", "Impresoras.dot");
 
             proceso.redirectErrorStream(true);
             proceso.start();
@@ -183,7 +194,7 @@ public class PilaImage {
 
     }
     
-    public String GraphvizBw() {
+    public String graphiz_BW() {
         Image aux = cima;
         int contador = 0;
         String dot = "";
@@ -193,14 +204,14 @@ public class PilaImage {
             contador++;
             aux = aux.getSig();
         }
-        dot = dot + "\n N->5; ";
+        dot = dot + "\n N->05; \n";
         aux = cima;
         int contador2 = 0;
 
         while (aux != null) {
-            Image temp2 = aux.getSig();
-            if (temp2 != null) {
-                dot = dot + String.valueOf(contador2) + "5->" + String.valueOf(contador2 + 1) + "5;";
+            Image aux2 = aux.getSig();
+            if (aux2 != null) {
+                dot = dot + String.valueOf(contador2) + "5->" + String.valueOf(contador2 + 1) + "5;\n";
             }
             contador2++;
             aux = aux.getSig();

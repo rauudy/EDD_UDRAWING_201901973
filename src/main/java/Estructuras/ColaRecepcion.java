@@ -61,7 +61,7 @@ public class ColaRecepcion {
     
     public void imprimirCola(){
         if (tamanio == 0) {
-            System.out.println("Pila vacia");
+            System.out.println("---- Cola vacia ----");
         } else {
             Cliente temp = primero;
             while (temp != null) {
@@ -72,7 +72,6 @@ public class ColaRecepcion {
                 System.out.println("");
                 temp = temp.getSig();
             }
-
         }
     }
     

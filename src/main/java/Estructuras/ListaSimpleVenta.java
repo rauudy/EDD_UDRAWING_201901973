@@ -9,11 +9,12 @@ import java.io.FileWriter;
 public class ListaSimpleVenta {
     private Ventanilla primero;
     private int tamanio;
-    private PilaImage pilai;
+    private PilaImage pila;
 
     public void Lista() {
         primero = null;
         tamanio = 0;
+        pila = null;
     }
 
     public void insertar(int ventan) {
@@ -42,20 +43,18 @@ public class ListaSimpleVenta {
             }
             aux = aux.getSig();
         }
-
     }
 
     public int vent_disponibles() {
         Ventanilla aux = primero;
-        int no = 0;
+        int disp = 0;
         while (aux != null) {
             if (aux.getActual()== null) {
-                no++;
+                disp++;
             }
             aux = aux.getSig();
         }
-        return no;
-
+        return disp;
     }
 
     public void RecibirFotos() {
@@ -84,15 +83,15 @@ public class ListaSimpleVenta {
 
     }
 
-    public Cliente sacarClienteVentanilla() {//sin impresiones
+    public Cliente sacarClienteVentanilla() {
         Ventanilla aux = primero;
         for (int i = 0; i < tamanio + 1; i++) {
             if (aux != null) {
                 if (aux.getActual() != null) {
-                    if (aux.getActual().getImg_color()== 0 && aux.getActual().getImg_bw()== 0) {
+                    if (aux.getActual().getImg_bw()== 0 && aux.getActual().getImg_color()== 0) {
                         Cliente clienteEspera = aux.getActual();
                         aux.setActual(null);
-                        pilai = aux.getPila();
+                        pila = aux.getPila();
                         aux.setPila(new PilaImage());
                         clienteEspera.setVentanilla(aux.getVent());
                         return clienteEspera;
@@ -104,8 +103,8 @@ public class ListaSimpleVenta {
         return null;
     }
 
-    public PilaImage IngresarImpresionesAcola() {
-        return pilai;
+    public PilaImage ingresar_pilaCola() {
+        return pila;
     }
 
     public void atender() {

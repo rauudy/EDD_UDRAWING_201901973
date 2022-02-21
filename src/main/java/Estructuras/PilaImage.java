@@ -20,21 +20,17 @@ public class PilaImage {
 
     public void push(int id_cliente, int id_img, String color) {
         Image nuevo = new Image();
-        
         nuevo.setId_cliente(id_cliente);
         nuevo.setId_img(id_img);
         nuevo.setColor(color);
-
         if (estaVacia()) {
             cima = nuevo;
         } else {
             Image aux = cima;
-
             while (aux.getSig() != null) {
                 aux = aux.getSig();
             }
             aux.setSig(nuevo);
-
         }
         tamanio += 1;
     }
@@ -72,12 +68,10 @@ public class PilaImage {
 
     public void push_Impr(int id_cliente, int id_img, int pasos, String color) {
         Image nuevo = new Image();
-        
         nuevo.setId_cliente(id_cliente);
         nuevo.setId_img(id_img);
         nuevo.setColor(color);
         nuevo.setPasos(pasos);
-        
         if (estaVacia()) {
             cima = nuevo;
         } else {

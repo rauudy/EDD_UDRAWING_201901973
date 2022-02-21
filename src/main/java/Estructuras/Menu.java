@@ -65,7 +65,7 @@ public class Menu {
                     break;
                 case 6:
                     System.out.println("--->> Acerca de <<---");
-                    System.out.println("Raudy Cabrera\n201901973\n");
+                    System.out.println("Desarrollador: Raudy Cabrera\nCarnet: 201901973\n");
                     break;
                 case 7:
                     System.out.println("** Adios **\n");
@@ -223,7 +223,6 @@ public class Menu {
             Cliente cliente = colaR.desencolar();
             listaVen.clienteVentanilla(cliente);
         }
-
     }
     
     public int num_random() {
@@ -250,7 +249,7 @@ public class Menu {
             Cliente cliente_aEspera;
             PilaImage pila ;
             cliente_aEspera = listaVen.sacarClienteVentanilla();
-            pila = listaVen.IngresarImpresionesAcola();
+            pila = listaVen.ingresar_pilaCola();
             if (pila != null) {
                 int sizeImagenes = pila.no_nodos();
                 while (sizeImagenes != 0) {

@@ -34,18 +34,17 @@ public class ListList {
         
         if (estaVacio()) {
             primero = nuevo;
-            primero.setAnt(primero);
             primero.setSig(primero);
-            System.out.println("-- Cliente " + nombre + " Ingresa a Lista de Espera");
+            primero.setAnt(primero);
+            System.out.println("-- Cliente " +nombre+ " Ingresa a Lista de Espera");
             tamanio++;
         } else {
-
             nuevo.setSig(primero);
             nuevo.setAnt(primero.getAnt());
             primero.setAnt(nuevo);
             nuevo.getAnt().setSig(nuevo);
             primero = nuevo;
-            System.out.println("-- Cliente " + nombre + " Ingresa a Lista de Espera");
+            System.out.println("-- Cliente " +nombre+ " Ingresa a Lista de Espera");
             tamanio++;
         }
     }
@@ -71,7 +70,6 @@ public class ListList {
                     Cliente aux2 = aux;
                     aux.getAnt().setSig(aux2.getSig());
                     aux.getSig().setAnt(aux2.getAnt());
-
                    //-----Menu.ListaAtendidos.insertarOrden(aux.getId_cliente(), aux.getNombre_cliente(), aux.getPasos(), aux.getVentanilla(), aux.getImpr_bw(), aux.getImpr_color());
                     System.out.println("Cliente " + aux.getNombre_cliente() + " atendido");
                     tamanio--;

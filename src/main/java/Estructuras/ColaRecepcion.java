@@ -168,10 +168,22 @@ public class ColaRecepcion {
 
     }
     
-    
-    
-    
-    
+    public void buscarClien(int id){
+        if (tamanio == 0) {
+            System.out.println("--- Esta Vacio ---");
+        } else {
+            Cliente temp = primero;
+            while (temp != null) {
+                if(temp.getId_cliente() == id){
+                    System.out.println("Id:" + temp.getId_cliente());
+                    System.out.println("Nombre:" + temp.getNombre_cliente());
+                    System.out.println("Color:" + temp.getImg_color());
+                    System.out.println("BW:" + temp.getImg_bw());
+                    System.out.println("");
+                }
+                temp = temp.getSig();
+            }
 
-    
+        }
+    }
 }

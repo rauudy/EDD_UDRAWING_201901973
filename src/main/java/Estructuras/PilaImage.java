@@ -47,34 +47,23 @@ public class PilaImage {
         Image aux = cima;
         String Color = "";
         if (cima == null) {
-
         } else {
             if (cima.getPasos()== 0) {
                 Image aux2 = aux.getSig();
-
                 cima = aux2;
-                //Cliente Duenio = Menu.LEspera.buscar(aux.getId_cliente());
+                //Cliente listoC = Menu.listaEspera.buscar_susImage(aux.getId_cliente());
                 if (aux.getColor().equals("Color")) {
                     Color = "Color";
                 } else {
                     Color = "Blanco y Negro";
                 }
-                try {
-                  //  System.out.println("Imagen a " + Color + " Entregada al cliente " + Duenio.getNombre_cliente());
-                } catch (Exception e) {
-
-                    System.out.println("Error");
-                }
+                //System.out.println("///- Para el cliente " + listoC.getNombre_cliente() + " se le da: " + Color);
                 tamanio--;
             } else {
                 return null;
-
             }
-
         }
-
         return aux;
-
     }
 
     public void cima() {

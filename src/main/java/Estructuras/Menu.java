@@ -18,7 +18,7 @@ public class Menu {
     ListaSimpleVenta listaVen = new ListaSimpleVenta();
     static PilaImage pilaC = new PilaImage();
     static PilaImage pilaBW = new PilaImage();
-    ListList listaEspera = new ListList();
+    static ListList listaEspera = new ListList();
     ColaRecepcion listaAtentidos = new ColaRecepcion();
     
     String[] nombres = { "Hugo", "Martín", "Lucas",  "Mateo", "Leo",  "Daniel",  "Alejandro",  "Pablo", "Manuel", "Álvaro", "Adrián",  "David",  "Mario",  "Enzo",  "Diego",  "Marcos",  "Izan", "Javier",  "Marco",  "Álex" };
@@ -193,7 +193,6 @@ public class Menu {
     }
     
     public void imprimir() {
-
         pilaBW.menosPasos();
         pilaC.menosPasos();
         Image IBw = pilaBW.pop();
@@ -248,8 +247,10 @@ public class Menu {
     public void liberar_vent(){
         int tam = listaVen.tamanio();
         while (tam != 0) {
-            Cliente cliente_aEspera = listaVen.sacarClienteVentanilla();
-            PilaImage pila = listaVen.IngresarImpresionesAcola();
+            Cliente cliente_aEspera;
+            PilaImage pila ;
+            cliente_aEspera = listaVen.sacarClienteVentanilla();
+            pila = listaVen.IngresarImpresionesAcola();
             if (pila != null) {
                 int sizeImagenes = pila.no_nodos();
                 while (sizeImagenes != 0) {
@@ -291,6 +292,7 @@ public class Menu {
                 break;
             case 4:
                 System.out.println("--- Datos de un cliente en específico ---");
+                buscarCliente();
                 break;
             case 5:
                 System.out.println("--- Saliendo ---");
@@ -300,6 +302,14 @@ public class Menu {
                 break;
         }
         
+    }
+    
+    public void buscarCliente(){
+        Scanner op = new Scanner(System.in);
+        System.out.println(":::Ingrese Id del cliente: ");
+        int rep = op.nextInt();
+        colaR.buscarClien(rep);
+        //colaR.imprimirCola();
     }
 
     

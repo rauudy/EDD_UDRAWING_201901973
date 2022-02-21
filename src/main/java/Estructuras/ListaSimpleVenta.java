@@ -34,7 +34,6 @@ public class ListaSimpleVenta {
 
     public void clienteVentanilla(Cliente cliente) {
         Ventanilla aux = primero;
-        boolean Ingresado = false;
         while (aux != null) {
             if (aux.getActual()== null) {
                 aux.setActual(cliente);
@@ -70,11 +69,11 @@ public class ListaSimpleVenta {
                         }
                         aux.getPila().push(aux.getActual().getId_cliente(), aux.getPila().no_nodos()+ 1, "Color");
                         aux.getActual().setImg_color(aux.getActual().getImg_color()- 1);
-                        System.out.println("----- Imagen a color del Cliente " + aux.getActual().getNombre_cliente()+ " Ingresa a ventanilla No." + String.valueOf(aux.getVent()));
+                        System.out.println("---> Imagen a color del Cliente " + aux.getActual().getNombre_cliente()+ " va a la ventanilla no." + String.valueOf(aux.getVent()));
                     } else if (aux.getActual().getImg_bw()!= 0) {
                         aux.getPila().push(aux.getActual().getId_cliente(), aux.getPila().no_nodos()+ 1, "Bw");
                         aux.getActual().setImg_bw(aux.getActual().getImg_bw()- 1);
-                        System.out.println("----- Imagen a blanco y negro del Cliente " + aux.getActual().getNombre_cliente()+ " Ingresa a ventanilla No." + String.valueOf(aux.getVent()));
+                        System.out.println("---> Imagen a blanco y negro del Cliente " + aux.getActual().getNombre_cliente()+ " va a la ventanilla no. " + String.valueOf(aux.getVent()));
                     }
 
                 }

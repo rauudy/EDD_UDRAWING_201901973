@@ -138,9 +138,21 @@ public class ListList {
         
     }
     
-    
-    
-    
-    
+    public Cliente buscar_susImage(int id){
+        Cliente aux = primero;
+        if (primero.getAnt().getId_cliente()== id) {
+            return primero.getAnt();
+        }
+        if (aux != null) {
+            for (int i = 0; i < 100; i++) {
+                if (aux.getId_cliente()== id) {
+                    return aux;
+                }
+                aux = aux.getSig();
+            }
+
+        }
+        return aux; 
+    }
     
 }

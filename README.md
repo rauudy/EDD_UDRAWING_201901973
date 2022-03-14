@@ -1,2 +1,2 @@
 # UDRAWING
-Proyecto EDD Fase 1 
+Proyecto de Estructuras de Datos

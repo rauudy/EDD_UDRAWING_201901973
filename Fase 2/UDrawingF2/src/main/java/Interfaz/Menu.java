@@ -4,6 +4,14 @@
  */
 package Interfaz;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 /**
  *
  * @author DELL
@@ -128,4 +136,50 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+
+    static void Json(String ruta) throws FileNotFoundException, IOException, org.json.simple.parser.ParseException { 
+        
+        JSONParser parser = new JSONParser();
+
+        try {
+
+            Object obj = parser.parse(new FileReader(ruta));
+            JSONArray array = (JSONArray)obj;
+            
+            for(int i = 0; i < array.size(); i++){
+            
+                JSONObject objeto = (JSONObject)array.get(i);
+                
+                int noCapa = Integer.parseInt(objeto.get("id_capa").toString());
+                System.out.println(noCapa);
+                
+                JSONArray array2 = (JSONArray)objeto.get("pixeles");
+              
+                matrizCapa matrizTemp = new matrizCapa();
+                for(int j = 0; j < array2.size(); j++){
+                    JSONObject objeto2 = (JSONObject)array2.get(j);
+                        int fila = Integer.parseInt(objeto2.get("fila").toString());
+                        int columna = Integer.parseInt(objeto2.get("columna").toString());
+                        String color = objeto2.get("color").toString();
+                        
+                        matrizTemp.insertar(fila, columna, color);
+                        System.out.println("CAPA INSERTADA");
+                        System.out.println("fila: "+String.valueOf(fila));
+                        System.out.println("columna: "+String.valueOf(columna));
+                        System.out.println("color: "+color);
+                        System.out.println("-------------------");
+
+                
+                    }
+                System.out.println();
+            
+            }System.out.println();
+
+        }catch (IOException e) {}
+        
+        
+
+    }
+
 }

@@ -9,7 +9,7 @@ package Arboles;
  * @author DELL
  */
 public class ArbolBB<E extends Comparable<E>>{
-    NodoB<E> raiz;
+    NodoBB<E> raiz;
 
     public ArbolBB() {
         this.raiz=null;
@@ -19,9 +19,9 @@ public class ArbolBB<E extends Comparable<E>>{
         raiz = insertarNodo(raiz, dato);
     }
     
-    private NodoB<E> insertarNodo(NodoB<E> raiz, E dato){
+    private NodoBB<E> insertarNodo(NodoBB<E> raiz, E dato){
         if (raiz==null) 
-            raiz= new NodoB<E>(dato);
+            raiz= new NodoBB<E>(dato);
         else if(dato.compareTo(raiz.dato)<0)
             raiz.izquierdo=insertarNodo(raiz.izquierdo,dato);
         else if(dato.compareTo(raiz.dato)>0)
@@ -41,7 +41,7 @@ public class ArbolBB<E extends Comparable<E>>{
         postOrden(this.raiz);
     }
     
-    private void preOrden(NodoB<E> raiz){
+    private void preOrden(NodoBB<E> raiz){
         if(raiz!=null){
             System.out.print(raiz.dato.toString() + ", ");
             preOrden(raiz.izquierdo);
@@ -49,7 +49,7 @@ public class ArbolBB<E extends Comparable<E>>{
         }
     }
     
-    private void inOrden(NodoB<E> raiz){
+    private void inOrden(NodoBB<E> raiz){
         if(raiz!=null){
             inOrden(raiz.izquierdo);
             System.out.print(raiz.dato.toString() + ", ");
@@ -57,7 +57,7 @@ public class ArbolBB<E extends Comparable<E>>{
         }
     }
     
-    private void postOrden(NodoB<E> raiz){
+    private void postOrden(NodoBB<E> raiz){
         if(raiz!=null){
             postOrden(raiz.izquierdo);
             postOrden(raiz.derecho);
@@ -66,11 +66,12 @@ public class ArbolBB<E extends Comparable<E>>{
     }
 }
 
-class NodoB<E>{
+class NodoBB<E>{
     E dato;
-    NodoB<E> izquierdo, derecho;
+    NodoBB<E> izquierdo, derecho;
+    boolean id;
 
-    public NodoB(E dato) {
+    public NodoBB(E dato) {
         this.dato = dato;
         this.izquierdo = null;
         this.derecho = null;

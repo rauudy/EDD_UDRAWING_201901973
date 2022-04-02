@@ -4,22 +4,20 @@
  */
 package Interfaz;
 
-import Recursos.Cliente;
 import javax.swing.JOptionPane;
 import UDrawingF2.*;
+import Recursos.*;
 
 /**
  *
  * @author DELL
  */
-
-public class Inicio extends javax.swing.JFrame {
+public class ModCliente extends javax.swing.JFrame {
 
     /**
-     * Creates new form Inicio
+     * Creates new form ModCliente
      */
-
-    public Inicio() {
+    public ModCliente() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -37,31 +35,26 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtDpi = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
+        txtdpi = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         txtPass = new javax.swing.JTextField();
-        btnEntrar = new javax.swing.JButton();
-        btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel1.setText("UDrawing Paper");
+        jLabel1.setText("MODIFICAR CLIENTE");
 
         jLabel2.setText("DPI:");
 
-        jLabel3.setText("Password:");
+        jLabel3.setText("Nombre:");
 
-        btnEntrar.setText("ENTRAR");
-        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntrarActionPerformed(evt);
-            }
-        });
+        jLabel4.setText("Password:");
 
-        btnRegistrar.setText("REGISTRAR");
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setText("MODIFICAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
@@ -72,42 +65,45 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(22, 22, 22)
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)))
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDpi)
-                            .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
+                            .addComponent(txtdpi)
+                            .addComponent(txtNombre)
+                            .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(btnEntrar)
-                        .addGap(61, 61, 61)
-                        .addComponent(btnRegistrar)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                        .addGap(156, 156, 156)
+                        .addComponent(btnModificar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(jLabel1)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addGap(93, 93, 93)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtDpi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(txtdpi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEntrar)
-                    .addComponent(btnRegistrar))
-                .addGap(62, 62, 62))
+                    .addComponent(jLabel4)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(btnModificar)
+                .addGap(59, 59, 59))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,42 +120,32 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        String usuario = txtDpi.getText();
-        String contra = txtPass.getText();
-        
-        if(usuario.equals("73")){
-            if(contra.equals("2022")){
-                Admin admin = new Admin();
-                admin.setVisible(true);
+        if(txtdpi.getText() != null && txtNombre.getText() != null && txtPass.getText() != null ){
+            try {
+                String dd = txtdpi.getText();
+                Long dpi = Long.parseLong(dd);
+                String nombre = txtNombre.getText();
+                String contra = txtPass.getText();
+                
+                Cliente actual = Main.clientes.buscar(dpi);
+                
+                actual.setNombre(nombre);
+                actual.setPass(contra);
+                
+                Main.clientes.actualizar(actual);
+                
+                JOptionPane.showMessageDialog(null, "Cliente Modificado EXITOSO.","Actualizar",JOptionPane.INFORMATION_MESSAGE);
+                
                 dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar.","Administrador",JOptionPane.ERROR_MESSAGE);
             }
         }else{
-            long dpi = Long.parseLong(usuario);
-            Cliente cl = Main.clientes.buscar(dpi);
-            
-                if(cl!=null){
-                    cl.imprimir();
-                    if(cl.getPass().equals(contra)){
-                        Main.actual = cl;
-                        Main.actual.abrirVentana();
-                        dispose();
-                        JOptionPane.showMessageDialog(null, "Hola "+cl.getNombre()+".","Cliente",JOptionPane.INFORMATION_MESSAGE);
-                    }else{
-                        JOptionPane.showMessageDialog(null, "DPI y/o contraseña incorrectas.","Log In",JOptionPane.ERROR_MESSAGE);
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "DPI y/o contraseña incorrectas.","Log In",JOptionPane.ERROR_MESSAGE);
-                }
+            JOptionPane.showMessageDialog(null, "Todos los campos deben de estar llenos.","Administrador",JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnEntrarActionPerformed
-
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        Registrar R = new Registrar();
-        R.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnRegistrarActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,36 +164,41 @@ public class Inicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio().setVisible(true);
+                new ModCliente().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEntrar;
-    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtDpi;
+    private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPass;
+    private javax.swing.JTextField txtdpi;
     // End of variables declaration//GEN-END:variables
 
-    
+    public void ing(Long dpi, String nombre, String contra){
+        txtdpi.setText(String.valueOf(dpi));
+        txtNombre.setText(nombre);
+        txtPass.setText(contra);
+           
+    }
     
 }

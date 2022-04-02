@@ -9,141 +9,248 @@ package Estructuras;
  * @author DELL
  */
 public class MatrizDispersa {
-    NodoM raiz;
 
-    public MatrizDispersa() {
-        raiz = new NodoM(-1, -1, "Raiz");
+    ListM fila = new ListM();
+    ListM col = new ListM();
+
+    public void MatrizDispersa() {
+        fila = new ListM();
+        col = new ListM();
     }
 
-    public NodoM insertarEnFila(NodoM nuevo, NodoM cabeceraFila) {
-        NodoM actual = cabeceraFila;
-        boolean mayorEncontrado = false;
-        while (true) {
-            if (actual.i > nuevo.i) {
-                mayorEncontrado = true;
-                break;
-            }
-            if (actual.siguiente != null) {
-                actual = actual.siguiente;
+    public void insertar(String valor, int i, int j) {
+        NodoM fil = fila.buscar(i);
+        NodoM com = col.buscar(j);
+        String nuevoColor = buscar_Color(i, j);
+        if (nuevoColor.equals("")) {
+            if (fil == null && com == null) {
+                //No existe Fila ni Columna
+                caso1(valor, i, j);
+            } else if (fil == null && com != null) {
+                //Solo existe Col
+                caso2(valor, i, j);
+            } else if (fil != null && com == null) {
+                //Solo existe Fila
+                caso3(valor, i, j);
             } else {
-                break;
+                //Existe Fila y Columna
+                caso4(valor, i, j);
             }
-        }
-        if (mayorEncontrado) {
-            nuevo.siguiente = actual;
-            nuevo.anterior = actual.anterior;
-            actual.anterior.siguiente = nuevo;
-            actual.anterior = nuevo;
         } else {
-            actual.siguiente = nuevo;
-            nuevo.anterior = actual;
+            //Siguiente color
+            siguienteColor(valor, i, j);
         }
-        return nuevo;
     }
 
-    public NodoM insertarEnColumna(NodoM nuevo, NodoM cabeceraColumna) {
-        NodoM actual = cabeceraColumna;
-        boolean mayorEncontrado = false;
-        while (true) {
-            if (actual.j > nuevo.j) {
-                mayorEncontrado = true;
-                break;
+    public String buscar_Color(int i, int j) {
+        NodoM cabecera = fila.raiz;
+        while (cabecera != null) {
+            NodoM aux = cabecera.abajo;
+            while (aux != null) {
+                if (aux.i == i && aux.j == j) {
+                    return (String) aux.info;
+                }
+                aux = aux.abajo;
             }
-            if (actual.abajo != null) {
-                actual = actual.abajo;
+            cabecera = cabecera.siguiente;
+        }
+        return "";
+    }
+    
+    public void siguienteColor(String nColor, int i, int j){
+        NodoM cabecera = fila.raiz;
+        while(cabecera != null){
+            NodoM aux = cabecera.abajo;
+            while(aux != null){
+                if(aux.i == i && aux.j == j){
+                    aux.info = nColor;
+                }
+                aux = aux.abajo;
+            }
+            cabecera = cabecera.siguiente;
+        }
+    }
+
+    public void caso1(String valor, int i, int j) {
+        fila.insertar(i);
+        col.insertar(j);
+
+        NodoM fil = fila.buscar(i);
+        NodoM com = col.buscar(j);
+        NodoM nuevo = new NodoM(valor, i, j);
+
+        fil.abajo = nuevo;
+        nuevo.arriba = fil;
+        com.derecha = nuevo;
+        nuevo.izquierda = com;
+    }
+
+
+    public void caso2(String valor, int i, int j) {
+        fila.insertar(i);
+
+        NodoM fil = fila.buscar(i);
+        NodoM com = col.buscar(j);
+        boolean agregado = false;
+        NodoM n = new NodoM(valor, i, j);
+        NodoM aux = com.derecha;
+        int cabecera;
+
+        while (aux != null) {
+            cabecera = aux.i;
+            if (cabecera < i) {
+                aux = aux.derecha;
             } else {
+                n.derecha = aux;
+                n.izquierda = aux.izquierda;
+                aux.izquierda.derecha = n;
+                aux.izquierda = n;
+                agregado = true;
                 break;
             }
         }
-        if (mayorEncontrado) {
-            nuevo.abajo = actual;
-            nuevo.arriba = actual.arriba;
-            actual.arriba.abajo = nuevo;
-            actual.arriba = nuevo;
-        } else {
-            actual.abajo = nuevo;
-            nuevo.arriba = actual;
-        }
-        return nuevo;
-    }
-
-    public void imprimirFila() {
-        NodoM actual = raiz;
-        while (actual != null) {
-            System.out.println(String.valueOf(actual.info) + " ");
-            actual = actual.siguiente;
-        }
-        System.out.println();
-    }
-
-    public void imprimirColumna() {
-        NodoM actual = raiz;
-        while (actual != null) {
-            System.out.println(String.valueOf(actual.info));
-            actual = actual.abajo;
-        }
-        System.out.println();
-    }
-
-    public NodoM buscarColumna(int i) {
-        NodoM actual = raiz;
-        while (actual != null) {
-            if (actual.i == i) {
-                return actual;
+        if (agregado == false) {
+            aux = com.derecha;
+            while (aux.derecha != null) {
+                aux = aux.derecha;
             }
-            actual = actual.siguiente;
+            n.izquierda = aux;
+            aux.derecha = n;
         }
-        return null;
+        
+        fil.abajo = n;
+        n.arriba = fil;
+
     }
 
-    public NodoM buscarFila(int j) {
-        NodoM actual = raiz;
-        while (actual != null) {
-            if (actual.j == j) {
-                return actual;
+    
+    public void caso3(String valor, int i, int j) {
+        col.insertar(j);
+
+        NodoM fil = fila.buscar(i);
+        NodoM com = col.buscar(j);
+        boolean agregado = false;
+        NodoM nuevo = new NodoM(valor, i, j);
+        NodoM aux = fil.abajo;
+        int cabecera;
+
+        while (aux != null) {
+            cabecera = aux.j;
+            if (cabecera < j) {
+                aux = aux.abajo;
+            } else {
+                nuevo.abajo = aux;
+                nuevo.arriba = aux.arriba;
+                aux.arriba.abajo = nuevo;
+                aux.arriba = nuevo;
+                agregado = true;
+                break;
             }
-            actual = actual.abajo;
         }
-        return null;
+        if (agregado == false) {
+            aux = fil.abajo;
+            while (aux.abajo != null) {
+                aux = aux.abajo;
+            }
+
+            nuevo.arriba = aux;
+            aux.abajo = nuevo;
+        }
+        
+        com.derecha = nuevo;
+        nuevo.izquierda = com;
+
     }
 
-    public NodoM crearColumna(int i) {
-        return insertarEnFila(new NodoM(i, -1, "Col"), raiz);
-    }
+    
+    public void caso4(String valor, int i, int j) {
+        NodoM com = col.buscar(j);
+        NodoM fil = fila.buscar(i);
+        NodoM n = new NodoM(valor, i, j);
+        boolean insertado = false;
+        NodoM aux = com.derecha;
+        int cabecera;
 
-    public NodoM crearFila(int j) {
-        return insertarEnColumna(new NodoM(-1, j, "Row"), raiz);
-    }
-
-    public void insertarNodoM(int i, int j, String info) {
-        NodoM nuevo = new NodoM(i, j, info);
-
-        NodoM columna = buscarColumna(i);
-        NodoM fila = buscarFila(j);
-
-        //Caso 1
-        if (columna == null && fila == null) {
-            columna = crearColumna(i);
-            fila = crearFila(j);
-
-            nuevo = insertarEnFila(nuevo, fila);
-            nuevo = insertarEnColumna(nuevo, columna);
+        while (aux != null) {
+            cabecera = aux.i;
+            if (cabecera < i) {
+                aux = aux.derecha;
+            } else {
+                n.derecha = aux;
+                n.izquierda = aux.izquierda;
+                aux.izquierda.derecha = n;
+                aux.izquierda = n;
+                insertado = true;
+                break;
+            }
         }
-        //Caso 2
-        if (columna != null && fila == null) {
-            fila = crearFila(j);
-            nuevo = insertarEnFila(nuevo, fila);
-            nuevo = insertarEnColumna(nuevo, columna);
+        if (insertado == false) {
+            aux = com.derecha;
+            while (aux.derecha != null) {
+                aux = aux.derecha;
+            }
+            n.izquierda = aux;
+            aux.derecha = n;
         }
-        //Caso 3
-        if (columna == null && fila != null) {
-            columna = crearColumna(i);
-            nuevo = insertarEnFila(nuevo, fila);
-            nuevo = insertarEnColumna(nuevo, columna);
-        } //Caso 4
-        else {
-            nuevo = insertarEnFila(nuevo, fila);
-            nuevo = insertarEnColumna(nuevo, columna);
+
+        insertado = false;
+        aux = fil.abajo;
+
+        while (aux != null) {
+            cabecera = aux.j;
+            if (cabecera < j) {
+                aux = aux.abajo;
+            } else {
+                n.abajo = aux;
+                n.arriba = aux.arriba;
+                aux.arriba.abajo = n;
+                aux.arriba = n;
+                insertado = true;
+                break;
+            }
+        }
+
+        if (insertado == false) {
+            aux = fil.abajo;
+            while (aux.abajo != null) {
+                aux = aux.abajo;
+            }
+
+            n.arriba = aux;
+            aux.abajo = n;
+        }
+    }
+    
+    public void imprimir(){
+        NodoM cabecera = fila.raiz;
+        while(cabecera != null){
+            NodoM aux = cabecera.abajo;
+            while(aux != null){
+                System.out.println("-----------------------------");
+                System.out.println(aux.info + ", i= " + aux.i + ", j= " +aux.j);
+                aux = aux.abajo;
+            }
+            cabecera = cabecera.siguiente;
+        }
+    }
+    
+    public void agregarCapa(MatrizDispersa nueva){
+        if(nueva != null){
+            NodoM cabecera = nueva.fila.raiz;
+            while(cabecera != null){
+                NodoM aux = cabecera.abajo;
+                while(aux != null){
+                    String color = buscar_Color(aux.i,aux.j);
+                    if(color.equals("")){
+                        this.insertar((String)aux.info,aux.i,aux.j);
+                    }else{
+                        siguienteColor((String)aux.info, aux.i,aux.j);
+                    }
+
+                    aux = aux.abajo;
+                }
+                cabecera = cabecera.siguiente;
+            }
         }
     }
 }

@@ -9,22 +9,45 @@ package Estructuras;
  * @author DELL
  */
 public class NodoM {
+    
+    int i,j;
+    Object info;
     NodoM arriba;
     NodoM abajo;
-    NodoM anterior;
+    NodoM derecha;
+    NodoM izquierda;
     NodoM siguiente;
-    int i,j;
-    String info;
+    NodoM anterior;
 
-    public NodoM(int i, int j, String info) {
+    public NodoM(Object info) {
+        info = info;
+        i = 0;
+        j = 0;
         arriba = null;
         abajo = null;
+        derecha = null;
+        izquierda = null;
         anterior = null;
         siguiente = null;
+    }
+    
+    public NodoM(Object info,int i, int j) {
+        info = info;
         i = i;
         j = j;
-        info = info;
+        arriba = null;
+        abajo = null;
+        derecha = null;
+        izquierda = null;
+        anterior = null;
+        siguiente = null;
+        
+        
     }
+
+    
+    
+    
     
     @Override
     public String toString(){

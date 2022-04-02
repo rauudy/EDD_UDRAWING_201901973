@@ -5,20 +5,18 @@ package Arboles;
  * @author DELL
  */
 public class NodoAVL {
-    Comparable valor;
-    NodoAVL izquierda;
+
+    Object valor;
+    int equilibrio;
     NodoAVL derecha;
-    int altura;
-    int correlativo = 1;
-    int id;
-    
-    
-    public NodoAVL(Comparable valor) {
+    NodoAVL izquierda;
+
+    public NodoAVL(Object valor) {
         this.valor = valor;
-        this.izquierda = null;
+        this.equilibrio = 0;
         this.derecha = null;
-        this.id=correlativo++;
+        this.izquierda = null;
+
     }
-    
-    
+
 }

@@ -1,100 +1,172 @@
 package Arboles;
+
+import javax.swing.JOptionPane;
+import Recursos.*;
+
 /**
  *
  * @author DELL
  */
 public class ArbolAvl {
     
-    private NodoAVL raiz;
+    public NodoAVL raiz;
+
     public ArbolAvl() {
-        raiz=null;
+        raiz = null;
     }
     
-    public void insertar(Comparable valor) {
-        raiz = insertar(valor,raiz);
+    public void insertar(Object info){
+       NodoAVL nuevo= new NodoAVL(info);
+       if(raiz==null){
+           raiz=nuevo;
+       }else{
+           raiz=insertar(nuevo, raiz);
+       }
     }
     
-    public void inorden(){
-        System.out.println("Recorrido inorden del árbol binario de búsqueda:");
-        inorden(raiz);
-        System.out.println();
-    }
-    
-    private void inorden(NodoAVL a){
-        if(a==null)
-            return;
-        inorden(a.izquierda);
-        System.out.print(a.valor+",");
-        inorden(a.derecha);
-    }
-    
-    private NodoAVL insertar(Comparable valor, NodoAVL raiz){
-        if(raiz == null){
-            raiz = new NodoAVL(valor);
-        }else if(valor.compareTo(raiz.valor) < 0){
-            raiz.izquierda = insertar(valor, raiz.izquierda);            
-            if(altura(raiz.derecha)-altura(raiz.izquierda) == -2)
-                if(valor.compareTo(raiz.izquierda.valor) < 0)
-                    raiz = IzquierdaIzquierda(raiz);
-                else
-                    raiz = IzquierdaDerecha(raiz);
+    public NodoAVL insertar(NodoAVL nuevo, NodoAVL subarr){
+        NodoAVL padreN=subarr;
+        int dato = ((Image)nuevo.valor).getId();
+        int act = ((Image)subarr.valor).getId();
+        if(dato<act){
+            if(subarr.izquierda==null){
+                subarr.izquierda=nuevo;
+            }else{
+                subarr.izquierda=insertar(nuevo, subarr.izquierda);
+                if((factorEquilibrio(subarr.izquierda)-factorEquilibrio(subarr.derecha)==2)){
+                    if(dato<(((Image)subarr.izquierda.valor).getId())){
+                        padreN=rotacionIzquierda(subarr);
+                    }else{
+                        padreN=rotacionDobleIzquierda(subarr);
+                    }
+                }
+            }
+        }else if(dato>act){
+            if(subarr.derecha==null){
+                subarr.derecha=nuevo;
+            }else{
+                subarr.derecha=insertar(nuevo, subarr.derecha);
+                if((factorEquilibrio(subarr.derecha)-factorEquilibrio(subarr.izquierda)==2)){
+                    if(dato>(((Image)subarr.derecha.valor).getId())){
+                        padreN=rotacionDerecha(subarr);
+                    }else{
+                        padreN=rotacionDobleDerecha(subarr);
+                    }
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Nodo duplicado");
         }
-        else if(valor.compareTo(raiz.valor)>0)
-        {          
-            raiz.derecha=insertar(valor, raiz.derecha);            
-            if(altura(raiz.derecha)-altura(raiz.izquierda) == 2)
-                if(valor.compareTo(raiz.derecha.valor) > 0)                  
-                    raiz = DerechaDerecha(raiz);
-                else
-                    raiz = DerechaIzquierda(raiz);
+        
+        if((subarr.izquierda==null)&&(subarr.derecha!=null)){
+            subarr.equilibrio=subarr.derecha.equilibrio+1;
+        }else if((subarr.derecha==null)&&(subarr.izquierda!=null)){
+            subarr.equilibrio=subarr.izquierda.equilibrio+1;
+        }else{
+            subarr.equilibrio=Math.max(factorEquilibrio(subarr.izquierda), factorEquilibrio(subarr.derecha))+1;
         }
-        else  
-        System.err.println("No se permiten los valores duplicados: \"" 
-                +  String.valueOf(valor)+"\".");       
-        raiz.altura = mayor(altura(raiz.izquierda), altura(raiz.derecha))+1;
+        return padreN;
+    }
+    
+    public int factorEquilibrio(NodoAVL n){
+        if(n==null){
+            return -1;
+        }else{
+            return n.equilibrio;
+        }
+    }
+    
+    public NodoAVL rotacionDerecha(NodoAVL nodo){
+        NodoAVL aux=nodo.derecha;
+        nodo.derecha=aux.izquierda;
+        aux.izquierda=nodo;
+        nodo.equilibrio=Math.max(factorEquilibrio(nodo.izquierda), factorEquilibrio(nodo.derecha))+1;
+        aux.equilibrio=Math.max(factorEquilibrio(aux.izquierda), factorEquilibrio(aux.derecha))+1;
+        return aux;
+    }
+    
+    public NodoAVL rotacionIzquierda(NodoAVL nodo){
+        NodoAVL aux=nodo.izquierda;
+        nodo.izquierda=aux.derecha;
+        aux.derecha=nodo;
+        nodo.equilibrio=Math.max(factorEquilibrio(nodo.izquierda), factorEquilibrio(nodo.derecha))+1;
+        aux.equilibrio=Math.max(factorEquilibrio(aux.izquierda), factorEquilibrio(aux.derecha))+1;
+        return aux;
+    }
+    
+    public NodoAVL rotacionDobleDerecha(NodoAVL nodo){
+        NodoAVL aux;
+        nodo.derecha= rotacionIzquierda(nodo.derecha);
+        aux=rotacionDerecha(nodo);
+        return aux;
+    }
+    
+    public NodoAVL rotacionDobleIzquierda(NodoAVL nodo){
+        NodoAVL aux;
+        nodo.izquierda= rotacionDerecha(nodo.izquierda);
+        aux=rotacionIzquierda(nodo);
+        return aux;
+    }
+    
+    public ABB buscar(int n){
+        NodoAVL aux = raiz;
+        while(aux != null){
+            if(((Image)aux.valor).getId() == n){
+                return((Image)aux.valor).getCapas();
+            }else if(((Image)aux.valor).getId() > n){
+                aux = aux.izquierda;
+            }else{
+                aux = aux.derecha;
+            }
+        }
+        return null;
+    }
+    
+    public Image obtenerMayor(NodoAVL nodo){
+        if(nodo.derecha == null){
+            Image valor = (Image)nodo.valor;
+            return valor;
+        }else{
+            return obtenerMayor(nodo.derecha);
+        }
+    }
+    
+    public NodoAVL eliminar(int n, NodoAVL raiz){
+        if(((Image)raiz.valor).getId() == n){
+            if(raiz.izquierda == null && raiz.derecha == null){
+                raiz = null;
+            }else if(raiz.izquierda != null){
+                Image x = obtenerMayor(raiz.izquierda);
+                raiz.valor = x;
+                raiz.izquierda = eliminar(x.getId(),raiz.izquierda);
+            }else{
+                raiz = raiz.derecha;
+            }
+        }else{
+            if(((Image)raiz.valor).getId()<n){
+                raiz.derecha = eliminar(n,raiz.derecha);
+            }else{
+                raiz.izquierda = eliminar(n,raiz.izquierda);
+            }
+        }
         return raiz;
     }
     
-    private int altura( NodoAVL nodo )
-    {
-        if(nodo==null)
-            return -1;
-        else
-            return nodo.altura;
+    public int contar(){
+        return contarImg(raiz);
     }
     
-    private int mayor(int n1, int n2)
-    {
-        if(n1 > n2)
-            return n1;
-        return n2;
+    public int contarImg(NodoAVL raiz){
+        int n = 0;
+        if(raiz == null){
+            n= 0;
+        }else if(raiz.izquierda == null && raiz.derecha == null){
+            n = 1;
+        }else{
+            n += contarImg(raiz.derecha) + contarImg(raiz.izquierda) + 1;
+        }       
+        return n;
     }
     
-    private NodoAVL IzquierdaIzquierda(NodoAVL n1){
-        NodoAVL n2 = n1.izquierda;
-        n1.izquierda = n2.derecha;
-        n2.derecha = n1;
-        n1.altura = mayor(altura(n1.izquierda), altura(n1.derecha))+1;
-        n2.altura = mayor(altura(n2.izquierda), n1.altura)+1;
-        return n2;
-    }
     
-    private NodoAVL DerechaDerecha( NodoAVL n1 ){
-        NodoAVL n2 = n1.derecha;
-        n1.derecha = n2.izquierda;
-        n2.izquierda = n1;
-        n1.altura = mayor(altura(n1.izquierda), altura(n1.derecha))+1;
-        n2.altura = mayor(altura(n2.derecha), n1.altura)+1;
-        return n2;
-    }
-    
-    private NodoAVL IzquierdaDerecha(NodoAVL n1){
-        n1.izquierda = DerechaDerecha(n1.izquierda);
-        return IzquierdaIzquierda(n1);
-    }
-    
-    private NodoAVL DerechaIzquierda(NodoAVL n1 ){
-        n1.derecha = IzquierdaIzquierda(n1.derecha);
-        return DerechaDerecha(n1);
-    }
 }

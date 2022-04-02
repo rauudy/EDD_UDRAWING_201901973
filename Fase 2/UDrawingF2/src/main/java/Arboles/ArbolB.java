@@ -20,7 +20,7 @@ public class ArbolB {
     }
     
     public void insertar(Cliente cl){
-        Cliente n = buscar_recursivo(cl.getDpi(),raiz);
+        Cliente n = brecursivo(cl.getDpi(),raiz);
         if(n!=null){
             JOptionPane.showMessageDialog(null, "El Cliente con DPI: "+n.getDpi()+", Ya Existe.","Cliente",JOptionPane.ERROR_MESSAGE);
         }else{
@@ -163,10 +163,10 @@ public class ArbolB {
         
         
     public Cliente buscar(long dpi){
-        return buscar_recursivo(dpi,raiz);
+        return brecursivo(dpi,raiz);
     }
     
-    public Cliente buscar_recursivo(long dpi, NodoB raiz){
+    public Cliente brecursivo(long dpi, NodoB raiz){
         NodoB aux = raiz;
         if(aux.info1 != null && aux.info1.getDpi() == dpi){
             return aux.info1;
@@ -179,15 +179,15 @@ public class ArbolB {
         }else{
             if(hijos(aux)){
                 if(aux.info1 == null || (aux.n0 != null && aux.info1.getDpi() > dpi)){
-                    return buscar_recursivo(dpi,aux.n0);
+                    return brecursivo(dpi,aux.n0);
                 }else if(aux.info2 == null || (aux.n1 != null && aux.info2.getDpi() > dpi)){
-                    return buscar_recursivo(dpi,aux.n1);
+                    return brecursivo(dpi,aux.n1);
                 }else if(aux.info3 == null || (aux.n2 != null && aux.info3.getDpi() > dpi)){
-                    return buscar_recursivo(dpi,aux.n2);
+                    return brecursivo(dpi,aux.n2);
                 }else if(aux.info4 == null || (aux.n3 != null && aux.info4.getDpi() > dpi)){
-                    return buscar_recursivo(dpi,aux.n3);
+                    return brecursivo(dpi,aux.n3);
                 }else{
-                    return buscar_recursivo(dpi,aux.n4);
+                    return brecursivo(dpi,aux.n4);
                 }   
             }else{
                 return null;
@@ -195,8 +195,8 @@ public class ArbolB {
         }
     }
     
-    public boolean hijos(NodoB raiz){
-        if(raiz.n0 != null || raiz.n1 != null || raiz.n2 != null || raiz.n3 != null || raiz.n4 != null){
+    public boolean hijos(NodoB nod){
+        if(nod.n0 != null || nod.n1 != null || nod.n2 != null || nod.n3 != null || nod.n4 != null){
             return true;
         }else{
             return false;
@@ -204,10 +204,10 @@ public class ArbolB {
     }
     
     public void actualizar(Cliente cl){
-        actualizar_recursivo(cl,raiz);
+        actualizarRecur(cl,raiz);
     }
     
-    public void actualizar_recursivo(Cliente cl, NodoB raiz){
+    public void actualizarRecur(Cliente cl, NodoB raiz){
         NodoB aux = raiz;
         if(aux.info1 != null && aux.info1.getDpi() == cl.getDpi()){
             aux.info1 = cl;
@@ -220,18 +220,18 @@ public class ArbolB {
         }else{
             if(hijos(aux)){
                 if(aux.info1 == null || (aux.n0 != null && aux.info1.getDpi() > cl.getDpi())){
-                    actualizar_recursivo(cl,aux.n0);
+                    actualizarRecur(cl,aux.n0);
                 }else if(aux.info2 == null || (aux.n1 != null && aux.info2.getDpi() > cl.getDpi())){
-                    actualizar_recursivo(cl,aux.n1);
+                    actualizarRecur(cl,aux.n1);
                 }else if(aux.info3 == null || (aux.n2 != null && aux.info3.getDpi() > cl.getDpi())){
-                    actualizar_recursivo(cl,aux.n2);
+                    actualizarRecur(cl,aux.n2);
                 }else if(aux.info4 == null || (aux.n3 != null && aux.info4.getDpi() > cl.getDpi())){
-                    actualizar_recursivo(cl,aux.n3);
+                    actualizarRecur(cl,aux.n3);
                 }else{
-                    actualizar_recursivo(cl,aux.n4);
+                    actualizarRecur(cl,aux.n4);
                 }   
             }else{
-                JOptionPane.showMessageDialog(null, "Error No Se Guardo","Cliente",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No Se Guardo","Cliente",JOptionPane.ERROR_MESSAGE);
             }
         }
     }

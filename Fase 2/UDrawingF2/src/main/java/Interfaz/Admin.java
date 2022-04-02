@@ -15,6 +15,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import Recursos.*;
 import UDrawingF2.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 /**
  *
@@ -47,6 +49,7 @@ public class Admin extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +92,13 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel2.setText("Vacio");
 
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -99,13 +109,18 @@ public class Admin extends javax.swing.JFrame {
                         .addGap(303, 303, 303)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnCarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(btnSalir)))
                         .addGap(90, 90, 90)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -127,7 +142,9 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(btnBuscar)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar)
-                        .addGap(88, 88, 88))
+                        .addGap(51, 51, 51)
+                        .addComponent(btnSalir)
+                        .addGap(15, 15, 15))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))))
@@ -219,7 +236,7 @@ public class Admin extends javax.swing.JFrame {
             long dpi = Long.parseLong(dp);
             Cliente objetivo = Main.clientes.buscar(dpi);
             if(objetivo != null){
-                mostrarCliente(objetivo);
+                verCliente(objetivo);
                 try {
                     Thread.sleep(1*1000);
                  } catch (Exception e) {
@@ -234,6 +251,13 @@ public class Admin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "DPI incorrecto.","Administrador",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        Inicio in = new Inicio();
+        in.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,6 +300,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton btnCarga;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -298,8 +323,24 @@ public class Admin extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Clientes Generados Correctamente.","Administrador",JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public void mostrarCliente(Cliente cliente){
+    public void verCliente(Cliente cliente){
+        String resultado="digraph G{\n";        
+        resultado += "N0[shape=record,label=\"{DPI|NOMBRE|CONTRASEÑA|CANT. ÁLBUMES|CANT. IMAGENES|CANT. CAPAS}|{"+cliente.getDpi()+"|"+cliente.getNombre()+"|"+cliente.getPass()+"|"+cliente.contarAlbumes()+"|"+cliente.contarImagenes()+"|"+cliente.contarCapas()+"}\"]";
+        resultado+="\n}";
+        try {
+            String ruta = System.getProperty("user.dir") + "\\cliente.txt";
+            File file = new File(ruta);
+            
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(resultado);
+            bw.close(); 
+            //Mandar grafica
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
+        Main.cont = 0;
     }
 
 }

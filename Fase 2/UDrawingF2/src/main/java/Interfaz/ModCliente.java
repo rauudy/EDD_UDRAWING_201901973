@@ -128,22 +128,18 @@ public class ModCliente extends javax.swing.JFrame {
                 Long dpi = Long.parseLong(dd);
                 String nombre = txtNombre.getText();
                 String contra = txtPass.getText();
-                
                 Cliente actual = Main.clientes.buscar(dpi);
-                
                 actual.setNombre(nombre);
                 actual.setPass(contra);
-                
                 Main.clientes.actualizar(actual);
-                
-                JOptionPane.showMessageDialog(null, "Cliente Modificado EXITOSO.","Actualizar",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cliente Modificado.","MODIFICAR",JOptionPane.INFORMATION_MESSAGE);
                 
                 dispose();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al actualizar.","Administrador",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error","ADMIN",JOptionPane.ERROR_MESSAGE);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Todos los campos deben de estar llenos.","Administrador",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Complete...","ADMIN",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -194,7 +190,7 @@ public class ModCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtdpi;
     // End of variables declaration//GEN-END:variables
 
-    public void ing(Long dpi, String nombre, String contra){
+    public void llenarlo(Long dpi, String nombre, String contra){
         txtdpi.setText(String.valueOf(dpi));
         txtNombre.setText(nombre);
         txtPass.setText(contra);

@@ -4,6 +4,9 @@
  */
 package Interfaz;
 import java.util.function.IntToLongFunction;
+import javax.swing.JOptionPane;
+import Recursos.*;
+import UDrawingF2.*;
 
 /**
  *
@@ -133,17 +136,35 @@ public class Registrar extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        Inicio in = new Inicio();
+        in.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
-        String nombre = txtNombre.getText();
-        int dpi = Integer.parseInt(txtDpi.getText());
-        String pass = txtPass.getText();
-        
-        
+        if(txtNombre.getText().equals("") || txtDpi.getText().equals("") || txtPass.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Ingrese todos los datos.","Error",JOptionPane.ERROR_MESSAGE);
+        }else{
+            try {
+                long dpi = Long.parseLong(txtDpi.getText());
+                String nombre = txtNombre.getText();
+                String contra = txtPass.getText();
+                Cliente nuevoCliente = new Cliente(dpi,nombre,contra);
+                Cliente prueba = Main.clientes.buscar(dpi);
+                if(prueba==null){
+                    Main.clientes.insertar(nuevoCliente);              
+                    JOptionPane.showMessageDialog(null,"Usuario creado exitosamente.","Usuario",JOptionPane.INFORMATION_MESSAGE);
+                    Inicio in = new Inicio();
+                    in.setVisible(true);
+                    dispose();               
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cliente Con Dpi: "+prueba.getDpi()+", Ya Existe.","Cliente",JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Ingrese datos correctos","Error",JOptionPane.ERROR_MESSAGE);
+            }                              
+        }
                
     }//GEN-LAST:event_btnCrearActionPerformed
 

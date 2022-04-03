@@ -4,8 +4,12 @@
  */
 package Arboles;
 
-import Recursos.Cliente;
+import Recursos.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import javax.swing.JOptionPane;
+import UDrawingF2.*;
 
 /**
  *
@@ -234,6 +238,68 @@ public class ArbolB {
                 JOptionPane.showMessageDialog(null, "No Se Guardo","Cliente",JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+    
+    public void graficar(String title){
+    String resultado="digraph G{\nlabel=\""+title+"\";\n";        
+       
+        if(raiz.info1!=null){
+            resultado += graficar_recursivo(raiz,"");
+        }
+        
+        resultado+="\n}";
+        
+        try {
+            String ruta = System.getProperty("user.dir") + "\\"+title+".txt";
+            File file = new File(ruta);
+            
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(resultado);
+            bw.close(); 
+            Main.graficarDot(title);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Main.cont = 0;
+    }
+    
+    public String graficar_recursivo(NodoB raiz, String padre){
+        String nodos = "";
+        String conexiones = "";
+        int c = Main.cont;
+        Main.cont += 1;
+        if(!padre.equals("")){
+            conexiones += padre + "->N"+ c+";\n";
+        }
+        String r2="x",r3="x",r4="x";
+        if(raiz.info2 != null){
+            r2 = "" + raiz.info2.getDpi();
+        }
+        if(raiz.info3 != null){
+            r3 = "" + raiz.info3.getDpi();
+        }
+        if(raiz.info4 != null){
+            r4 = "" + raiz.info4.getDpi();
+        }
+        nodos += "N"+ c+"[shape=record,label=\"<N"+c+"_0>|{"+raiz.info1.getDpi()+"}|<N"+c+"_1>|{"+r2+"}|<N"+c+"_2>|{"+r3+"}|<N"+c+"_3>|{"+r4+"}|<N"+c+"_4>\"];\n";
+        if(raiz.n0!=null){
+            conexiones += graficar_recursivo(raiz.n0,"N"+c+":N"+c+"_0");
+        }
+        if(raiz.n1!=null){
+            conexiones += graficar_recursivo(raiz.n1,"N"+c+":N"+c+"_1");
+        }
+        if(raiz.n2!=null){
+            conexiones += graficar_recursivo(raiz.n2,"N"+c+":N"+c+"_2");
+        }
+        if(raiz.n3!=null){
+            conexiones += graficar_recursivo(raiz.n3,"N"+c+":N"+c+"_3");
+        }
+        if(raiz.n4!=null){
+            conexiones += graficar_recursivo(raiz.n4,"N"+c+":N"+c+"_4");
+        }         
+        return nodos+conexiones;
     }
     
 }

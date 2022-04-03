@@ -58,16 +58,7 @@ public class ListM {
         }
     }
 
-    public NodoM buscar(int valor) {
-        NodoM aux = raiz;
-        while (aux != null) {
-            if ((int) aux.info == valor) {
-                return aux;
-            }
-            aux = aux.siguiente;
-        }
-        return null;
-    }
+    
 
     public void imprimir() {
         NodoM aux = raiz;
@@ -82,6 +73,17 @@ public class ListM {
         while (aux.siguiente != null) {
             aux = aux.siguiente;
         }
-        return (int) aux.info;
+        return (int)aux.info;
+    }
+    
+    public NodoM buscar(int valor){
+        NodoM ax = raiz;
+        while(ax != null){
+            if((int)ax.info == valor){
+                return ax;
+            }
+            ax = ax.siguiente;
+        }
+        return null;
     }
 }

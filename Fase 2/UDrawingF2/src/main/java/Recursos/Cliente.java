@@ -5,6 +5,8 @@
 package Recursos;
 import Estructuras.*;
 import Arboles.*;
+import Interfaz.*;
+import UDrawingF2.*;
 /**
  *
  * @author DELL
@@ -86,10 +88,6 @@ public class Cliente {
         this.albumes = albumes;
     }
     
-    public void abrirVentana(){
-        
-    }
-    
     /**
      * @return the capas
      */
@@ -120,6 +118,13 @@ public class Cliente {
     
     
     //----------------------------------------------------
+    
+    public void abrirVentana(){
+        Menu men = new Menu();
+        men.setVisible(true);
+        capas.mostrarCapas(men);
+        imagenes.mostrarImgs(men);
+    }
     
     public void imprimir(){
         System.out.println("--------------------------------");
@@ -156,6 +161,34 @@ public class Cliente {
         return imagenes.contar();
     }
     
+    //----------------------------------------------------------------
+    
+    public void graficarAlbum(){
+        albumes.graficar(dpi+"_Albumes");
+        Main.graficarDot(dpi+"_Albumes");
+    }
+    
+    public void graficarACapas(){
+        capas.graficar(dpi+"_Capas");
+    }
+    public void graficarCapa(int n){
+        MatrizDispersa miMatriz = capas.buscar(n);
+        miMatriz.graficarMatriz(dpi+"_Capa"+n);
+        Main.graficarDot(dpi+"_Capa"+n);
+    }
+    
+    public void graficarAImagenes(){
+        imagenes.graficar(dpi+"_Imagenes");
+        Main.graficarDot(dpi+"_Imagenes");
+    }
+    
+    public void generarImagen(int n, String t){
+        ABB capss = imagenes.buscar(n);
+        MatrizDispersa img;
+        img = capss.crearImagen(t);
+        img.graficarMatriz(dpi+"_img"+n);
+        Main.graficarDot(dpi+"_img"+n);
+    }
     
     
     

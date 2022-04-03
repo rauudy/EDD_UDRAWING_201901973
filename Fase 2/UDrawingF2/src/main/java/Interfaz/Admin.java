@@ -17,6 +17,8 @@ import Recursos.*;
 import UDrawingF2.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -48,11 +50,13 @@ public class Admin extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        imagenMostrada = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        btnVerArbolB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setText("ADMINISTRADOR");
 
         btnCarga.setText("Carga de Clientes");
@@ -90,12 +94,19 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Vacio");
+        imagenMostrada.setText("Vacio");
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
+            }
+        });
+
+        btnVerArbolB.setText("Abol B Clientes");
+        btnVerArbolB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerArbolBActionPerformed(evt);
             }
         });
 
@@ -106,32 +117,34 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addComponent(jLabel1))
+                        .addGap(46, 46, 46)
+                        .addComponent(btnSalir))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnCarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(btnSalir)))
-                        .addGap(90, 90, 90)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btnVerArbolB, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(97, 97, 97)
+                .addComponent(imagenMostrada, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(263, 263, 263))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCarga)
                         .addGap(18, 18, 18)
@@ -142,11 +155,13 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(btnBuscar)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar)
-                        .addGap(51, 51, 51)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVerArbolB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalir)
                         .addGap(15, 15, 15))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(imagenMostrada, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))))
         );
 
@@ -219,7 +234,7 @@ public class Admin extends javax.swing.JFrame {
             Cliente objetivo = Main.clientes.buscar(dpi);
             if(objetivo != null){
                 ModCliente mod = new ModCliente();
-                mod.ing(dpi, objetivo.getNombre(), objetivo.getPass());
+                mod.llenarlo(dpi, objetivo.getNombre(), objetivo.getPass());
                 mod.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null, "DPI no encontrado.","Administrador",JOptionPane.ERROR_MESSAGE);
@@ -242,7 +257,10 @@ public class Admin extends javax.swing.JFrame {
                  } catch (Exception e) {
                     System.out.println(e);
                  }
-                //mandar a lbl
+                ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\cliente.png");
+                java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), java.awt.Image.SCALE_SMOOTH);
+                Icon iconoEscalado = new ImageIcon(imgEscalada);
+                imagenMostrada.setIcon(iconoEscalado);
             }else{
                 JOptionPane.showMessageDialog(null, "DPI no encontrado.","Administrador",JOptionPane.ERROR_MESSAGE);
             }
@@ -258,6 +276,20 @@ public class Admin extends javax.swing.JFrame {
         in.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnVerArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerArbolBActionPerformed
+        // TODO add your handling code here:
+        Main.clientes.graficar("Clientes");
+        try {
+            Thread.sleep(2*1000);
+         } catch (Exception e) {
+            System.out.println(e);
+         }
+        ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\Clientes.png");
+        java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon iconoEscalado = new ImageIcon(imgEscalada);
+        imagenMostrada.setIcon(iconoEscalado);
+    }//GEN-LAST:event_btnVerArbolBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,8 +333,9 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnVerArbolB;
+    private javax.swing.JLabel imagenMostrada;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 

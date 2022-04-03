@@ -4,23 +4,128 @@
  */
 package Estructuras;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
 /**
  *
  * @author DELL
  */
 public class MatrizDispersa {
+    
+    
+    //--------------------------------------------------------------------------
+    public class Nodo{        
+        Object info;
+        Nodo next, anterior;
+        Nodo izquierda, derecha, arriba, abajo;
+        int x,y;
 
-    ListM fila = new ListM();
-    ListM col = new ListM();
+        public Nodo(Object info) {
+            this.info = info;
+            x = y = 0;
+            this.next= this.anterior = this.izquierda = this.derecha = this.abajo = this.arriba = null;
+        }   
+        
+        public Nodo(Object info,int x, int y) {
+            this.info = info;
+            this.x = x;
+            this.y = y;
+            this.next = this.anterior = this.izquierda = this.derecha = this.abajo = this.arriba = null;
+        }
+    }
+    
+    //---------------------------------------------------------------
+    public class Lista{
+        Nodo raiz, ultimo;
+        public Lista(){
+            this.raiz = this.ultimo = null;
+        }
+        
+        public void insertar(int no){
+            Nodo nuevo = new Nodo(no);
+            //System.out.println(no);
+            if(raiz == null){
+                raiz = ultimo = nuevo;
+            }else{
+                ordenar(nuevo);
+            }
+        }
+        
+        public void ordenar(Nodo nodo){
+            Nodo aux = raiz;
+            
+            while(aux != null){
+                if((int)aux.info < (int)nodo.info){
+                    aux = aux.next;
+                }else{
+                    if(aux == raiz){
+                        nodo.next =aux;
+                        aux.anterior = nodo;                       
+                        raiz = nodo;
+                        return;
+                    }else{
+                        nodo.anterior = aux.anterior;
+                        aux.anterior.next = nodo;
+                        nodo.next = aux;
+                        aux.anterior = nodo;
+                        return;
+                    }
+                }
+            }
+            
+            if(ultimo == raiz){
+                nodo.anterior = raiz;
+                raiz.next = nodo;
+                ultimo = nodo;               
+            }else{
+                ultimo.next = nodo;
+                nodo.anterior = ultimo;
+                ultimo = nodo; 
+            }                               
+        }
+        
+        public Nodo search(int valor){
+            Nodo temp = raiz;
+            while(temp != null){
+                if((int)temp.info == valor){
+                    return temp;
+                }
+                temp = temp.next;
+            }
+            return null;
+        }
+        
+        public void imprimir(){
+            Nodo temp = raiz;
+            while(temp != null){
+                System.out.println("Cabecera: " + temp.info);
+                temp = temp.next;
+            }
+        }
+        
+        public int max(){
+            Nodo temp = raiz;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            return (int)temp.info;
+        }
+    }
+    //---------------------------------------------------------------
+    
+    Lista fila = new Lista();
+    Lista col = new Lista();
 
     public void MatrizDispersa() {
-        fila = new ListM();
-        col = new ListM();
+        fila = new Lista();
+        col = new Lista();
     }
 
     public void insertar(String valor, int i, int j) {
-        NodoM fil = fila.buscar(i);
-        NodoM com = col.buscar(j);
+        Nodo fil = fila.search(i);
+        Nodo com = col.search(j);
         String nuevoColor = buscar_Color(i, j);
         if (nuevoColor.equals("")) {
             if (fil == null && com == null) {
@@ -43,31 +148,31 @@ public class MatrizDispersa {
     }
 
     public String buscar_Color(int i, int j) {
-        NodoM cabecera = fila.raiz;
+        Nodo cabecera = fila.raiz;
         while (cabecera != null) {
-            NodoM aux = cabecera.abajo;
+            Nodo aux = cabecera.abajo;
             while (aux != null) {
-                if (aux.i == i && aux.j == j) {
+                if (aux.x == i && aux.y == j) {
                     return (String) aux.info;
                 }
                 aux = aux.abajo;
             }
-            cabecera = cabecera.siguiente;
+            cabecera = cabecera.next;
         }
         return "";
     }
     
     public void siguienteColor(String nColor, int i, int j){
-        NodoM cabecera = fila.raiz;
+        Nodo cabecera = fila.raiz;
         while(cabecera != null){
-            NodoM aux = cabecera.abajo;
+            Nodo aux = cabecera.abajo;
             while(aux != null){
-                if(aux.i == i && aux.j == j){
+                if(aux.x == i && aux.y == j){
                     aux.info = nColor;
                 }
                 aux = aux.abajo;
             }
-            cabecera = cabecera.siguiente;
+            cabecera = cabecera.next;
         }
     }
 
@@ -75,9 +180,9 @@ public class MatrizDispersa {
         fila.insertar(i);
         col.insertar(j);
 
-        NodoM fil = fila.buscar(i);
-        NodoM com = col.buscar(j);
-        NodoM nuevo = new NodoM(valor, i, j);
+        Nodo fil = fila.search(i);
+        Nodo com = col.search(j);
+        Nodo nuevo = new Nodo(valor, i, j);
 
         fil.abajo = nuevo;
         nuevo.arriba = fil;
@@ -89,15 +194,15 @@ public class MatrizDispersa {
     public void caso2(String valor, int i, int j) {
         fila.insertar(i);
 
-        NodoM fil = fila.buscar(i);
-        NodoM com = col.buscar(j);
+        Nodo fil = fila.search(i);
+        Nodo com = col.search(j);
         boolean agregado = false;
-        NodoM n = new NodoM(valor, i, j);
-        NodoM aux = com.derecha;
+        Nodo n = new Nodo(valor, i, j);
+        Nodo aux = com.derecha;
         int cabecera;
 
         while (aux != null) {
-            cabecera = aux.i;
+            cabecera = aux.x;
             if (cabecera < i) {
                 aux = aux.derecha;
             } else {
@@ -127,15 +232,15 @@ public class MatrizDispersa {
     public void caso3(String valor, int i, int j) {
         col.insertar(j);
 
-        NodoM fil = fila.buscar(i);
-        NodoM com = col.buscar(j);
+        Nodo fil = fila.search(i);
+        Nodo com = col.search(j);
         boolean agregado = false;
-        NodoM nuevo = new NodoM(valor, i, j);
-        NodoM aux = fil.abajo;
+        Nodo nuevo = new Nodo(valor, i, j);
+        Nodo aux = fil.abajo;
         int cabecera;
 
         while (aux != null) {
-            cabecera = aux.j;
+            cabecera = aux.y;
             if (cabecera < j) {
                 aux = aux.abajo;
             } else {
@@ -164,15 +269,15 @@ public class MatrizDispersa {
 
     
     public void caso4(String valor, int i, int j) {
-        NodoM com = col.buscar(j);
-        NodoM fil = fila.buscar(i);
-        NodoM n = new NodoM(valor, i, j);
+        Nodo com = col.search(j);
+        Nodo fil = fila.search(i);
+        Nodo n = new Nodo(valor, i, j);
         boolean insertado = false;
-        NodoM aux = com.derecha;
+        Nodo aux = com.derecha;
         int cabecera;
 
         while (aux != null) {
-            cabecera = aux.i;
+            cabecera = aux.x;
             if (cabecera < i) {
                 aux = aux.derecha;
             } else {
@@ -197,7 +302,7 @@ public class MatrizDispersa {
         aux = fil.abajo;
 
         while (aux != null) {
-            cabecera = aux.j;
+            cabecera = aux.y;
             if (cabecera < j) {
                 aux = aux.abajo;
             } else {
@@ -222,35 +327,138 @@ public class MatrizDispersa {
     }
     
     public void imprimir(){
-        NodoM cabecera = fila.raiz;
+        Nodo cabecera = fila.raiz;
         while(cabecera != null){
-            NodoM aux = cabecera.abajo;
+            Nodo aux = cabecera.abajo;
             while(aux != null){
                 System.out.println("-----------------------------");
-                System.out.println(aux.info + ", i= " + aux.i + ", j= " +aux.j);
+                System.out.println(aux.info + ", i= " + aux.x + ", j= " +aux.y);
                 aux = aux.abajo;
             }
-            cabecera = cabecera.siguiente;
+            cabecera = cabecera.next;
         }
     }
     
     public void agregarCapa(MatrizDispersa nueva){
         if(nueva != null){
-            NodoM cabecera = nueva.fila.raiz;
+            Nodo cabecera = nueva.fila.raiz;
             while(cabecera != null){
-                NodoM aux = cabecera.abajo;
+                Nodo aux = cabecera.abajo;
                 while(aux != null){
-                    String color = buscar_Color(aux.i,aux.j);
+                    String color = buscar_Color(aux.x,aux.y);
                     if(color.equals("")){
-                        this.insertar((String)aux.info,aux.i,aux.j);
+                        this.insertar((String)aux.info,aux.x,aux.y);
                     }else{
-                        siguienteColor((String)aux.info, aux.i,aux.j);
+                        siguienteColor((String)aux.info, aux.x,aux.y);
                     }
 
                     aux = aux.abajo;
                 }
-                cabecera = cabecera.siguiente;
+                cabecera = cabecera.next;
             }
+        }
+    }
+    
+    public void graficarMatriz(String title){
+        String resultado="digraph G{\nlabel=\""+ title +"\" ;\nnode [shape=square];\n";        
+        String conexiones="";
+        String nodos="";
+        
+        nodos += "INICIO[shape=Msquare,label=\""+title+"\",group=0];\n";
+        String rs = "rank = same {INICIO";
+        int maxColumnas = fila.max();
+        int maxFilas = col.max();
+        
+        for(int i = 0; i<maxColumnas+1; i++){
+            nodos += "C"+i+"[group="+(i+1)+"];\n";
+            if(i==0){
+                conexiones += "INICIO -> C0;\n";
+                rs += ",C0";
+            }else{
+                rs += ",C"+i;
+            } 
+            
+            if(i!=maxColumnas){
+                conexiones += "C"+i+"->C"+(i+1)+";\n";
+            }
+        }
+        rs += "}\n";
+        nodos += rs;
+        
+        for(int j = 0 ; j<maxFilas+1 ; j++){
+            nodos += "F"+j+"[group=0];\n";
+            if(j==0){
+               conexiones += "INICIO -> F0;\n"; 
+            }
+            if(j!=maxFilas){
+                conexiones += "F"+j+"->F"+(j+1)+";\n";
+            }
+        }
+        
+        boolean primero;
+        for(int j = 0; j<maxFilas+1;j++){ 
+            String rank = "rank=same{F"+j;
+            primero = true;
+            String anterior = "";
+            for(int i=0;i<maxColumnas+1;i++){
+                String color = buscar_Color(i, j);
+                if(!color.equals("")){
+                    rank +=",C"+i+"F"+j ;
+                    nodos += "C"+i+"F"+j+"[label=\"\",style=filled,color=\""+color+"\",group="+(i+1)+"];\n";
+                    if(primero == true){
+                        conexiones += "F"+j+"->C"+i+"F"+j+";\n";
+                        conexiones += "C"+i+"F"+j+"->F"+j+";\n";
+                        primero = false;
+                        anterior = "C"+i+"F"+j;
+                    }else{
+                        conexiones += anterior + "->C"+i+"F"+j+";\n";
+                        conexiones += "C"+i+"F"+j+"->"+anterior+";\n";
+                        anterior = "C"+i+"F"+j;
+                    }                    
+                }          
+            } 
+            rank +="};\n";
+            nodos += rank;
+        }
+        
+        for(int i = 0; i<maxColumnas+1;i++){ 
+            primero = true;
+            String anterior = "";
+            for(int j=0;j<maxFilas+1;j++){
+                String color = buscar_Color(i, j);
+                if(!color.equals("")){
+                    if(primero == true){
+                        conexiones += "C"+i+"->C"+i+"F"+j+";\n";
+                        conexiones += "C"+i+"F"+j+"->C"+i+";\n";
+                        primero = false;
+                        anterior = "C"+i+"F"+j;
+                    }else{
+                        conexiones += anterior + "->C"+i+"F"+j+";\n";
+                        conexiones += "C"+i+"F"+j+"->"+anterior+";\n";
+                        anterior = "C"+i+"F"+j;
+                    }                    
+                }          
+            } 
+        }
+        
+        resultado+= "//Agregando nodods\n";
+        resultado+=nodos+"\n";
+        resultado+= "//Agregando conexiones\n";
+        resultado+=conexiones+"\n";
+        
+        resultado+="\n}";
+        
+        try {
+            String ruta = System.getProperty("user.dir") + "\\"+title+".txt";
+            File file = new File(ruta);
+            
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(resultado);
+            bw.close(); 
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -14,6 +14,21 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import UDrawingF2.*;
+import Estructuras.*;
+import Recursos.*;
+import Arboles.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.File;
+import java.util.Scanner;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DELL
@@ -40,18 +55,18 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        Imagenlbl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboCapa = new javax.swing.JComboBox<>();
         btnVerCapa = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        comboImagen = new javax.swing.JComboBox<>();
+        btnElimiarImg = new javax.swing.JButton();
+        btnVerImgAc = new javax.swing.JButton();
+        verArboldeCapas = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnModificarDatos = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCarga = new javax.swing.JMenu();
@@ -70,15 +85,15 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("IMAGE");
+        Imagenlbl.setBackground(new java.awt.Color(0, 0, 0));
+        Imagenlbl.setText("No hay imagen");
 
         jLabel1.setText("Capa:");
 
-        jComboBox1.setName(""); // NOI18N
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        comboCapa.setName(""); // NOI18N
+        comboCapa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                comboCapaActionPerformed(evt);
             }
         });
 
@@ -89,20 +104,49 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Imagen");
 
-        jButton1.setText("Eliminar");
+        comboImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboImagenActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Ver");
+        btnElimiarImg.setText("Eliminar");
+        btnElimiarImg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElimiarImgActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Ver Arbol de Capas");
+        btnVerImgAc.setText("Ver");
+        btnVerImgAc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerImgAcActionPerformed(evt);
+            }
+        });
 
+        verArboldeCapas.setText("Ver Arbol de Capas");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Capas");
 
-        jButton4.setText("Modificar Datos");
+        btnModificarDatos.setText("Modificar Datos");
+        btnModificarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarDatosActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Salir");
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel5.setText("MENU UDRAWING");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -113,39 +157,39 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addComponent(jLabel1)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(comboCapa, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addComponent(jLabel2)
                                             .addGap(12, 12, 12)))
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(comboImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnElimiarImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnVerCapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jButton4)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(btnModificarDatos)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(btnVerImgAc, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton3)))))
+                                    .addComponent(verArboldeCapas)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(126, 126, 126)
                         .addComponent(jLabel4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Imagenlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(259, 259, 259)
+                .addGap(271, 271, 271)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -154,33 +198,31 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel5))
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboCapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnVerCapa))
                         .addGap(62, 62, 62)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(comboImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnElimiarImg))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)))
+                            .addComponent(btnVerImgAc)
+                            .addComponent(verArboldeCapas)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5)
+                        .addGap(35, 35, 35)
+                        .addComponent(Imagenlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btnModificarDatos)
+                    .addComponent(btnSalir))
                 .addGap(15, 15, 15))
         );
 
@@ -208,10 +250,20 @@ public class Menu extends javax.swing.JFrame {
 
         btnImagenes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnImagenes.setText("Imagenes");
+        btnImagenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagenesActionPerformed(evt);
+            }
+        });
         menuCarga.add(btnImagenes);
 
         btnAlbumes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnAlbumes.setText("Albumes");
+        btnAlbumes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlbumesActionPerformed(evt);
+            }
+        });
         menuCarga.add(btnAlbumes);
 
         jMenuBar1.add(menuCarga);
@@ -263,6 +315,11 @@ public class Menu extends javax.swing.JFrame {
 
         btnVerListAlbumes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnVerListAlbumes.setText("Listado de Albumes");
+        btnVerListAlbumes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerListAlbumesActionPerformed(evt);
+            }
+        });
         menuVer.add(btnVerListAlbumes);
 
         jMenuBar1.add(menuVer);
@@ -285,6 +342,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnCapasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapasActionPerformed
         // TODO add your handling code here:
+        String capas = leer();
+        analizarCapas(capas);
     }//GEN-LAST:event_btnCapasActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -293,11 +352,20 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnVerCapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCapaActionPerformed
         // TODO add your handling code here:
+        if(comboCapa.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(null, "No hay capas.","Cliente",JOptionPane.ERROR_MESSAGE);
+        }else{            
+            String nombre = Main.actual.getDpi()+"_Capa"+comboCapa.getSelectedItem();
+            ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\"+nombre+".png");
+            java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+            Icon iconoEscalado = new ImageIcon(imgEscalada);
+            Imagenlbl.setIcon(iconoEscalado);
+        }
     }//GEN-LAST:event_btnVerCapaActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void comboCapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCapaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_comboCapaActionPerformed
 
     private void btnVerArbolImagenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerArbolImagenesActionPerformed
         // TODO add your handling code here:
@@ -305,7 +373,84 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnVerArbolCapasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerArbolCapasActionPerformed
         // TODO add your handling code here:
+        Main.actual.graficarACapas();
+        try {
+            Thread.sleep(2*1000);
+         } catch (Exception e) {
+            System.out.println(e);
+         }
+        String nombre = Main.actual.getDpi()+"_Capas";
+        ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\"+nombre+".png");
+        java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon iconoEscalado = new ImageIcon(imgEscalada);
+        Imagenlbl.setIcon(iconoEscalado);
     }//GEN-LAST:event_btnVerArbolCapasActionPerformed
+
+    private void btnModificarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDatosActionPerformed
+        // TODO add your handling code here:
+        ModCliente actual = new ModCliente();
+        actual.llenarlo(Main.actual.getDpi(), Main.actual.getNombre(), Main.actual.getPass());
+        actual.setVisible(true);
+    }//GEN-LAST:event_btnModificarDatosActionPerformed
+
+    private void btnImagenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenesActionPerformed
+        // TODO add your handling code here:
+        String images = leer();
+        analizarImage(images);
+    }//GEN-LAST:event_btnImagenesActionPerformed
+
+    private void btnAlbumesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlbumesActionPerformed
+        // TODO add your handling code here:
+        String arlbumes = leer();
+        analizarAlbumes(arlbumes);
+    }//GEN-LAST:event_btnAlbumesActionPerformed
+
+    private void btnElimiarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimiarImgActionPerformed
+        // TODO add your handling code here:
+        if(comboImagen.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(null, "No Hay Imagenes","CLIENTE",JOptionPane.ERROR_MESSAGE);
+        }else{
+            String a = (String)comboImagen.getSelectedItem();
+            int no = Integer.parseInt(a);
+            
+            Main.actual.eliminarImagen(no);
+            JOptionPane.showMessageDialog(null, "Imagen Eliminada","CLIENTE",JOptionPane.INFORMATION_MESSAGE);
+            
+           int c = comboImagen.getSelectedIndex();
+           comboImagen.removeItemAt(c);
+        }
+    }//GEN-LAST:event_btnElimiarImgActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        Inicio ini = new Inicio();
+        ini.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void comboImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboImagenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboImagenActionPerformed
+
+    private void btnVerListAlbumesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerListAlbumesActionPerformed
+        // TODO add your handling code here:
+        Main.actual.graficarAlbum();
+        try {
+            Thread.sleep(2*1000);
+         } catch (Exception e) {
+            System.out.println(e);
+         }
+        
+        String nombre = Main.actual.getDpi()+"_Albumes";
+        ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\"+nombre+".png");
+        java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon iconoEscalado = new ImageIcon(imgEscalada);
+        Imagenlbl.setIcon(iconoEscalado);
+    }//GEN-LAST:event_btnVerListAlbumesActionPerformed
+
+    private void btnVerImgAcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerImgAcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerImgAcActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,23 +488,22 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Imagenlbl;
     private javax.swing.JMenuItem btnAlbumes;
     private javax.swing.JMenuItem btnCapas;
+    private javax.swing.JButton btnElimiarImg;
     private javax.swing.JMenuItem btnImagenes;
+    private javax.swing.JButton btnModificarDatos;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JMenuItem btnVerArbolCapas;
     private javax.swing.JMenuItem btnVerArbolImagenes;
     private javax.swing.JButton btnVerCapa;
+    private javax.swing.JButton btnVerImgAc;
     private javax.swing.JMenuItem btnVerListAlbumes;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    public javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    public javax.swing.JComboBox<String> comboCapa;
+    public javax.swing.JComboBox<String> comboImagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuBar jMenuBar1;
@@ -372,72 +516,121 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu menuCarga;
     private javax.swing.JMenu menuReportes;
     private javax.swing.JMenu menuVer;
+    private javax.swing.JButton verArboldeCapas;
     // End of variables declaration//GEN-END:variables
 
-
-    static void Json(String ruta) throws FileNotFoundException, IOException, org.json.simple.parser.ParseException { 
-        
-        JSONParser parser = new JSONParser();
-
+    
+    public static String leer(){
+        int n = 0;
+        Scanner entrada = null;
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        String t = "";
         try {
-
-            Object obj = parser.parse(new FileReader(ruta));
-            JSONArray array = (JSONArray)obj;
-            
-            for(int i = 0; i < array.size(); i++){
-            
-                JSONObject objeto = (JSONObject)array.get(i);
-                
-                int noCapa = Integer.parseInt(objeto.get("id_capa").toString());
-                System.out.println(noCapa);
-                
-                JSONArray array2 = (JSONArray)objeto.get("pixeles");
-              
-                matrizCapa matrizTemp = new matrizCapa();
-                for(int j = 0; j < array2.size(); j++){
-                    JSONObject objeto2 = (JSONObject)array2.get(j);
-                        int fila = Integer.parseInt(objeto2.get("fila").toString());
-                        int columna = Integer.parseInt(objeto2.get("columna").toString());
-                        String color = objeto2.get("color").toString();
-                        
-                        matrizTemp.insertar(fila, columna, color);
-                        System.out.println("CAPA INSERTADA");
-                        System.out.println("fila: "+String.valueOf(fila));
-                        System.out.println("columna: "+String.valueOf(columna));
-                        System.out.println("color: "+color);
-                        System.out.println("-------------------");
-
-                
-                    }
-                System.out.println();
-            
-            }System.out.println();
-
-        }catch (IOException e) {}
-
+            String ruta = fileChooser.getSelectedFile().getAbsolutePath();                                        
+            File f = new File(ruta);
+            entrada = new Scanner(f);
+            while (entrada.hasNext()) {
+                if(n==0){
+                    t += entrada.nextLine();
+                }else{
+                    t += "\n" + entrada.nextLine();
+                }
+                n+=1;
+            }
+            return t;
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (NullPointerException e) {
+            System.out.println("No se ha seleccionado ningún fichero");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (entrada != null) {
+                entrada.close();
+            }
+        }
+        return "";
     }
     
-    static void JsonImagenes(String ruta) throws org.json.simple.parser.ParseException {     
-
-        JSONParser parser = new JSONParser();
-
-        try {
-            Object obj = parser.parse(new FileReader(ruta));
-            JSONArray array = (JSONArray)obj;
-            for(int i = 0; i < array.size(); i++){
+    public void analizarCapas(String text){
+        JsonParser parser = new JsonParser();
+        JsonArray gsonArr = parser.parse(text).getAsJsonArray();
+        for (JsonElement obj : gsonArr) {
+            JsonObject gsonObj = obj.getAsJsonObject();
+            int id = gsonObj.get("id_capa").getAsInt();
+            JsonArray pixeles = gsonObj.get("pixeles").getAsJsonArray();
+            MatrizDispersa mcapa = new MatrizDispersa();
+            for(JsonElement pix: pixeles){
+                JsonObject ps = pix.getAsJsonObject();
+                int y  = ps.get("fila").getAsInt();
+                int x  = ps.get("columna").getAsInt();
+                String color = ps.get("color").getAsString();
+                mcapa.insertar(color, x, y);
+            }
+            Capa nueva = new Capa(id,mcapa);   
+            String nombre = Main.actual.getDpi()+"_Capa"+id;
+            mcapa.graficarMatriz(nombre);
+            Main.graficarDot(nombre);
+            Main.actual.agregarCapa(nueva);
+            comboCapa.addItem(""+id);
+        }
+        JOptionPane.showMessageDialog(null, "Capas creadas exitosamente.","Cliente",JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void analizarImage(String text){
+        JsonParser parser = new JsonParser();
+        JsonArray gsonArr = parser.parse(text).getAsJsonArray();
+        for (JsonElement obj : gsonArr) {
+            JsonObject gsonObj = obj.getAsJsonObject();
+            int id = gsonObj.get("id").getAsInt();
+            ABB im = new ABB();
+            JsonArray capas = gsonObj.get("capas").getAsJsonArray();
+            for(JsonElement pix: capas){
+                int c = pix.getAsInt();
+                im.insertar(new Capa(c,null));
+            }
+            Image nImagen = new Image(id,im);
+            Main.actual.agregarImagen(nImagen);
+            String dpi = Main.actual.getDpi()+"_";
             
-                JSONObject objeto = (JSONObject)array.get(i);
-                
-                int idImg = Integer.parseInt(objeto.get("id").toString());
-                JSONArray arr = (JSONArray)objeto.get("capas");
-                for(int j = 0; j < arr.size(); j++){
-                    }
+            //PreOrden
+            MatrizDispersa pre = im.crearImagen("Pre");
+            pre.graficarMatriz(dpi+"pre_img"+id);
+            Main.graficarDot(dpi+"pre_img"+id);
             
+            //InOrden
+            MatrizDispersa in = im.crearImagen("In");
+            in.graficarMatriz(dpi+"in_img"+id);
+            Main.graficarDot(dpi+"in_img"+id);
             
-            }System.out.println();
+            //PostOrden
+            MatrizDispersa post = im.crearImagen("Post");
+            post.graficarMatriz(dpi+"post_img"+id);
+            Main.graficarDot(dpi+"post_img"+id);
+      
+            comboImagen.addItem(""+id);
+        }
         
-        } catch (IOException e) {}
-
+        JOptionPane.showMessageDialog(null, "Imagenes Creadas","CLIENTE",JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public static void analizarAlbumes(String text){
+        JsonParser parser = new JsonParser();
+        JsonArray gsonArr = parser.parse(text).getAsJsonArray();
+        for (JsonElement obj : gsonArr) {
+            JsonObject gsonObj = obj.getAsJsonObject();
+            String nombre = gsonObj.get("nombre_album").getAsString();
+            JsonArray imgs = gsonObj.get("imgs").getAsJsonArray();
+            List miLista = new List();
+            for(JsonElement pix: imgs){
+                int c = pix.getAsInt();
+                miLista.insertar(c);
+            }
+            Album mmalbum = new Album(nombre,miLista);
+            Main.actual.agregarAlbum(mmalbum);
+        }
+        JOptionPane.showMessageDialog(null, "Albumes Creados.","CLIENTE",JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

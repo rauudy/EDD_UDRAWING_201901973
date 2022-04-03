@@ -5,6 +5,7 @@
 package Estructuras;
 
 import Recursos.*;
+import UDrawingF2.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -116,53 +117,86 @@ public class List {
     }
     
     public void graficar(String title){
-        String resultado="digraph G{\nlabel=\""+title+"\";\nnode [shape=square];\n";        
+        String dott="digraph G{\nlabel=\""+title+"\";\nnode [shape=square];\n";        
         String nodos = "";
         String conexiones = "";
         String rank = "rank=same{";
-        int c = 0;
+        int cont = 0;
         Nodo aux = raiz;
-        String anterior = "";
+        String ant = "";
         while(aux!=null){
             nodos += "N"+aux.hashCode()+"[label=\""+((Album)aux.datoM).getNombre()+"\"];\n";
-            if(c==0){
+            if(cont==0){
                 rank += "N"+aux.hashCode();
             }else{
                 rank += ",N"+aux.hashCode();
             }
-            if(!anterior.equals("")){
-                conexiones += anterior+"->N"+aux.hashCode()+";\n";
-                conexiones += "N"+aux.hashCode()+"->"+anterior+";\n";
+            if(!ant.equals("")){
+                conexiones += ant+"->N"+aux.hashCode()+";\n";
+                conexiones += "N"+aux.hashCode()+"->"+ant+";\n";
             }
-            Nodo auxiliar = ((Album)aux.datoM).getImages().raiz;
-            String anterior2 = "";
-            while(auxiliar != null){
-                nodos += "N"+auxiliar.hashCode()+"[label=\""+((int)auxiliar.datoM)+"\"];\n";
-                if(!anterior2.equals("")){
-                    conexiones += anterior2 + "->N"+auxiliar.hashCode()+";\n";
+            Nodo temp = ((Album)aux.datoM).getImages().raiz;
+            String ant2 = "";
+            while(temp != null){
+                nodos += "N"+temp.hashCode()+"[label=\""+((int)temp.datoM)+"\"];\n";
+                if(!ant2.equals("")){
+                    conexiones += ant2 + "->N"+temp.hashCode()+";\n";
                 }else{
-                    conexiones += "N"+aux.hashCode() + "->N"+auxiliar.hashCode()+";\n";
+                    conexiones += "N"+aux.hashCode() + "->N"+temp.hashCode()+";\n";
                 }
-                anterior2 = "N"+auxiliar.hashCode();
-                auxiliar = auxiliar.siguiente;
+                ant2 = "N"+temp.hashCode();
+                temp = temp.siguiente;
             }
             
-            anterior = "N"+aux.hashCode();
+            ant = "N"+aux.hashCode();
             aux = aux.siguiente;
-            c++;
+            cont++;
         }
-        resultado+=nodos + rank + "};\n" + conexiones+"\n}";
+        dott+=nodos + rank + "};\n" + conexiones+"\n}";
         try {
             String ruta = System.getProperty("user.dir") + "\\"+title+".txt";
             File file = new File(ruta);
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(resultado);
+            bw.write(dott);
             bw.close(); 
         } catch (Exception e) {
             e.printStackTrace();
         }
         
+    }
+    
+    public void graficarTop5(String title){
+        String dott="digraph G{\nN0[shape=record,label=\"{Top|1|2|3|4|5}";              
+        String nombres = "{Img";
+        String cantidad = "{Cantidad";
+        Nodo aux = raiz;
+        for(int i = 0; i<5; i++){
+            if(aux!=null){
+                nombres += "|Imagen "+ ((Image)aux.datoM).getId();
+                cantidad += "|"+((Image)aux.datoM).getSize()+ " capas";
+                aux = aux.siguiente;
+            }else{
+                nombres += "|";
+                cantidad += "|";
+            }
+        }
+        nombres += "}";
+        cantidad += "}";
+        dott += "|" + nombres + "|" + cantidad + "\"];";
+        
+        dott += "\n}";
+        try {
+            String ruta = System.getProperty("user.dir") + "\\"+title+".txt";
+            File file = new File(ruta);
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(dott);
+            bw.close(); 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Main.cont = 0;
     }
     
 

@@ -14,38 +14,49 @@ import java.io.FileWriter;
  */
 public class MatrizDispersa {
     
+    //NODO DE LISTA
     
-    //--------------------------------------------------------------------------
     public class Nodo{        
         Object info;
-        Nodo next, anterior;
         Nodo izquierda, derecha, arriba, abajo;
+        Nodo sig, ant;
         int x,y;
 
         public Nodo(Object info) {
             this.info = info;
             x = y = 0;
-            this.next= this.anterior = this.izquierda = this.derecha = this.abajo = this.arriba = null;
+            this.sig= null;
+            this.ant = null;
+            this.izquierda = null;
+            this.derecha = null;
+            this.abajo = null;
+            this.arriba = null;
         }   
         
         public Nodo(Object info,int x, int y) {
             this.info = info;
             this.x = x;
             this.y = y;
-            this.next = this.anterior = this.izquierda = this.derecha = this.abajo = this.arriba = null;
+            this.sig= null;
+            this.ant = null;
+            this.izquierda = null;
+            this.derecha = null;
+            this.abajo = null;
+            this.arriba = null;;
         }
     }
     
-    //---------------------------------------------------------------
+    //LISTA DE CABECERA
+    
     public class Lista{
         Nodo raiz, ultimo;
         public Lista(){
-            this.raiz = this.ultimo = null;
+            this.raiz = null;
+            this.ultimo = null;
         }
         
         public void insertar(int no){
             Nodo nuevo = new Nodo(no);
-            //System.out.println(no);
             if(raiz == null){
                 raiz = ultimo = nuevo;
             }else{
@@ -55,44 +66,43 @@ public class MatrizDispersa {
         
         public void ordenar(Nodo nodo){
             Nodo aux = raiz;
-            
             while(aux != null){
                 if((int)aux.info < (int)nodo.info){
-                    aux = aux.next;
+                    aux = aux.sig;
                 }else{
                     if(aux == raiz){
-                        nodo.next =aux;
-                        aux.anterior = nodo;                       
+                        nodo.sig =aux;
+                        aux.ant = nodo;                       
                         raiz = nodo;
                         return;
                     }else{
-                        nodo.anterior = aux.anterior;
-                        aux.anterior.next = nodo;
-                        nodo.next = aux;
-                        aux.anterior = nodo;
+                        nodo.ant = aux.ant;
+                        aux.ant.sig = nodo;
+                        nodo.sig = aux;
+                        aux.ant = nodo;
                         return;
                     }
                 }
             }
             
             if(ultimo == raiz){
-                nodo.anterior = raiz;
-                raiz.next = nodo;
+                nodo.ant = raiz;
+                raiz.sig = nodo;
                 ultimo = nodo;               
             }else{
-                ultimo.next = nodo;
-                nodo.anterior = ultimo;
+                ultimo.sig = nodo;
+                nodo.ant = ultimo;
                 ultimo = nodo; 
             }                               
         }
         
-        public Nodo search(int valor){
+        public Nodo buscarList(int valor){
             Nodo temp = raiz;
             while(temp != null){
                 if((int)temp.info == valor){
                     return temp;
                 }
-                temp = temp.next;
+                temp = temp.sig;
             }
             return null;
         }
@@ -101,14 +111,14 @@ public class MatrizDispersa {
             Nodo temp = raiz;
             while(temp != null){
                 System.out.println("Cabecera: " + temp.info);
-                temp = temp.next;
+                temp = temp.sig;
             }
         }
         
         public int max(){
             Nodo temp = raiz;
-            while (temp.next != null) {
-                temp = temp.next;
+            while (temp.sig != null) {
+                temp = temp.sig;
             }
             return (int)temp.info;
         }
@@ -124,8 +134,8 @@ public class MatrizDispersa {
     }
 
     public void insertar(String valor, int i, int j) {
-        Nodo fil = fila.search(i);
-        Nodo com = col.search(j);
+        Nodo fil = fila.buscarList(i);
+        Nodo com = col.buscarList(j);
         String nuevoColor = buscar_Color(i, j);
         if (nuevoColor.equals("")) {
             if (fil == null && com == null) {
@@ -157,7 +167,7 @@ public class MatrizDispersa {
                 }
                 aux = aux.abajo;
             }
-            cabecera = cabecera.next;
+            cabecera = cabecera.sig;
         }
         return "";
     }
@@ -172,7 +182,7 @@ public class MatrizDispersa {
                 }
                 aux = aux.abajo;
             }
-            cabecera = cabecera.next;
+            cabecera = cabecera.sig;
         }
     }
 
@@ -180,8 +190,8 @@ public class MatrizDispersa {
         fila.insertar(i);
         col.insertar(j);
 
-        Nodo fil = fila.search(i);
-        Nodo com = col.search(j);
+        Nodo fil = fila.buscarList(i);
+        Nodo com = col.buscarList(j);
         Nodo nuevo = new Nodo(valor, i, j);
 
         fil.abajo = nuevo;
@@ -194,8 +204,8 @@ public class MatrizDispersa {
     public void caso2(String valor, int i, int j) {
         fila.insertar(i);
 
-        Nodo fil = fila.search(i);
-        Nodo com = col.search(j);
+        Nodo fil = fila.buscarList(i);
+        Nodo com = col.buscarList(j);
         boolean agregado = false;
         Nodo n = new Nodo(valor, i, j);
         Nodo aux = com.derecha;
@@ -232,8 +242,8 @@ public class MatrizDispersa {
     public void caso3(String valor, int i, int j) {
         col.insertar(j);
 
-        Nodo fil = fila.search(i);
-        Nodo com = col.search(j);
+        Nodo fil = fila.buscarList(i);
+        Nodo com = col.buscarList(j);
         boolean agregado = false;
         Nodo nuevo = new Nodo(valor, i, j);
         Nodo aux = fil.abajo;
@@ -269,8 +279,8 @@ public class MatrizDispersa {
 
     
     public void caso4(String valor, int i, int j) {
-        Nodo com = col.search(j);
-        Nodo fil = fila.search(i);
+        Nodo com = col.buscarList(j);
+        Nodo fil = fila.buscarList(i);
         Nodo n = new Nodo(valor, i, j);
         boolean insertado = false;
         Nodo aux = com.derecha;
@@ -335,7 +345,7 @@ public class MatrizDispersa {
                 System.out.println(aux.info + ", i= " + aux.x + ", j= " +aux.y);
                 aux = aux.abajo;
             }
-            cabecera = cabecera.next;
+            cabecera = cabecera.sig;
         }
     }
     
@@ -351,10 +361,9 @@ public class MatrizDispersa {
                     }else{
                         siguienteColor((String)aux.info, aux.x,aux.y);
                     }
-
                     aux = aux.abajo;
                 }
-                cabecera = cabecera.next;
+                cabecera = cabecera.sig;
             }
         }
     }
@@ -399,7 +408,7 @@ public class MatrizDispersa {
         for(int j = 0; j<maxFilas+1;j++){ 
             String rank = "rank=same{F"+j;
             primero = true;
-            String anterior = "";
+            String ant = "";
             for(int i=0;i<maxColumnas+1;i++){
                 String color = buscar_Color(i, j);
                 if(!color.equals("")){
@@ -409,11 +418,11 @@ public class MatrizDispersa {
                         conexiones += "F"+j+"->C"+i+"F"+j+";\n";
                         conexiones += "C"+i+"F"+j+"->F"+j+";\n";
                         primero = false;
-                        anterior = "C"+i+"F"+j;
+                        ant = "C"+i+"F"+j;
                     }else{
-                        conexiones += anterior + "->C"+i+"F"+j+";\n";
-                        conexiones += "C"+i+"F"+j+"->"+anterior+";\n";
-                        anterior = "C"+i+"F"+j;
+                        conexiones += ant + "->C"+i+"F"+j+";\n";
+                        conexiones += "C"+i+"F"+j+"->"+ant+";\n";
+                        ant = "C"+i+"F"+j;
                     }                    
                 }          
             } 
@@ -423,7 +432,7 @@ public class MatrizDispersa {
         
         for(int i = 0; i<maxColumnas+1;i++){ 
             primero = true;
-            String anterior = "";
+            String ant = "";
             for(int j=0;j<maxFilas+1;j++){
                 String color = buscar_Color(i, j);
                 if(!color.equals("")){
@@ -431,11 +440,11 @@ public class MatrizDispersa {
                         conexiones += "C"+i+"->C"+i+"F"+j+";\n";
                         conexiones += "C"+i+"F"+j+"->C"+i+";\n";
                         primero = false;
-                        anterior = "C"+i+"F"+j;
+                        ant = "C"+i+"F"+j;
                     }else{
-                        conexiones += anterior + "->C"+i+"F"+j+";\n";
-                        conexiones += "C"+i+"F"+j+"->"+anterior+";\n";
-                        anterior = "C"+i+"F"+j;
+                        conexiones += ant + "->C"+i+"F"+j+";\n";
+                        conexiones += "C"+i+"F"+j+"->"+ant+";\n";
+                        ant = "C"+i+"F"+j;
                     }                    
                 }          
             } 

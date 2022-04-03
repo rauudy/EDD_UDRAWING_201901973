@@ -18,6 +18,7 @@ public class ModCliente extends javax.swing.JFrame {
      * Creates new form ModCliente
      */
     public ModCliente() {
+        super("MODIFICAR");
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -43,6 +44,7 @@ public class ModCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setText("MODIFICAR CLIENTE");
 
         jLabel2.setText("DPI:");
@@ -65,31 +67,31 @@ public class ModCliente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtdpi)
-                            .addComponent(txtNombre)
-                            .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(156, 156, 156)
                         .addComponent(btnModificar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jLabel1)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel3)))
+                                .addGap(29, 29, 29)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtdpi)
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))))))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtdpi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -133,7 +135,6 @@ public class ModCliente extends javax.swing.JFrame {
                 actual.setPass(contra);
                 Main.clientes.actualizar(actual);
                 JOptionPane.showMessageDialog(null, "Cliente Modificado.","MODIFICAR",JOptionPane.INFORMATION_MESSAGE);
-                
                 dispose();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error","ADMIN",JOptionPane.ERROR_MESSAGE);
@@ -190,11 +191,10 @@ public class ModCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtdpi;
     // End of variables declaration//GEN-END:variables
 
-    public void llenarlo(Long dpi, String nombre, String contra){
+    public void llenarlo(Long dpi, String nombre, String pass){
         txtdpi.setText(String.valueOf(dpi));
         txtNombre.setText(nombre);
-        txtPass.setText(contra);
-           
+        txtPass.setText(pass);
     }
     
 }

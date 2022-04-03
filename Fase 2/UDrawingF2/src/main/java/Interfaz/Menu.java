@@ -39,7 +39,7 @@ public class Menu extends javax.swing.JFrame {
      * Creates new form Menu
      */
     public Menu() {
-        super("Menu");
+        super("MENU");
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -68,16 +68,19 @@ public class Menu extends javax.swing.JFrame {
         btnModificarDatos = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        inorden = new javax.swing.JRadioButton();
+        postorden = new javax.swing.JRadioButton();
+        preorden = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCarga = new javax.swing.JMenu();
         btnCapas = new javax.swing.JMenuItem();
         btnImagenes = new javax.swing.JMenuItem();
         btnAlbumes = new javax.swing.JMenuItem();
         menuReportes = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        btnTop5 = new javax.swing.JMenuItem();
+        btnRecorridos = new javax.swing.JMenuItem();
+        btnProfundidad = new javax.swing.JMenuItem();
+        btnCapasHojas = new javax.swing.JMenuItem();
         menuVer = new javax.swing.JMenu();
         btnVerArbolCapas = new javax.swing.JMenuItem();
         btnVerArbolImagenes = new javax.swing.JMenuItem();
@@ -128,6 +131,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         verArboldeCapas.setText("Ver Arbol de Capas");
+        verArboldeCapas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verArboldeCapasActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Capas");
@@ -149,81 +157,119 @@ public class Menu extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel5.setText("MENU UDRAWING");
 
+        inorden.setText("InOrden");
+        inorden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inordenActionPerformed(evt);
+            }
+        });
+
+        postorden.setText("PostOrden");
+        postorden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                postordenActionPerformed(evt);
+            }
+        });
+
+        preorden.setText("PreOrden");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(271, 271, 271)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(comboCapa, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                                    .addComponent(jLabel1)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(comboCapa, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                                    .addComponent(jLabel2)
+                                                    .addGap(12, 12, 12)))
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnVerCapa, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addGap(12, 12, 12)))
-                                    .addComponent(comboImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnElimiarImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnVerCapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(btnModificarDatos)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(btnVerImgAc, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(verArboldeCapas)))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(Imagenlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(271, 271, 271)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(btnModificarDatos)
+                                            .addGap(21, 21, 21)
+                                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(comboImagen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(verArboldeCapas)
+                                                            .addComponent(btnElimiarImg, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+                                                        .addGap(24, 24, 24))
+                                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                                        .addComponent(btnVerImgAc, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(inorden)
+                                                    .addComponent(postorden, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                        .addGap(6, 6, 6)
+                                                        .addComponent(preorden)))))))
+                                .addGap(6, 6, 6))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(jLabel4)))
+                        .addGap(83, 83, 83)
+                        .addComponent(Imagenlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(comboCapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerCapa))
+                .addGap(62, 62, 62)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(comboImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel4)
+                        .addComponent(btnVerImgAc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(comboCapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVerCapa))
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnElimiarImg))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnVerImgAc)
-                            .addComponent(verArboldeCapas)))
+                        .addComponent(btnElimiarImg)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(verArboldeCapas)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(35, 35, 35)
-                        .addComponent(Imagenlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModificarDatos)
-                    .addComponent(btnSalir))
-                .addGap(15, 15, 15))
+                        .addComponent(inorden)
+                        .addGap(18, 18, 18)
+                        .addComponent(postorden)
+                        .addGap(12, 12, 12)
+                        .addComponent(preorden)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnModificarDatos)
+                            .addComponent(btnSalir))
+                        .addGap(15, 15, 15))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addGap(32, 32, 32)
+                .addComponent(Imagenlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -270,26 +316,41 @@ public class Menu extends javax.swing.JFrame {
 
         menuReportes.setText("Reportes");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem1.setText("Top5");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        btnTop5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        btnTop5.setText("Top5");
+        btnTop5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                btnTop5ActionPerformed(evt);
             }
         });
-        menuReportes.add(jMenuItem1);
+        menuReportes.add(btnTop5);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem2.setText("Recorridos");
-        menuReportes.add(jMenuItem2);
+        btnRecorridos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        btnRecorridos.setText("Recorridos");
+        btnRecorridos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecorridosActionPerformed(evt);
+            }
+        });
+        menuReportes.add(btnRecorridos);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem3.setText("Profundidad");
-        menuReportes.add(jMenuItem3);
+        btnProfundidad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        btnProfundidad.setText("Profundidad");
+        btnProfundidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfundidadActionPerformed(evt);
+            }
+        });
+        menuReportes.add(btnProfundidad);
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem4.setText("Capas Hojas");
-        menuReportes.add(jMenuItem4);
+        btnCapasHojas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        btnCapasHojas.setText("Capas Hojas");
+        btnCapasHojas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapasHojasActionPerformed(evt);
+            }
+        });
+        menuReportes.add(btnCapasHojas);
 
         jMenuBar1.add(menuReportes);
 
@@ -346,20 +407,31 @@ public class Menu extends javax.swing.JFrame {
         analizarCapas(capas);
     }//GEN-LAST:event_btnCapasActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void btnTop5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTop5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        Main.actual.generarTop5();
+        String dpi = Main.actual.getDpi()+"_top5";
+            try {
+                Thread.sleep(2*1000);
+             } catch (Exception e) {
+                System.out.println(e);
+             }
+        ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+dpi+".png");
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon full = new ImageIcon(imgfull);
+        Imagenlbl.setIcon(full);
+    }//GEN-LAST:event_btnTop5ActionPerformed
 
     private void btnVerCapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCapaActionPerformed
         // TODO add your handling code here:
         if(comboCapa.getSelectedItem() == null){
             JOptionPane.showMessageDialog(null, "No hay capas.","Cliente",JOptionPane.ERROR_MESSAGE);
         }else{            
-            String nombre = Main.actual.getDpi()+"_Capa"+comboCapa.getSelectedItem();
-            ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\"+nombre+".png");
-            java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
-            Icon iconoEscalado = new ImageIcon(imgEscalada);
-            Imagenlbl.setIcon(iconoEscalado);
+            String dpi = Main.actual.getDpi()+"_Capa"+comboCapa.getSelectedItem();
+            ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+dpi+".png");
+            java.awt.Image imgfull = imgg.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+            Icon full = new ImageIcon(imgfull);
+            Imagenlbl.setIcon(full);
         }
     }//GEN-LAST:event_btnVerCapaActionPerformed
 
@@ -369,6 +441,17 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnVerArbolImagenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerArbolImagenesActionPerformed
         // TODO add your handling code here:
+        Main.actual.graficarImagenes();
+        try {
+            Thread.sleep(2*1000);
+         } catch (Exception e) {
+            System.out.println(e);
+         }
+        String dpi = Main.actual.getDpi()+"_Imagenes";
+        ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+dpi+".png");
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(jLabel1.getWidth(),jLabel1.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon full = new ImageIcon(imgfull);
+        jLabel1.setIcon(full);
     }//GEN-LAST:event_btnVerArbolImagenesActionPerformed
 
     private void btnVerArbolCapasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerArbolCapasActionPerformed
@@ -379,11 +462,11 @@ public class Menu extends javax.swing.JFrame {
          } catch (Exception e) {
             System.out.println(e);
          }
-        String nombre = Main.actual.getDpi()+"_Capas";
-        ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\"+nombre+".png");
-        java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
-        Icon iconoEscalado = new ImageIcon(imgEscalada);
-        Imagenlbl.setIcon(iconoEscalado);
+        String id = Main.actual.getDpi()+"_Capas";
+        ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+id+".png");
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon full = new ImageIcon(imgfull);
+        Imagenlbl.setIcon(full);
     }//GEN-LAST:event_btnVerArbolCapasActionPerformed
 
     private void btnModificarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDatosActionPerformed
@@ -410,14 +493,12 @@ public class Menu extends javax.swing.JFrame {
         if(comboImagen.getSelectedItem() == null){
             JOptionPane.showMessageDialog(null, "No Hay Imagenes","CLIENTE",JOptionPane.ERROR_MESSAGE);
         }else{
-            String a = (String)comboImagen.getSelectedItem();
-            int no = Integer.parseInt(a);
-            
+            String nu = (String)comboImagen.getSelectedItem();
+            int no = Integer.parseInt(nu);
             Main.actual.eliminarImagen(no);
-            JOptionPane.showMessageDialog(null, "Imagen Eliminada","CLIENTE",JOptionPane.INFORMATION_MESSAGE);
-            
-           int c = comboImagen.getSelectedIndex();
-           comboImagen.removeItemAt(c);
+            JOptionPane.showMessageDialog(null, "Imagen Eliminada Pa","CLIENTE",JOptionPane.INFORMATION_MESSAGE);
+           int del = comboImagen.getSelectedIndex();
+           comboImagen.removeItemAt(del);
         }
     }//GEN-LAST:event_btnElimiarImgActionPerformed
 
@@ -440,17 +521,108 @@ public class Menu extends javax.swing.JFrame {
          } catch (Exception e) {
             System.out.println(e);
          }
-        
-        String nombre = Main.actual.getDpi()+"_Albumes";
-        ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\"+nombre+".png");
-        java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
-        Icon iconoEscalado = new ImageIcon(imgEscalada);
-        Imagenlbl.setIcon(iconoEscalado);
+        String id = Main.actual.getDpi()+"_Albumes";
+        ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+id+".png");
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon full = new ImageIcon(imgfull);
+        Imagenlbl.setIcon(full);
     }//GEN-LAST:event_btnVerListAlbumesActionPerformed
 
     private void btnVerImgAcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerImgAcActionPerformed
         // TODO add your handling code here:
+        if(comboImagen.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(null, "No hay imagenes.","Cliente",JOptionPane.ERROR_MESSAGE);
+        }else{
+            String nu = (String)comboImagen.getSelectedItem();
+            int no = Integer.parseInt(nu);
+            String id;
+            if(preorden.isSelected()){
+                id = Main.actual.getDpi()+"_pre_img"+no;
+            }else if(inorden.isSelected()){
+                id = Main.actual.getDpi()+"_in_img"+no;
+            }else{
+                id = Main.actual.getDpi()+"_post_img"+no;
+            }
+            ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+id+".png");
+            java.awt.Image imgfull = imgg.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+            Icon full = new ImageIcon(imgfull);
+            Imagenlbl.setIcon(full);
+        }
     }//GEN-LAST:event_btnVerImgAcActionPerformed
+
+    private void inordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inordenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inordenActionPerformed
+
+    private void postordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postordenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_postordenActionPerformed
+
+    private void verArboldeCapasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verArboldeCapasActionPerformed
+        // TODO add your handling code here:
+        if(comboImagen.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(null, "No hay imagenes.","Cliente",JOptionPane.ERROR_MESSAGE);
+        }else{
+            String nu = (String)comboImagen.getSelectedItem();
+            int no = Integer.parseInt(nu);
+            String id = Main.actual.getDpi()+"_ac_img"+no;
+            Main.actual.generarArbol_CapaDeImagen(no);
+            try {
+                Thread.sleep(2*1000);
+             } catch (Exception e) {
+                System.out.println(e);
+             }
+            ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+id+".png");
+            java.awt.Image imgfull = imgg.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+            Icon full = new ImageIcon(imgfull);
+            Imagenlbl.setIcon(full);
+        }
+    }//GEN-LAST:event_verArboldeCapasActionPerformed
+
+    private void btnCapasHojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapasHojasActionPerformed
+        // TODO add your handling code here:
+        Main.actual.capas_Hojas();
+        String id = Main.actual.getDpi()+"_capasHojas";
+            try {
+                Thread.sleep(2*1000);
+             } catch (Exception e) {
+                System.out.println(e);
+             }
+        ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+id+".png");
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon full = new ImageIcon(imgfull);
+        Imagenlbl.setIcon(full);
+    }//GEN-LAST:event_btnCapasHojasActionPerformed
+
+    private void btnRecorridosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecorridosActionPerformed
+        // TODO add your handling code here:
+        Main.actual.recorridos();
+        String id = Main.actual.getDpi()+"_recorridos";
+            try {
+                Thread.sleep(2*1000);
+             } catch (Exception e) {
+                System.out.println(e);
+             }
+        ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+id+".png");
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon full = new ImageIcon(imgfull);
+        Imagenlbl.setIcon(full);
+    }//GEN-LAST:event_btnRecorridosActionPerformed
+
+    private void btnProfundidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfundidadActionPerformed
+        // TODO add your handling code here:
+        Main.actual.profundidad();
+        String id = Main.actual.getDpi()+"_profundidad";
+            try {
+                Thread.sleep(2*1000);
+             } catch (Exception e) {
+                System.out.println(e);
+             }
+        ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\"+id+".png");
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(Imagenlbl.getWidth(),Imagenlbl.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon full = new ImageIcon(imgfull);
+        Imagenlbl.setIcon(full);
+    }//GEN-LAST:event_btnProfundidadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -491,10 +663,14 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel Imagenlbl;
     private javax.swing.JMenuItem btnAlbumes;
     private javax.swing.JMenuItem btnCapas;
+    private javax.swing.JMenuItem btnCapasHojas;
     private javax.swing.JButton btnElimiarImg;
     private javax.swing.JMenuItem btnImagenes;
     private javax.swing.JButton btnModificarDatos;
+    private javax.swing.JMenuItem btnProfundidad;
+    private javax.swing.JMenuItem btnRecorridos;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JMenuItem btnTop5;
     private javax.swing.JMenuItem btnVerArbolCapas;
     private javax.swing.JMenuItem btnVerArbolImagenes;
     private javax.swing.JButton btnVerCapa;
@@ -502,20 +678,19 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnVerListAlbumes;
     public javax.swing.JComboBox<String> comboCapa;
     public javax.swing.JComboBox<String> comboImagen;
+    private javax.swing.JRadioButton inorden;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenu menuCarga;
     private javax.swing.JMenu menuReportes;
     private javax.swing.JMenu menuVer;
+    private javax.swing.JRadioButton postorden;
+    private javax.swing.JRadioButton preorden;
     private javax.swing.JButton verArboldeCapas;
     // End of variables declaration//GEN-END:variables
 
@@ -584,14 +759,14 @@ public class Menu extends javax.swing.JFrame {
         for (JsonElement obj : gsonArr) {
             JsonObject gsonObj = obj.getAsJsonObject();
             int id = gsonObj.get("id").getAsInt();
-            ABB im = new ABB();
+            ArbolAbb im = new ArbolAbb();
             JsonArray capas = gsonObj.get("capas").getAsJsonArray();
             for(JsonElement pix: capas){
                 int c = pix.getAsInt();
                 im.insertar(new Capa(c,null));
             }
-            Image nImagen = new Image(id,im);
-            Main.actual.agregarImagen(nImagen);
+            Image nImg = new Image(id,im);
+            Main.actual.agregarImagen(nImg);
             String dpi = Main.actual.getDpi()+"_";
             
             //PreOrden
@@ -622,12 +797,12 @@ public class Menu extends javax.swing.JFrame {
             JsonObject gsonObj = obj.getAsJsonObject();
             String nombre = gsonObj.get("nombre_album").getAsString();
             JsonArray imgs = gsonObj.get("imgs").getAsJsonArray();
-            List miLista = new List();
+            List albs = new List();
             for(JsonElement pix: imgs){
-                int c = pix.getAsInt();
-                miLista.insertar(c);
+                int pi = pix.getAsInt();
+                albs.insertar(pi);
             }
-            Album mmalbum = new Album(nombre,miLista);
+            Album mmalbum = new Album(nombre,albs);
             Main.actual.agregarAlbum(mmalbum);
         }
         JOptionPane.showMessageDialog(null, "Albumes Creados.","CLIENTE",JOptionPane.INFORMATION_MESSAGE);

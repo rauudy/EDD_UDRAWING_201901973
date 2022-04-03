@@ -12,9 +12,9 @@ import Arboles.*;
 public class Image {
     private int id;
     private int size;
-    private ABB capas;
+    private ArbolAbb capas;
 
-    public Image(int id, ABB capas) {
+    public Image(int id, ArbolAbb capas) {
         this.id = id;
         this.capas = capas;
     }
@@ -23,7 +23,6 @@ public class Image {
         this.id = id;
         this.size = size;
     }
-    
 
     /**
      * @return the id
@@ -56,18 +55,14 @@ public class Image {
     /**
      * @return the capas
      */
-    public ABB getCapas() {
+    public ArbolAbb getCapas() {
         return capas;
     }
 
     /**
      * @param capas the capas to set
      */
-    public void setCapas(ABB capas) {
+    public void setCapas(ArbolAbb capas) {
         this.capas = capas;
     }
-    
-    
-    
-    
 }

@@ -18,6 +18,7 @@ public class CrearC extends javax.swing.JFrame {
      * Creates new form CrearC
      */
     public CrearC() {
+        super("CREAR");
         initComponents();
         setLocationRelativeTo(null);
     }

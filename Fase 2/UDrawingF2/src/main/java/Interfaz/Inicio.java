@@ -20,6 +20,7 @@ public class Inicio extends javax.swing.JFrame {
      */
 
     public Inicio() {
+        super("INICIO");
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -43,6 +44,8 @@ public class Inicio extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setText("UDrawing Paper");
@@ -129,7 +132,7 @@ public class Inicio extends javax.swing.JFrame {
         String usuario = txtDpi.getText();
         String contra = txtPass.getText();
         
-        if(usuario.equals("73")){
+        if(usuario.equals("1999")){
             if(contra.equals("2022")){
                 Admin admin = new Admin();
                 admin.setVisible(true);
@@ -145,12 +148,12 @@ public class Inicio extends javax.swing.JFrame {
                         Main.actual = cl;
                         Main.actual.abrirVentana();
                         dispose();
-                        JOptionPane.showMessageDialog(null, "Hola "+cl.getNombre()+".","Cliente",JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Bienvenido "+cl.getNombre(),"CLIENTE",JOptionPane.INFORMATION_MESSAGE);
                     }else{
-                        JOptionPane.showMessageDialog(null, "DPI y/o contraseña incorrectas.","Log In",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "DPI o contraseña Incorrecto","INICIO",JOptionPane.ERROR_MESSAGE);
                     }
                 }else{
-                    JOptionPane.showMessageDialog(null, "DPI y/o contraseña incorrectas.","Log In",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "DPI o Contraseña Incorrecto","INICIO",JOptionPane.ERROR_MESSAGE);
                 }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
@@ -208,6 +211,5 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField txtPass;
     // End of variables declaration//GEN-END:variables
 
-    
     
 }

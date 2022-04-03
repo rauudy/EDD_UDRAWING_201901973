@@ -3,6 +3,7 @@ package Arboles;
 import javax.swing.JOptionPane;
 import Recursos.*;
 import Interfaz.*;
+import Estructuras.*;
 import UDrawingF2.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -61,7 +62,7 @@ public class ArbolAvl {
                 }
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Nodo duplicado");
+            JOptionPane.showMessageDialog(null, "Hay nodos iguales");
         }
         
         if((subarr.izquierda==null)&&(subarr.derecha!=null)){
@@ -114,7 +115,7 @@ public class ArbolAvl {
         return aux;
     }
     
-    public ABB buscar(int n){
+    public ArbolAbb buscar(int n){
         NodoAVL aux = raiz;
         while(aux != null){
             if(((Image)aux.valor).getId() == n){
@@ -194,19 +195,15 @@ public class ArbolAvl {
     }
     
     public void graficar(String title){
-        String resultado="digraph G{\nlabel=\""+title+"\";\nnode [shape=circle];\n";        
-       
-        resultado += graficar_recursivo(raiz).get(1);
-        
-        resultado+="}\n}";
-        
+        String dott="digraph G{\nlabel=\""+title+"\";\nnode [shape=circle];\n";  
+        dott += recorrerRecur(raiz).get(1);
+        dott+="}\n}";
         try {
             String ruta = System.getProperty("user.dir") + "\\"+title+".txt";
             File file = new File(ruta);
-            
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(resultado);
+            bw.write(dott);
             bw.close(); 
         } catch (Exception e) {
             e.printStackTrace();
@@ -215,7 +212,7 @@ public class ArbolAvl {
         Main.cont = 0;
     }
     
-    public static ArrayList<String> graficar_recursivo(NodoAVL raiz){
+    public static ArrayList<String> recorrerRecur(NodoAVL raiz){
         ArrayList<String> respuesta = new ArrayList<String>();
         int numero;
         if(raiz == null){
@@ -229,8 +226,8 @@ public class ArbolAvl {
         }else{
             numero = ((Image)raiz.valor).getId();
             String conj = "";
-            ArrayList<String> izquierda = graficar_recursivo(raiz.izquierda);
-            ArrayList<String> derecha = graficar_recursivo(raiz.derecha);
+            ArrayList<String> izquierda = recorrerRecur(raiz.izquierda);
+            ArrayList<String> derecha = recorrerRecur(raiz.derecha);
             conj += "N"+Main.cont+"[label=\""+numero+","+raiz.equilibrio+"\"]\n";
             if(!izquierda.get(0).equals("")){
                 conj += "N"+Main.cont + "->" + izquierda.get(0) + ";\n";
@@ -243,6 +240,26 @@ public class ArbolAvl {
             Main.cont += 1;
         }
         return respuesta;
+    }
+    
+    public List top5(){
+        return recorrerTop5(raiz);
+    }
+    
+    public List recorrerTop5(NodoAVL raiz){
+        List tt = new List();
+        Image aux;
+        if(raiz==null){
+        }else if(raiz.izquierda==null && raiz.derecha==null){
+            aux = new Image(((Image)raiz.valor).getId(),((Image)raiz.valor).getCapas().contarCapas());
+            tt.insertarOrdenado(aux);
+        }else{
+            aux = new Image(((Image)raiz.valor).getId(),((Image)raiz.valor).getCapas().contarCapas());
+            tt.insertarOrdenado(aux);
+            tt.insertar(recorrerTop5(raiz.izquierda));
+            tt.insertar(recorrerTop5(raiz.derecha));
+        }
+        return tt;
     }
     
 }

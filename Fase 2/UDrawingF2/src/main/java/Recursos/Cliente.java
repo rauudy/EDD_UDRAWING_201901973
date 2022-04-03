@@ -7,10 +7,12 @@ import Estructuras.*;
 import Arboles.*;
 import Interfaz.*;
 import UDrawingF2.*;
+
 /**
  *
  * @author DELL
  */
+
 public class Cliente {
     
     private long dpi;
@@ -18,17 +20,15 @@ public class Cliente {
     private String pass;
     
     private List albumes;
-    private ABB capas;
-    private ArbolAvl imagenes;
-    
-    
+    private ArbolAbb capas;
+    private ArbolAvl imagenes;    
 
     public Cliente(long dpi, String nombre, String pass) {
         this.dpi = dpi;
         this.nombre = nombre;
         this.pass = pass;
         albumes = new List();
-        capas = new ABB();
+        capas = new ArbolAbb();
         imagenes = new ArbolAvl();
     }
 
@@ -91,14 +91,14 @@ public class Cliente {
     /**
      * @return the capas
      */
-    public ABB getCapas() {
+    public ArbolAbb getCapas() {
         return capas;
     }
 
     /**
      * @param capas the capas to set
      */
-    public void setCapas(ABB capas) {
+    public void setCapas(ArbolAbb capas) {
         this.capas = capas;
     }
 
@@ -116,8 +116,7 @@ public class Cliente {
         this.imagenes = imagenes;
     }
     
-    
-    //----------------------------------------------------
+    //Metodos
     
     public void abrirVentana(){
         Menu men = new Menu();
@@ -161,7 +160,7 @@ public class Cliente {
         return imagenes.contar();
     }
     
-    //----------------------------------------------------------------
+    //Generar los Graphiz
     
     public void graficarAlbum(){
         albumes.graficar(dpi+"_Albumes");
@@ -171,27 +170,46 @@ public class Cliente {
     public void graficarACapas(){
         capas.graficar(dpi+"_Capas");
     }
-    public void graficarCapa(int n){
-        MatrizDispersa miMatriz = capas.buscar(n);
-        miMatriz.graficarMatriz(dpi+"_Capa"+n);
-        Main.graficarDot(dpi+"_Capa"+n);
-    }
     
-    public void graficarAImagenes(){
+    public void graficarImagenes(){
         imagenes.graficar(dpi+"_Imagenes");
         Main.graficarDot(dpi+"_Imagenes");
     }
     
     public void generarImagen(int n, String t){
-        ABB capss = imagenes.buscar(n);
+        ArbolAbb capss = imagenes.buscar(n);
         MatrizDispersa img;
         img = capss.crearImagen(t);
         img.graficarMatriz(dpi+"_img"+n);
         Main.graficarDot(dpi+"_img"+n);
     }
     
+    public void generarArbol_CapaDeImagen(int n){
+        ArbolAbb capas = imagenes.buscar(n);
+        capas.graficar(dpi+"_ac_img"+n);
+        Main.graficarDot(dpi+"_ac_img"+n);
+    }
     
+    public void generarTop5(){
+        List top = imagenes.top5();
+        top.graficarTop5(dpi+"_top5");
+        Main.graficarDot(dpi+"_top5");
+    }
     
+    public void capas_Hojas(){
+        capas.generarTablaCapasHojas(dpi+"_capasHojas");
+        Main.graficarDot(dpi+"_capasHojas");
+    }
+    
+    public void recorridos(){
+        capas.graficarRecorridos(dpi+"_recorridos");
+        Main.graficarDot(dpi+"_recorridos");      
+    }
+    
+    public void profundidad(){
+        capas.generarProfundidad(dpi+"_profundidad");
+        Main.graficarDot(dpi+"_profundidad");
+    }
     
     
 }

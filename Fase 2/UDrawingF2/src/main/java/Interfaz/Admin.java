@@ -30,6 +30,7 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form Admin
      */
     public Admin() {
+        super("EL ADMIN");
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -130,8 +131,8 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(btnVerArbolB, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(97, 97, 97)
-                .addComponent(imagenMostrada, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(imagenMostrada, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -237,10 +238,10 @@ public class Admin extends javax.swing.JFrame {
                 mod.llenarlo(dpi, objetivo.getNombre(), objetivo.getPass());
                 mod.setVisible(true);
             }else{
-                JOptionPane.showMessageDialog(null, "DPI no encontrado.","Administrador",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "DPI no encontrado.","ADMIN",JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "DPI incorrecto.","Administrador",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "DPI incorrecto.","ADMIN",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -257,16 +258,16 @@ public class Admin extends javax.swing.JFrame {
                  } catch (Exception e) {
                     System.out.println(e);
                  }
-                ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\cliente.png");
-                java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), java.awt.Image.SCALE_SMOOTH);
-                Icon iconoEscalado = new ImageIcon(imgEscalada);
-                imagenMostrada.setIcon(iconoEscalado);
+                ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\cliente.png");
+                java.awt.Image imgfull = imgg.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), java.awt.Image.SCALE_SMOOTH);
+                Icon full = new ImageIcon(imgfull);
+                imagenMostrada.setIcon(full);
             }else{
-                JOptionPane.showMessageDialog(null, "DPI no encontrado.","Administrador",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "DPI no encontrado.","ADMIN",JOptionPane.ERROR_MESSAGE);
             }
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "DPI incorrecto.","Administrador",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "DPI incorrecto.","ADMIN",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -285,10 +286,10 @@ public class Admin extends javax.swing.JFrame {
          } catch (Exception e) {
             System.out.println(e);
          }
-        ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\Clientes.png");
-        java.awt.Image imgEscalada = imgIcon.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), java.awt.Image.SCALE_SMOOTH);
-        Icon iconoEscalado = new ImageIcon(imgEscalada);
-        imagenMostrada.setIcon(iconoEscalado);
+        ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\Clientes.png");
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon full = new ImageIcon(imgfull);
+        imagenMostrada.setIcon(full);
     }//GEN-LAST:event_btnVerArbolBActionPerformed
 
     /**
@@ -346,33 +347,28 @@ public class Admin extends javax.swing.JFrame {
             JsonObject gsonObj = obj.getAsJsonObject();
             long dpi = Long.parseLong(gsonObj.get("dpi").getAsString());
             String nombre = gsonObj.get("nombre_cliente").getAsString();
-            String contra = gsonObj.get("password").getAsString();                                    
-            
+            String contra = gsonObj.get("password").getAsString();  
             Cliente n = new Cliente(dpi,nombre,contra);
-            
             Main.clientes.insertar(n);
         }
-        
-        JOptionPane.showMessageDialog(null, "Clientes Generados Correctamente.","Administrador",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Clientes Generados Correctamente.","ADMIN",JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void verCliente(Cliente cliente){
         String resultado="digraph G{\n";        
-        resultado += "N0[shape=record,label=\"{DPI|NOMBRE|CONTRASEÑA|CANT. ÁLBUMES|CANT. IMAGENES|CANT. CAPAS}|{"+cliente.getDpi()+"|"+cliente.getNombre()+"|"+cliente.getPass()+"|"+cliente.contarAlbumes()+"|"+cliente.contarImagenes()+"|"+cliente.contarCapas()+"}\"]";
+        resultado += "N0[shape=record,label=\"{DPI|NOMBRE|PASSWORD|ÁLBUMES|IMAGENES|CAPAS}|{"+cliente.getDpi()+"|"+cliente.getNombre()+"|"+cliente.getPass()+"|"+cliente.contarAlbumes()+"|"+cliente.contarImagenes()+"|"+cliente.contarCapas()+"}\"]";
         resultado+="\n}";
         try {
             String ruta = System.getProperty("user.dir") + "\\cliente.txt";
             File file = new File(ruta);
-            
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(resultado);
             bw.close(); 
-            //Mandar grafica
+            Main.graficarDot("cliente");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         Main.cont = 0;
     }
 

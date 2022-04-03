@@ -26,7 +26,7 @@ public class ArbolB {
     public void insertar(Cliente cl){
         Cliente n = brecursivo(cl.getDpi(),raiz);
         if(n!=null){
-            JOptionPane.showMessageDialog(null, "El Cliente con DPI: "+n.getDpi()+", Ya Existe.","Cliente",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El Cliente con DPI: "+n.getDpi()+", Ya Existe","CLIENTE",JOptionPane.ERROR_MESSAGE);
         }else{
             NodoB aur = raiz;
             insertarLL(raiz,cl);
@@ -163,8 +163,7 @@ public class ArbolB {
         }else{
             return false;
         }
-    }
-        
+    }  
         
     public Cliente buscar(long dpi){
         return brecursivo(dpi,raiz);
@@ -241,21 +240,17 @@ public class ArbolB {
     }
     
     public void graficar(String title){
-    String resultado="digraph G{\nlabel=\""+title+"\";\n";        
-       
+        String dott="digraph G{\nlabel=\""+title+"\";\n";  
         if(raiz.info1!=null){
-            resultado += graficar_recursivo(raiz,"");
+            dott += recorrerRecur(raiz,"");
         }
-        
-        resultado+="\n}";
-        
+        dott+="\n}";
         try {
             String ruta = System.getProperty("user.dir") + "\\"+title+".txt";
             File file = new File(ruta);
-            
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(resultado);
+            bw.write(dott);
             bw.close(); 
             Main.graficarDot(title);
         } catch (Exception e) {
@@ -265,7 +260,7 @@ public class ArbolB {
         Main.cont = 0;
     }
     
-    public String graficar_recursivo(NodoB raiz, String padre){
+    public String recorrerRecur(NodoB raiz, String padre){
         String nodos = "";
         String conexiones = "";
         int c = Main.cont;
@@ -285,19 +280,19 @@ public class ArbolB {
         }
         nodos += "N"+ c+"[shape=record,label=\"<N"+c+"_0>|{"+raiz.info1.getDpi()+"}|<N"+c+"_1>|{"+r2+"}|<N"+c+"_2>|{"+r3+"}|<N"+c+"_3>|{"+r4+"}|<N"+c+"_4>\"];\n";
         if(raiz.n0!=null){
-            conexiones += graficar_recursivo(raiz.n0,"N"+c+":N"+c+"_0");
+            conexiones += recorrerRecur(raiz.n0,"N"+c+":N"+c+"_0");
         }
         if(raiz.n1!=null){
-            conexiones += graficar_recursivo(raiz.n1,"N"+c+":N"+c+"_1");
+            conexiones += recorrerRecur(raiz.n1,"N"+c+":N"+c+"_1");
         }
         if(raiz.n2!=null){
-            conexiones += graficar_recursivo(raiz.n2,"N"+c+":N"+c+"_2");
+            conexiones += recorrerRecur(raiz.n2,"N"+c+":N"+c+"_2");
         }
         if(raiz.n3!=null){
-            conexiones += graficar_recursivo(raiz.n3,"N"+c+":N"+c+"_3");
+            conexiones += recorrerRecur(raiz.n3,"N"+c+":N"+c+"_3");
         }
         if(raiz.n4!=null){
-            conexiones += graficar_recursivo(raiz.n4,"N"+c+":N"+c+"_4");
+            conexiones += recorrerRecur(raiz.n4,"N"+c+":N"+c+"_4");
         }         
         return nodos+conexiones;
     }

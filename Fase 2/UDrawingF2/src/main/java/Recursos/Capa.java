@@ -10,6 +10,7 @@ import Estructuras.MatrizDispersa;
  *
  * @author DELL
  */
+
 public class Capa {
     private int id;
     private MatrizDispersa pixels;

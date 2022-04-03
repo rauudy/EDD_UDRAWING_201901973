@@ -8,13 +8,13 @@ package Arboles;
  *
  * @author DELL
  */
-public class NodoABB {
+public class NodoAbb {
 
     Object info;
-    NodoABB derecha;
-    NodoABB izquierda;
+    NodoAbb derecha;
+    NodoAbb izquierda;
 
-    public NodoABB(Object info) {
+    public NodoAbb(Object info) {
         this.info = info;
         this.derecha = null;
         this.izquierda = null;

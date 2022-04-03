@@ -144,25 +144,25 @@ public class Registrar extends javax.swing.JFrame {
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
         if(txtNombre.getText().equals("") || txtDpi.getText().equals("") || txtPass.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese todos los datos.","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Ingrese Todos Los Campos","CLIENTE",JOptionPane.ERROR_MESSAGE);
         }else{
             try {
                 long dpi = Long.parseLong(txtDpi.getText());
                 String nombre = txtNombre.getText();
-                String contra = txtPass.getText();
-                Cliente nuevoCliente = new Cliente(dpi,nombre,contra);
+                String pass = txtPass.getText();
+                Cliente nuevo = new Cliente(dpi,nombre,pass);
                 Cliente prueba = Main.clientes.buscar(dpi);
                 if(prueba==null){
-                    Main.clientes.insertar(nuevoCliente);              
-                    JOptionPane.showMessageDialog(null,"Usuario creado exitosamente.","Usuario",JOptionPane.INFORMATION_MESSAGE);
+                    Main.clientes.insertar(nuevo);              
+                    JOptionPane.showMessageDialog(null,"Usuario creado exitosamente.","CLIENTE",JOptionPane.INFORMATION_MESSAGE);
                     Inicio in = new Inicio();
                     in.setVisible(true);
                     dispose();               
                 }else{
-                    JOptionPane.showMessageDialog(null, "Cliente Con Dpi: "+prueba.getDpi()+", Ya Existe.","Cliente",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Cliente Con Dpi: "+prueba.getDpi()+", Ya Existe","CLIENTE",JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"Ingrese datos correctos","Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Ingrese datos correctos!!","CLIENTE",JOptionPane.ERROR_MESSAGE);
             }                              
         }
                

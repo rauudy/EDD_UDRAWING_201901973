@@ -9,6 +9,7 @@ import Estructuras.*;
  *
  * @author DELL
  */
+
 public class Album {
     
     private String nombre;
@@ -45,8 +46,5 @@ public class Album {
      */
     public void setImages(List images) {
         this.images = images;
-    }
-    
-    
-    
+    }    
 }

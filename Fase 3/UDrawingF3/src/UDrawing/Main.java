@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package UDrawing;
-
+import Interfaz.*;
 /**
  *
  * @author DELL
@@ -16,6 +16,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Menu men = new Menu();
     }
     
 }

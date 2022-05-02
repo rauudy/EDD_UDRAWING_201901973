@@ -5,6 +5,15 @@
  */
 package Interfaz;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 /**
  *
  * @author DELL
@@ -31,10 +40,22 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel3.setText("UDRAWING");
+
+        jButton1.setText("Clientes");
+
+        jButton2.setText("Lugares");
+
+        jButton3.setText("Mensajeros");
+
+        jButton4.setText("Rutas");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -44,13 +65,29 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(36, 164, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(180, 180, 180))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4)
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -103,7 +140,120 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    public void cargar_cliente(File archivo) {
+        try {
+            JSONParser parser = new JSONParser();
+            Scanner le = new Scanner(archivo);
+            String linea = "";
+            while (le.hasNextLine()) {
+                linea += le.nextLine() + "\n";
+            }
+            Object ob = parser.parse(linea);
+            JSONArray array = (JSONArray) ob;
+            JSONObject job;
+            for (int i = 0; i < array.size(); i++) {
+                System.out.println("* * C L I E N T E * *");
+                job = (JSONObject) array.get(i);
+                String dpi = job.get("dpi").toString();
+                String name = job.get("nombre_completo").toString();
+                String user = job.get("nombre_usuario").toString();
+                String mail = job.get("correo").toString();
+                String pass = job.get("contraseña").toString();
+                String phone = job.get("telefono").toString();
+                String address = job.get("direccion").toString();
+                String id_Muni = job.get("id_Municipio").toString();
+                System.out.println("Numero cliente: " + (i + 1));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void cargar_lugares(File archivo) {
+        try {
+            JSONParser parser = new JSONParser();
+            FileReader leido = new FileReader(archivo);
+            Object ob = parser.parse(leido);
+            JSONObject js = (JSONObject) ob;
+            String key = "";
+            JSONObject job;
+            key = "" + js.get("* * L U G A R E S * *");
+            Object obj = parser.parse(key);
+            JSONArray array = (JSONArray) obj;
+            System.out.println("Tamaño: " + array.size());
+            for (int i = 0; i < array.size(); i++) {
+                System.out.println("-----Lugar------");
+                job = (JSONObject) array.get(i);
+                String id = job.get("id").toString();
+                String name = job.get("nombre").toString();
+                String departamento = job.get("departamento").toString();
+                String sucursal = job.get("sn_sucursal").toString();
+                System.out.println("id: " + id + " Nombre: " + name);
+                System.out.println("Numero lugar: " + (i + 1));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void cargar_mensajeros(File archivo) throws FileNotFoundException, ParseException {
+        Scanner le = new Scanner(archivo);
+        String linea = "";
+        while (le.hasNextLine()) {
+            linea += le.nextLine() + "\n";
+        }
+        JSONParser parser = new JSONParser();
+        Object ob = parser.parse(linea);
+        JSONArray array = (JSONArray) ob;
+        JSONObject job;
+        String dpi = "", names = "", lastnames = "", license = "", gender = "", address = "", phone = "";
+        for (int i = 0; i < array.size(); i++) {
+            System.out.println("* * M E N S A J E R O S * *");
+            job = (JSONObject) array.get(i);
+            dpi = job.get("dpi").toString();
+            names = job.get("nombres").toString();
+            lastnames = job.get("apellidos").toString();
+            license = job.get("tipo_licencia").toString();
+            gender = job.get("genero").toString();
+            address = job.get("direccion").toString();
+            phone = job.get("telefono").toString();
+            System.out.println("Numero Mensajero: " + (i + 1));
+        }
+    }
+
+    public void cargar_rutas(File archivo) {
+        try {
+            JSONParser parser = new JSONParser();
+            FileReader read = new FileReader(archivo);
+            Object ob = parser.parse(read);
+            JSONObject js = (JSONObject) ob;
+            String key = "";
+            JSONObject job;
+            key = "" + js.get("Grafo");
+            Object obj = parser.parse(key);           
+            JSONArray array = (JSONArray) obj;
+            System.out.println("Tamaño: " + array.size());
+            for (int i = 0; i < array.size(); i++) {
+                System.out.println("* * R U T A * *");
+                job = (JSONObject) array.get(i);
+                String inicio = job.get("inicio").toString();
+                String fin = job.get("final").toString();
+                String peso = job.get("peso").toString();
+
+                System.out.println("Inicio: " + inicio + ", Final: " + fin + ", Peso: " + peso);
+                System.out.println("Numero Lugar: " + (i + 1));
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }

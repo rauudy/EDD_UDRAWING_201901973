@@ -22,19 +22,21 @@ public class Block {
     private String data;
     private long timeStamp;
     private int nonce;
+    private Block siguiente;
 
-    public Block(String data, String hash_ant, long timeStamp) {
-        this.data = data;
+    public Block() {
+        this.data = "";
         this.hash_ant = hash_ant;
         this.timeStamp = timeStamp;
         this.hash = calculateBlockHash();
+        this.siguiente = null;
     }
 
     public String calculateBlockHash() {
-        String dataToHash = hash_ant
-                + Long.toString(timeStamp)
-                + Integer.toString(nonce)
-                + data;
+        String dataToHash = getHash_ant()
+                + Long.toString(getTimeStamp())
+                + Integer.toString(getNonce())
+                + getData();
         MessageDigest digest = null;
         byte[] bytes = null;
         try {
@@ -54,9 +56,93 @@ public class Block {
     public String mineBlock(int prefix) {
         String prefixString = new String(new char[prefix]).replace('\0', '0');
         while (!hash.substring(0, prefix).equals(prefixString)) {
-            nonce++;
-            hash = calculateBlockHash();
+            setNonce(getNonce() + 1);
+            setHash(calculateBlockHash());
         }
+        return getHash();
+    }
+
+    /**
+     * @return the hash
+     */
+    public String getHash() {
         return hash;
+    }
+
+    /**
+     * @param hash the hash to set
+     */
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    /**
+     * @return the hash_ant
+     */
+    public String getHash_ant() {
+        return hash_ant;
+    }
+
+    /**
+     * @param hash_ant the hash_ant to set
+     */
+    public void setHash_ant(String hash_ant) {
+        this.hash_ant = hash_ant;
+    }
+
+    /**
+     * @return the data
+     */
+    public String getData() {
+        return data;
+    }
+
+    /**
+     * @param data the data to set
+     */
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    /**
+     * @return the timeStamp
+     */
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    /**
+     * @param timeStamp the timeStamp to set
+     */
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    /**
+     * @return the nonce
+     */
+    public int getNonce() {
+        return nonce;
+    }
+
+    /**
+     * @param nonce the nonce to set
+     */
+    public void setNonce(int nonce) {
+        this.nonce = nonce;
+    }
+
+    /**
+     * @return the siguiente
+     */
+    public Block getSiguiente() {
+        return siguiente;
+    }
+
+    /**
+     * @param siguiente the siguiente to set
+     */
+    public void setSiguiente(Block siguiente) {
+        this.siguiente = siguiente;
     }
 }

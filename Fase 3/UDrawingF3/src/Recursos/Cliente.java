@@ -19,7 +19,7 @@ public class Cliente {
     private String direccion;
     private String idMuni;
 
-    public Cliente() {
+    public Cliente(long dpi, String nombre, String pass) {
         this.dpi = dpi;
         this.telefono = telefono;
         this.nombre = nombre;

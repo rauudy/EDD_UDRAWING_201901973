@@ -103,7 +103,7 @@ public class Transicion {
      * transaccion
      */
     public byte[] getContenidoTransaccion() {
-        byte[] contenido;
+        byte[] contenido = null;
         return contenido;
     }
 
@@ -113,9 +113,7 @@ public class Transicion {
      *
      * @return Hash SHA256
      */
-    public byte[] calcularHashTransaccion() {
-        return DigestUtils.sha256(getContenidoTransaccion());
-    }
+    
 
     /**
      * Comprobar si una transacción es válida
@@ -129,13 +127,7 @@ public class Transicion {
         }
 
         // verificar firma
-        try {
-            if (!UtilidadesFirma.validarFirma(getContenidoTransaccion(), getFirma(), emisor)) {
-                return false;
-            }
-        } catch (Exception e) {
-            return false;
-        }
+        
 
         return true;
     }
@@ -162,5 +154,9 @@ public class Transicion {
     @Override
     public String toString() {
         return "{" + hash + ", " + emisor + ", " + destinatario + ", " + cantidad + ", " + firma + ", " + new Date(timestamp) + "}";
+    }
+
+    private byte[] calcularHashTransaccion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

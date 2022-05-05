@@ -230,7 +230,19 @@ public class Admin extends javax.swing.JFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         String dp = JOptionPane.showInputDialog("Número de DPI:");
-        
+        try {
+            long dpi = Long.parseLong(dp);
+            Cliente objetivo = Main.clientes.buscar(dpi);
+            if(objetivo != null){
+                ModCliente mod = new ModCliente();
+                mod.llenarlo(dpi, objetivo.getNombre(), objetivo.getUsuario(), objetivo.getCorreo(),objetivo.getContraseña(), objetivo.getTelefono() ,objetivo.getDireccion(),objetivo.getIdMuni());
+                mod.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(null, "DPI no encontrado.","ADMIN",JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "DPI incorrecto.","ADMIN",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -306,16 +318,35 @@ public class Admin extends javax.swing.JFrame {
         for (JsonElement obj : arr) {
             JsonObject gsonObj = obj.getAsJsonObject();
             long dpi = Long.parseLong(gsonObj.get("dpi").getAsString());
+            long tel = Long.parseLong(gsonObj.get("telefono").getAsString());
+            long muni = Long.parseLong(gsonObj.get("id_municipio").getAsString());
             String nombre = gsonObj.get("nombre_cliente").getAsString();
-            String contra = gsonObj.get("password").getAsString();  
-            Cliente n = new Cliente(dpi,nombre,contra);
-            //Main.clientes.insertar(n);
+            String contra = gsonObj.get("password").getAsString();
+            String correo = gsonObj.get("correo").getAsString();
+            String direc = gsonObj.get("direccion").getAsString();
+            String user = gsonObj.get("usuario").getAsString();
+            Cliente n = new Cliente(dpi,nombre,user,correo,contra,tel,direc,muni);
+            Main.clientes.insertar(n);
         }
         JOptionPane.showMessageDialog(null, "Clientes Generados Correctamente.","ADMIN",JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void verCliente(Cliente cliente){
-        
+        String resultado="digraph G{\n";        
+        resultado += "N0[shape=record,label=\"{DPI|NOMBRE|USER|CORREO|CONTRAEÑA|TELEFONO|DIRECCION|ID_MUNICIPIO}|{"+cliente.getDpi()+"|"+cliente.getNombre()+"|"+cliente.getUsuario()+"|"+cliente.getCorreo()+"|"+cliente.getContraseña()+"|"+cliente.getTelefono()+"|"+cliente.getDireccion()+"|"+cliente.getIdMuni()+"}\"]";
+        resultado+="\n}";
+        try {
+            String ruta = System.getProperty("user.dir") + "\\cliente.txt";
+            File file = new File(ruta);
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(resultado);
+            bw.close(); 
+            Main.graficarDot("cliente");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Main.cont = 0;
     }
 
 }

@@ -44,14 +44,14 @@ public class Registrar extends javax.swing.JFrame {
         btnCrear = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txtCel = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtMuni = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -81,9 +81,9 @@ public class Registrar extends javax.swing.JFrame {
 
         jLabel5.setText("Correo:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtCel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtCelActionPerformed(evt);
             }
         });
 
@@ -115,14 +115,14 @@ public class Registrar extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField2)
+                            .addComponent(txtDireccion)
+                            .addComponent(txtCel)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                             .addComponent(txtDpi)
                             .addComponent(txtPass)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5)))
+                            .addComponent(txtCorreo)
+                            .addComponent(txtMuni)
+                            .addComponent(txtUser)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(196, 196, 196)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -152,21 +152,21 @@ public class Registrar extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtMuni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addComponent(btnCrear)
@@ -198,17 +198,22 @@ public class Registrar extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
-        if(txtNombre.getText().equals("") || txtDpi.getText().equals("") || txtPass.getText().equals("")){
+        if(txtNombre.getText().equals("") || txtDpi.getText().equals("") || txtPass.getText().equals("") || txtCorreo.getText().equals("") || txtCel.getText().equals("") || txtDireccion.getText().equals("") || txtMuni.getText().equals("") || txtUser.getText().equals("") ){
             JOptionPane.showMessageDialog(null,"Ingrese Todos Los Campos","CLIENTE",JOptionPane.ERROR_MESSAGE);
         }else{
             try {
                 long dpi = Long.parseLong(txtDpi.getText());
                 String nombre = txtNombre.getText();
                 String pass = txtPass.getText();
-                Cliente nuevo = new Cliente(dpi,nombre,pass);
+                String correo = txtCorreo.getText();
+                long tel = Long.parseLong(txtCel.getText());
+                String direccion = txtDireccion.getText();
+                long muni = Long.parseLong(txtMuni.getText());
+                String user = txtUser.getText();
+                Cliente nuevo = new Cliente(dpi,nombre,user,correo,pass,tel,direccion,muni);
                 Cliente prueba = nuevo;//corregir
                 if(prueba==null){
-                    //Main.clientes.insertar(nuevo);              
+                    Main.clientes.insertar(nuevo);              
                     JOptionPane.showMessageDialog(null,"Usuario creado exitosamente.","CLIENTE",JOptionPane.INFORMATION_MESSAGE);
                     Inicio in = new Inicio();
                     in.setVisible(true);
@@ -223,9 +228,9 @@ public class Registrar extends javax.swing.JFrame {
                
     }//GEN-LAST:event_btnCrearActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtCelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtCelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,13 +283,13 @@ public class Registrar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField txtCel;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDpi;
+    private javax.swing.JTextField txtMuni;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,10 +5,21 @@
  */
 package Interfaz;
 
+import Estructuras.*;
+import Recursos.Cliente;
+import UDrawing.Main;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -52,34 +63,50 @@ public class Menu extends javax.swing.JFrame {
         jButton1.setText("Clientes");
 
         jButton2.setText("Lugares");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Mensajeros");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Rutas");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(36, 164, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(180, 180, 180))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)
+                            .addComponent(jButton3)
+                            .addComponent(jButton4)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(jLabel3)))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
                 .addComponent(jLabel3)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
@@ -103,6 +130,27 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        analizarLugares();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        analizarRutas();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            // TODO add your handling code here:
+            analizarMensajeros();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,7 +233,7 @@ public class Menu extends javax.swing.JFrame {
             JSONObject js = (JSONObject) ob;
             String key = "";
             JSONObject job;
-            key = "" + js.get("* * L U G A R E S * *");
+            key = "" + js.get("Lugares");
             Object obj = parser.parse(key);
             JSONArray array = (JSONArray) obj;
             System.out.println("Tamaño: " + array.size());
@@ -194,10 +242,13 @@ public class Menu extends javax.swing.JFrame {
                 job = (JSONObject) array.get(i);
                 String id = job.get("id").toString();
                 String name = job.get("nombre").toString();
-                String departamento = job.get("departamento").toString();
+                String depa = job.get("departamento").toString();
                 String sucursal = job.get("sn_sucursal").toString();
-                System.out.println("id: " + id + " Nombre: " + name);
-                System.out.println("Numero lugar: " + (i + 1));
+                System.out.println("Departamento: " + depa + ", Nombre: " + name + ", Sucursal: " + sucursal);
+                System.out.println("No." + (i + 1));
+                
+                System.out.println("");
+                
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -225,6 +276,8 @@ public class Menu extends javax.swing.JFrame {
             gender = job.get("genero").toString();
             address = job.get("direccion").toString();
             phone = job.get("telefono").toString();
+            
+            System.out.println("Nombre: " + names + ", Licencia Tipo:" + license);
             System.out.println("Numero Mensajero: " + (i + 1));
         }
     }
@@ -238,9 +291,10 @@ public class Menu extends javax.swing.JFrame {
             String key = "";
             JSONObject job;
             key = "" + js.get("Grafo");
-            Object obj = parser.parse(key);           
+            Object obj = parser.parse(key);
             JSONArray array = (JSONArray) obj;
             System.out.println("Tamaño: " + array.size());
+            Routes rut = new Routes();
             for (int i = 0; i < array.size(); i++) {
                 System.out.println("* * R U T A * *");
                 job = (JSONObject) array.get(i);
@@ -250,10 +304,76 @@ public class Menu extends javax.swing.JFrame {
 
                 System.out.println("Inicio: " + inicio + ", Final: " + fin + ", Peso: " + peso);
                 System.out.println("Numero Lugar: " + (i + 1));
+
+                
+                rut.addRoutes(Integer.parseInt(inicio), Integer.parseInt(fin), Integer.parseInt(peso));
+                //System.out.println("CARGADO");
             }
-        }
-        catch (Exception e) {
+            //rut.createGrafoMap("Admin");
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
+
+    public static String leer() {
+        int n = 0;
+        Scanner entrada = null;
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        String t = "";
+        try {
+            String ruta = fileChooser.getSelectedFile().getAbsolutePath();
+            File f = new File(ruta);
+            entrada = new Scanner(f);
+            while (entrada.hasNext()) {
+                if (n == 0) {
+                    t += entrada.nextLine();
+                } else {
+                    t += "\n" + entrada.nextLine();
+                }
+                n += 1;
+            }
+            return t;
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (NullPointerException e) {
+            System.out.println("No se ha seleccionado ningún fichero");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (entrada != null) {
+                entrada.close();
+            }
+        }
+        return "";
+    }
+
+    public void analizarRutas() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        String ruta = fileChooser.getSelectedFile().getAbsolutePath();
+        File f = new File(ruta);
+        cargar_rutas(f);
+    }
+    
+    public void analizarLugares() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        String ruta = fileChooser.getSelectedFile().getAbsolutePath();
+        File f = new File(ruta);
+        cargar_lugares(f);
+    }
+    
+    public void analizarMensajeros() throws FileNotFoundException, ParseException {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        String ruta = fileChooser.getSelectedFile().getAbsolutePath();
+        File f = new File(ruta);
+        cargar_mensajeros(f);
+    }
+    
+    
+    
+    
+
 }

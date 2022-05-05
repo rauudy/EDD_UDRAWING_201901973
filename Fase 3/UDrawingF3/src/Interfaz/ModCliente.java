@@ -41,11 +41,11 @@ public class ModCliente extends javax.swing.JFrame {
         txtdpi = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtPass = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txtCel = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        txtMuni = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -99,11 +99,11 @@ public class ModCliente extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)
+                            .addComponent(txtUser)
+                            .addComponent(txtMuni)
+                            .addComponent(txtDireccion)
+                            .addComponent(txtCel)
+                            .addComponent(txtCorreo)
                             .addComponent(txtdpi)
                             .addComponent(txtNombre)
                             .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)))
@@ -137,22 +137,22 @@ public class ModCliente extends javax.swing.JFrame {
                             .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMuni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(btnModificar)
@@ -175,7 +175,38 @@ public class ModCliente extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        
+        if(txtdpi.getText() != null && txtNombre.getText() != null && txtPass.getText() != null && txtCel.getText() != null && txtCorreo.getText() != null && txtDireccion.getText() != null && txtMuni.getText() != null && txtUser.getText() != null ){
+            try {
+                String dd = txtdpi.getText();
+                long dpi = Long.parseLong(dd);
+                String nombre = txtNombre.getText();
+                String contra = txtPass.getText();
+                String correo = txtCorreo.getText();
+                long tel = Long.parseLong(txtCel.getText());
+                String direccion = txtDireccion.getText();
+                long muni = Long.parseLong(txtMuni.getText());
+                String user = txtUser.getText();
+                
+                Cliente actual = Main.clientes.buscar(dpi);
+                
+                actual.setNombre(nombre);
+                actual.setContraseña(contra);
+                actual.setCorreo(correo);
+                actual.setDireccion(direccion);
+                actual.setIdMuni(muni);
+                actual.setTelefono(tel);
+                actual.setUsuario(user);
+                
+                Main.clientes.actualizar(actual);
+                
+                JOptionPane.showMessageDialog(null, "Cliente Modificado.","MODIFICAR",JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error","ADMIN",JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Complete...","ADMIN",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
@@ -226,20 +257,25 @@ public class ModCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField txtCel;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtMuni;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPass;
+    private javax.swing.JTextField txtUser;
     private javax.swing.JTextField txtdpi;
     // End of variables declaration//GEN-END:variables
 
-    public void llenarlo(Long dpi, String nombre, String pass){
+    public void llenarlo(Long dpi, String nombre, String user, String correo, String pass, Long tel, String direccion, long muni){
         txtdpi.setText(String.valueOf(dpi));
+        txtCel.setText(String.valueOf(dpi));
+        txtMuni.setText(String.valueOf(muni));
         txtNombre.setText(nombre);
         txtPass.setText(pass);
+        txtCorreo.setText(correo);
+        txtDireccion.setText(direccion);
+        txtUser.setText(user);
     }
     
 }

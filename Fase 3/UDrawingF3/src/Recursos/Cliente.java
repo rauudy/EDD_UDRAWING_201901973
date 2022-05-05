@@ -5,6 +5,8 @@
  */
 package Recursos;
 
+import Interfaz.Menu;
+
 /**
  *
  * @author DELL
@@ -12,14 +14,15 @@ package Recursos;
 public class Cliente {
     private long dpi;
     private long telefono;
+    private long idMuni;
     private String nombre;
     private String usuario;
     private String correo;
     private String contraseña;
     private String direccion;
-    private String idMuni;
+    
 
-    public Cliente(long dpi, String nombre, String pass) {
+    public Cliente(long dpi, String nombre, String usuario, String correo, String contraseña, long telefono, String direccion, long idMuni) {
         this.dpi = dpi;
         this.telefono = telefono;
         this.nombre = nombre;
@@ -127,20 +130,35 @@ public class Cliente {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
+    
     /**
      * @return the idMuni
      */
-    public String getIdMuni() {
+    public long getIdMuni() {
         return idMuni;
     }
 
     /**
      * @param idMuni the idMuni to set
      */
-    public void setIdMuni(String idMuni) {
+    public void setIdMuni(long idMuni) {
         this.idMuni = idMuni;
     }
+
     
+    
+    
+    //--------------------------------------------------
+    
+    public void abrirVentana(){
+        Menu men = new Menu();
+        men.setVisible(true);
+        //capas.mostrarCapas(men);
+        //imagenes.mostrarImgs(men);
+    }
+
+    
+
+   
     
 }

@@ -38,7 +38,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtDpi = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         txtPass = new javax.swing.JTextField();
         btnEntrar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
@@ -50,13 +50,13 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setText("UDrawing Paper");
 
-        jLabel2.setText("DPI:");
+        jLabel2.setText("Usuario:");
 
         jLabel3.setText("Password:");
 
-        txtDpi.addActionListener(new java.awt.event.ActionListener() {
+        txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDpiActionPerformed(evt);
+                txtUserActionPerformed(evt);
             }
         });
 
@@ -90,7 +90,7 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDpi)
+                            .addComponent(txtUser)
                             .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(148, 148, 148)
@@ -107,7 +107,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(93, 93, 93)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtDpi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -135,7 +135,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-        String usuario = txtDpi.getText();
+        String usuario = txtUser.getText();
         String contra = txtPass.getText();
         
         if(usuario.equals("1999")){
@@ -144,6 +144,23 @@ public class Inicio extends javax.swing.JFrame {
                 admin.setVisible(true);
                 dispose();
             }
+        }else{
+            long user = Long.parseLong(usuario);
+            Cliente cl = Main.clientes.buscar(user);
+            
+                if(cl!=null){
+                    //cl.imprimir();
+                    if(cl.getContraseña().equals(contra)){
+                        Main.actual = cl;
+                        Main.actual.abrirVentana();
+                        dispose();
+                        JOptionPane.showMessageDialog(null, "Bienvenido "+cl.getNombre(),"CLIENTE",JOptionPane.INFORMATION_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "User o contraseña Incorrecto","INICIO",JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "User o Contraseña Incorrecto","INICIO",JOptionPane.ERROR_MESSAGE);
+                }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
@@ -153,9 +170,9 @@ public class Inicio extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    private void txtDpiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDpiActionPerformed
+    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDpiActionPerformed
+    }//GEN-LAST:event_txtUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,8 +219,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtDpi;
     private javax.swing.JTextField txtPass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 
     

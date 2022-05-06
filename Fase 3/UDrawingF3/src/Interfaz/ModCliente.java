@@ -175,6 +175,7 @@ public class ModCliente extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        /*
         if(txtdpi.getText() != null && txtNombre.getText() != null && txtPass.getText() != null && txtCel.getText() != null && txtCorreo.getText() != null && txtDireccion.getText() != null && txtMuni.getText() != null && txtUser.getText() != null ){
             try {
                 String dd = txtdpi.getText();
@@ -206,6 +207,55 @@ public class ModCliente extends javax.swing.JFrame {
             }
         }else{
             JOptionPane.showMessageDialog(null, "Complete...","ADMIN",JOptionPane.ERROR_MESSAGE);
+        }*/
+
+        if (txtdpi.getText() != null && txtNombre.getText() != null && txtPass.getText() != null && txtCel.getText() != null && txtCorreo.getText() != null && txtDireccion.getText() != null && txtMuni.getText() != null && txtUser.getText() != null ) {
+            try {
+                String no = txtdpi.getText();
+                Long dpi = Long.parseLong(no);
+                String nombre = txtNombre.getText();
+                String usuario = txtUser.getText();
+                String correo = txtCorreo.getText();
+                String contra = txtPass.getText();
+                String telefono = txtCel.getText();
+                Long cel = Long.parseLong(telefono);
+                String dir = txtDireccion.getText();
+                int mun = Integer.parseInt(txtMuni.getText());
+
+                Cliente actuall = Main.actual;
+                actuall.setDpi(dpi);
+                actuall.setNombre(nombre);
+                actuall.setUsuario(usuario);
+                actuall.setCorreo(correo);
+                //actualizado.setContra(dpi);
+                actuall.setTelefono(cel);
+                actuall.setDireccion(dir);
+                actuall.setIdMuni(mun);
+
+                boolean encontrado = false;
+                for (int i = 0; i < Main.clientesC.size(); i++) {
+                    Cliente n = Main.clientesC.get(i);
+                    if (n != null) {
+                        if (n.getDpi() == dpi) {
+                            Main.clientesC.set(i, actuall);
+                            encontrado = true;
+                            Main.actual = actuall;
+                            JOptionPane.showMessageDialog(null, "Cliente Modificado.", "Mod", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        }
+                    }
+                }
+
+                if (!encontrado) {
+                    JOptionPane.showMessageDialog(null, "Error.", "Admin", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    dispose();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error.", "Admin", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Complete datos", "Admin", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -267,9 +317,9 @@ public class ModCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtdpi;
     // End of variables declaration//GEN-END:variables
 
-    public void llenarlo(Long dpi, String nombre, String user, String correo, String pass, Long tel, String direccion, long muni){
+    public void llenarlo(Long dpi, String nombre, String user, String correo, String pass, Long tel, String direccion, long muni) {
         txtdpi.setText(String.valueOf(dpi));
-        txtCel.setText(String.valueOf(dpi));
+        txtCel.setText(String.valueOf(tel));
         txtMuni.setText(String.valueOf(muni));
         txtNombre.setText(nombre);
         txtPass.setText(pass);
@@ -277,5 +327,5 @@ public class ModCliente extends javax.swing.JFrame {
         txtDireccion.setText(direccion);
         txtUser.setText(user);
     }
-    
+
 }

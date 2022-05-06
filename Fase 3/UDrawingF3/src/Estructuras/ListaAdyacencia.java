@@ -116,9 +116,7 @@ public class ListaAdyacencia {
             Vertice nv = (Vertice) aux.info;
             nodos += "N" + aux.hashCode() + "[label=\"" + nv.vert + "\",style=\"filled\", fillcolor=\"#A4EEFB\"];\n";
             String anterior = "N" + aux.hashCode();
-
             Nodo destino = nv.destinos.raiz;
-
             while (destino != null) {
                 nodos += "\nN" + destino.hashCode() + "[label=\"" + ((Destino) destino.info).des + "\"];";
                 conexiones += anterior + "->N" + destino.hashCode() + ";\n";

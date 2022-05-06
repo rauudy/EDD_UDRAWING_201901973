@@ -1,0 +1,5 @@
+digraph G{
+label="Lista De Adyacencia";
+N27->N8[label="394",dir=none];
+
+}

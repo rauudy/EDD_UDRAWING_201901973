@@ -46,8 +46,8 @@ public class Menu extends javax.swing.JFrame {
         super("Usuario");
         initComponents();
         setLocationRelativeTo(null);
-        lblDestinoID.setText(String.valueOf(Main.actual.getIdMuni()));
-        lblClienteF.setText(Main.actual.getNombre());
+        //lblDestinoID.setText(String.valueOf(Main.actual.getIdMuni()));
+        //lblClienteF.setText(Main.actual.getNombre());
         
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
         lblFecha.setText(timeStamp);
@@ -78,6 +78,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         lblClienteF = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,8 +155,8 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(0, 95, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(117, 117, 117)
-                .addComponent(jButton1)
+                .addGap(112, 112, 112)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -188,6 +189,13 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -202,7 +210,9 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(140, 140, 140)
-                        .addComponent(btnMod)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -214,7 +224,9 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnMod)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -246,7 +258,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yy::HH:mm:ss");
+        DateTimeFormatter fe = DateTimeFormatter.ofPattern("dd-MM-yy::HH:mm:ss");
         if(comboSucursal.getSelectedItem() == null || comboMensajero.getSelectedItem() == null){
             JOptionPane.showMessageDialog(null, "No Suficientes Datos.","Cliente",JOptionPane.ERROR_MESSAGE);
         }else{
@@ -276,12 +288,11 @@ public class Menu extends javax.swing.JFrame {
                     } 
                 }          
             }
-            String hora = dtf.format(LocalDateTime.now());
+            String hora = fe.format(LocalDateTime.now());
             String solicitud = sede+Main.actual.getDireccion()+hora+Main.actual.getNombre()+men;
             Main.arbol.agregar(solicitud);
             Entrega nentrega = new Entrega(sede,Main.actual.getDireccion(),hora,Main.actual.getNombre(),men);
             Main.entregas.add(nentrega);
-            
             for(Cliente cliente :Main.clientesC){
                 if(cliente.getDpi()==Main.actual.getDpi()){
                     cliente.solicitar();
@@ -292,6 +303,13 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Solicitud realizada correctamente","Cliente",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Inicio in = new Inicio();
+        in.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,9 +348,10 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMod;
-    private javax.swing.JComboBox<String> comboMensajero;
-    private javax.swing.JComboBox<String> comboSucursal;
+    public static javax.swing.JComboBox<String> comboMensajero;
+    public static javax.swing.JComboBox<String> comboSucursal;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -342,8 +361,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblClienteF;
-    private javax.swing.JLabel lblDestinoID;
+    public static javax.swing.JLabel lblClienteF;
+    public static javax.swing.JLabel lblDestinoID;
     private javax.swing.JLabel lblFecha;
     // End of variables declaration//GEN-END:variables
 

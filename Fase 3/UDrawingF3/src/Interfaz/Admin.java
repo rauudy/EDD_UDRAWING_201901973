@@ -19,6 +19,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import Recursos.*;
 import UDrawing.*;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -46,8 +47,7 @@ public class Admin extends javax.swing.JFrame {
         super("EL ADMIN");
         initComponents();
         setLocationRelativeTo(null);
-        
-        
+
     }
 
     /**
@@ -153,7 +153,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(91, 91, 91)
                 .addComponent(btnBloquee, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir)
@@ -304,18 +304,18 @@ public class Admin extends javax.swing.JFrame {
         fileChooser.showOpenDialog(fileChooser);
         String t = "";
         try {
-            String ruta = fileChooser.getSelectedFile().getAbsolutePath();                                        
+            String ruta = fileChooser.getSelectedFile().getAbsolutePath();
             File f = new File(ruta);
             entrada = new Scanner(f);
             while (entrada.hasNext()) {
-                if(cont==0){
+                if (cont == 0) {
                     t += entrada.nextLine();
-                }else{
+                } else {
                     t += "\n" + entrada.nextLine();
                 }
                 cont++;
             }
-            
+
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (NullPointerException e) {
@@ -327,7 +327,7 @@ public class Admin extends javax.swing.JFrame {
                 entrada.close();
             }
         }
-        
+
         addClientes(t);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -359,16 +359,16 @@ public class Admin extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        Main.graphMensajeros();     
+        Main.graphMensajeros();
         try {
-           Thread.sleep(2*1000);
+            Thread.sleep(2 * 1000);
         } catch (Exception e) {
-           System.out.println(e);
+            System.out.println(e);
         }
-        ImageIcon imgIcon = new ImageIcon(System.getProperty("user.dir") + "\\mensajeros.png");
-        Image imgEscalada = imgIcon.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), Image.SCALE_SMOOTH);
-        Icon iconoEscalado = new ImageIcon(imgEscalada);
-        imagenMostrada.setIcon(iconoEscalado);
+        ImageIcon ic = new ImageIcon(System.getProperty("user.dir") + "\\mensajeros.png");
+        Image es = ic.getImage().getScaledInstance(imagenMostrada.getWidth(), imagenMostrada.getHeight(), Image.SCALE_SMOOTH);
+        Icon esss = new ImageIcon(es);
+        imagenMostrada.setIcon(esss);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
@@ -383,15 +383,15 @@ public class Admin extends javax.swing.JFrame {
         try {
             long dpi = Long.parseLong(dp);
             Cliente objetivo = Main.clientes.buscar(dpi);
-            if(objetivo != null){
+            if (objetivo != null) {
                 ModCliente mod = new ModCliente();
-                mod.llenarlo(dpi, objetivo.getNombre(), objetivo.getUsuario(), objetivo.getCorreo(),objetivo.getContraseña(), objetivo.getTelefono() ,objetivo.getDireccion(),objetivo.getIdMuni());
+                mod.llenarlo(dpi, objetivo.getNombre(), objetivo.getUsuario(), objetivo.getCorreo(), objetivo.getContraseña(), objetivo.getTelefono(), objetivo.getDireccion(), objetivo.getIdMuni());
                 mod.setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(null, "DPI no encontrado.","ADMIN",JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "DPI no encontrado.", "ADMIN", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "DPI incorrecto.","ADMIN",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "DPI incorrecto.", "ADMIN", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
@@ -400,61 +400,73 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         Main.clientes.graficar("Clientes");
         try {
-            Thread.sleep(2*1000);
-         } catch (Exception e) {
+            Thread.sleep(2 * 1000);
+        } catch (Exception e) {
             System.out.println(e);
-         }
+        }
         ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\Clientes.png");
-        java.awt.Image imgfull = imgg.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(imagenMostrada.getWidth(), imagenMostrada.getHeight(), java.awt.Image.SCALE_SMOOTH);
         Icon full = new ImageIcon(imgfull);
         imagenMostrada.setIcon(full);
-        
+
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void btnBloqueeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBloqueeActionPerformed
         // TODO add your handling code here:
         Main.blockchein.crearBloque();
-        JOptionPane.showMessageDialog(null, "Se creo un bloque manualmente.","Administrador",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Se creo un bloque manualmente", "Admin", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnBloqueeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            String t = JOptionPane.showInputDialog("Escriba el tiempo en milisegundos");
-            int ntiempo = Integer.parseInt(t);
-            //System.out.println(ntiempo);
+            String t = JOptionPane.showInputDialog("Ingrese tiempo en milisegundos");
+            int tim = Integer.parseInt(t);
             Main.tiempooooo.stop();
-            Main.tiempooooo.setDelay(ntiempo);
+            Main.tiempooooo.setDelay(tim);
             Main.tiempooooo.start();
-            JOptionPane.showMessageDialog(null, "El tiempo de creación cambio a " + ntiempo + " milisegundos.","Admin",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El tiempo de creación cambio a " + tim + " milisegundos.", "Admin", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ingrese bien.","Admin",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ingrese bien.", "Admin", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
-        if(Main.rutas.tamano() != 0){
+        if (Main.rutas.tamanio() != 0) {
             Main.listaAD = new ListaAdyacencia();
             Main.listaAD.generar(Main.rutas);
-            //EDDProyectoF3.milista.imprimir();
             Main.listaAD.graficar();
             try {
-               Thread.sleep(2*1000);
+                Thread.sleep(2 * 1000);
             } catch (Exception e) {
-               System.out.println(e);
+                System.out.println(e);
             }
             ImageIcon ico = new ImageIcon(System.getProperty("user.dir") + "\\adyacencia.png");
-            Image esc = ico.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), Image.SCALE_SMOOTH);
-            Icon iconoEscalado = new ImageIcon(esc);
-            imagenMostrada.setIcon(iconoEscalado);
-        }else{
-            JOptionPane.showMessageDialog(null, "No hay rutas.","Admin",JOptionPane.ERROR_MESSAGE);
+            Image esc = ico.getImage().getScaledInstance(imagenMostrada.getWidth(), imagenMostrada.getHeight(), Image.SCALE_SMOOTH);
+            Icon ess = new ImageIcon(esc);
+            imagenMostrada.setIcon(ess);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay rutasss", "Admin", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
+        if (Main.rutas.tamanio() != 0) {
+            Main.rutas.grafo();
+            try {
+                Thread.sleep(2 * 1000);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            ImageIcon ico = new ImageIcon(System.getProperty("user.dir") + "\\grafo.png");
+            Image es = ico.getImage().getScaledInstance(imagenMostrada.getWidth(), imagenMostrada.getHeight(), Image.SCALE_SMOOTH);
+            Icon esss = new ImageIcon(es);
+            imagenMostrada.setIcon(esss);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay rutas", "Admin", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -526,7 +538,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-    public static void addClientes(String text){
+    public static void addClientes(String text) {
         JsonParser pr = new JsonParser();
         JsonArray arr = pr.parse(text).getAsJsonArray();
         for (JsonElement obj : arr) {
@@ -539,30 +551,36 @@ public class Admin extends javax.swing.JFrame {
             String correo = gsonObj.get("correo").getAsString();
             String direc = gsonObj.get("direccion").getAsString();
             String user = gsonObj.get("usuario").getAsString();
-            Cliente n = new Cliente(dpi,nombre,user,correo,contra,tel,direc,muni);
+            Cliente n = new Cliente(dpi, nombre, user, correo, contra, tel, direc, muni);
             Main.clientes.insertar(n);
+            
+            String password = BCrypt.withDefaults().hashToString(12, contra.toCharArray());
+            Cliente ccc = new Cliente(dpi,nombre,user,correo, password, tel, direc, muni);
+            Main.clientesC.add(ccc);
+            
+            
         }
-        JOptionPane.showMessageDialog(null, "Clientes Generados Correctamente.","ADMIN",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Clientes Generados Correctamente.", "ADMIN", JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    public void verCliente(Cliente cliente){
-        String resultado="digraph G{\n";        
-        resultado += "N0[shape=record,label=\"{DPI|NOMBRE|USER|CORREO|CONTRAEÑA|TELEFONO|DIRECCION|ID_MUNICIPIO}|{"+cliente.getDpi()+"|"+cliente.getNombre()+"|"+cliente.getUsuario()+"|"+cliente.getCorreo()+"|"+cliente.getContraseña()+"|"+cliente.getTelefono()+"|"+cliente.getDireccion()+"|"+cliente.getIdMuni()+"}\"]";
-        resultado+="\n}";
+
+    public void verCliente(Cliente cliente) {
+        String resultado = "digraph G{\n";
+        resultado += "N0[shape=record,label=\"{DPI|NOMBRE|USER|CORREO|CONTRAEÑA|TELEFONO|DIRECCION|ID_MUNICIPIO}|{" + cliente.getDpi() + "|" + cliente.getNombre() + "|" + cliente.getUsuario() + "|" + cliente.getCorreo() + "|" + cliente.getContraseña() + "|" + cliente.getTelefono() + "|" + cliente.getDireccion() + "|" + cliente.getIdMuni() + "}\"]";
+        resultado += "\n}";
         try {
             String ruta = System.getProperty("user.dir") + "\\cliente.txt";
             File file = new File(ruta);
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(resultado);
-            bw.close(); 
+            bw.close();
             Main.graficarDot("cliente");
         } catch (Exception e) {
             e.printStackTrace();
         }
         Main.cont = 0;
     }
-    
+
     public void cargar_lugares(File archivo) {
         try {
             JSONParser parser = new JSONParser();
@@ -579,25 +597,29 @@ public class Admin extends javax.swing.JFrame {
                 System.out.println("-----**LUGAR**------");
                 job = (JSONObject) array.get(i);
                 String id = job.get("id").toString();
-                String name = job.get("nombre").toString();
+                String nombre = job.get("nombre").toString();
                 String depa = job.get("departamento").toString();
                 String sucursal = job.get("sn_sucursal").toString();
-                System.out.println("Departamento: " + depa + ", Nombre: " + name + ", Sucursal: " + sucursal);
+                System.out.println("Departamento: " + depa + ", Nombre: " + nombre + ", Sucursal: " + sucursal);
                 System.out.println("No." + (i + 1));
 
                 System.out.println("");
-                
+                int idd = Integer.parseInt(id);
+
+                Lugar lgr = new Lugar(idd, depa, nombre, sucursal);
+                Main.lugares.add(lgr);
+
                 if (sucursal.equals("si")) {
-                    //comboSucursal.addItem(""+depa+", "+ name);
+                    //Menu.comboSucursal.addItem(""+depa+", "+ name);
                 } else {
                 }
-                
+
             }
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     public void cargar_mensajeros(File archivo) throws FileNotFoundException, ParseException {
         Scanner le = new Scanner(archivo);
         String linea = "";
@@ -612,7 +634,7 @@ public class Admin extends javax.swing.JFrame {
         //TablaHash tb = new TablaHash(array.size());
         //TbHash hh = new TbHash(array.size());
         Tabla tttt = new Tabla(array.size());
-        
+
         for (int i = 0; i < array.size(); i++) {
             System.out.println("* * M E N S A J E R O S * *");
             job = (JSONObject) array.get(i);
@@ -624,7 +646,6 @@ public class Admin extends javax.swing.JFrame {
             direccion = job.get("direccion").toString();
             telefono = job.get("telefono").toString();
             BigInteger dp = new BigInteger(dpi);
-            
 
             System.out.println("Nombre: " + nombres + ", Licencia Tipo:" + licencia);
             System.out.println("Numero Mensajero: " + (i + 1));
@@ -632,13 +653,15 @@ public class Admin extends javax.swing.JFrame {
             Mensajero n = new Mensajero(Long.parseLong(dpi), nombres, apellidos, licencia, genero, telefono, direccion);
             Men nn = new Men(dp, nombres, apellidos, licencia, genero, telefono, direccion);
 
-            //comboMensajero.addItem(""+nombres+" "+ apellidos);
+            Mensajero nm = new Mensajero(Long.parseLong(dpi), nombres, apellidos, licencia, genero, direccion, telefono);
+            Main.addMensajero(nm);
+
+            //Menu.comboMensajero.addItem(""+nombres+" "+ apellidos);
             //tb.insertar(dp, n);
             //tttt.add(nn);
-
         }
     }
-    
+
     public void cargar_rutas(File archivo) {
         try {
             JSONParser parser = new JSONParser();
@@ -652,9 +675,8 @@ public class Admin extends javax.swing.JFrame {
             JSONArray array = (JSONArray) obj;
             System.out.println("Tamaño: " + array.size());
 
-            Routes rut = new Routes();
+            //Routes rut = new Routes();
             //ListaAdyacencia la = new ListaAdyacencia(array.size());
-
             for (int i = 0; i < array.size(); i++) {
                 System.out.println("* * R U T A * *");
                 job = (JSONObject) array.get(i);
@@ -665,9 +687,15 @@ public class Admin extends javax.swing.JFrame {
                 System.out.println("Inicio: " + inicio + ", Final: " + fin + ", Peso: " + peso);
                 System.out.println("Numero Lugar: " + (i + 1));
 
-                rut.addRoutes(Integer.parseInt(inicio), Integer.parseInt(fin), Integer.parseInt(peso));
+                int ini = Integer.parseInt(inicio);
+                int fn = Integer.parseInt(fin);
+                int wg = Integer.parseInt(peso);
+
+                //rut.addRoutes(Integer.parseInt(inicio), Integer.parseInt(fin), Integer.parseInt(peso));
                 //System.out.println("CARGADO");
                 //la.insertaArista(Integer.parseInt(inicio), Integer.parseInt(fin), Integer.parseInt(peso));
+                Ruta rutaa = new Ruta(ini, fn, wg);
+                Main.rutas.add(rutaa);
             }
             //rut.createGrafoMap("Admin");
             //la.impMatrix();
@@ -675,17 +703,17 @@ public class Admin extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-    
-    public void analizarLugares(){
+
+    public void analizarLugares() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showOpenDialog(fileChooser);
         String ruta = fileChooser.getSelectedFile().getAbsolutePath();
         File f = new File(ruta);
         cargar_lugares(f);
         //JOptionPane.showMessageDialog(null, "Lugares Generados Correctamente.", Main.actual.getUsuario(), JOptionPane.INFORMATION_MESSAGE);
-    
+
     }
-    
+
     public void analizarMensajeros() throws FileNotFoundException, ParseException {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showOpenDialog(fileChooser);

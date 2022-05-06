@@ -23,13 +23,11 @@ public class Tabla {
         }
     }
 
-    // Eliminar información emp de la tabla hash de acuerdo con la identificación
     public void deleteById(int id) {
         int is = hashFun(id);
         empLinkedListArray[is].deleteEmpById(id);
     }
 
-    // Encuentra información emp de la tabla hash según id
     public void findEmpById(int id) {
         int is = hashFun(id);
         Men emp = empLinkedListArray[is].findEmpById(id);
@@ -38,7 +36,6 @@ public class Tabla {
         }
     }
 
-    // Recorrer la tabla hash
     public void list() {
         for (int i = 0; i < size; i++) {
             empLinkedListArray[i].list(i);
@@ -51,7 +48,6 @@ public class Tabla {
         empLinkedListArray[empLinkedListNO].add(emp);
     }
 
-    // Escribe una función hash y usa un método de módulo simple
     private int hashFun(int id) {
         return id % size;
     }

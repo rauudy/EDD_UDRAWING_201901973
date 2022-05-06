@@ -67,7 +67,7 @@ public class Lugar {
     /**
      * @return the sucursal
      */
-    public String isSucursal() {
+    public String getSucursal() {
         return sucursal;
     }
 

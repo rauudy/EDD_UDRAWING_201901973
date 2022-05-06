@@ -37,19 +37,19 @@ public class Lista {
         }
         else{
             Nodo aux = raiz;
-            while(aux.next != null){
+            while(aux != null){//----------
                 aux=aux.next;
             }
             aux.next = nodonuevo;
         }
     }
     
-    public int tamano(){
+    public int tamanio(){
         int c = 0;
         Nodo aux = raiz;
-        while(aux.next != null){
-            c += 1;
+        while(aux != null){//----
             aux=aux.next;
+            c += 1;
         }
         return c;
     }
@@ -66,23 +66,18 @@ public class Lista {
         return false;
     }
     
-    public void graficarGrafo(){
-        String resultado="digraph G{\nlabel=\"Lista De Adyacencia\";\n";        
-
+    public void grafo(){
+        String resultado="digraph G{\nlabel=\"Lista De Adyacencia\";\n";   
         Nodo aux = raiz;    
         while(aux!=null){
             Ruta rout = (Ruta)aux.info;
             resultado += "N"+rout.getInicio()+"->N"+rout.getFin()+"[label=\""+rout.getPeso()+"\",dir=none];\n";                 
             aux = aux.next;
         }
-        
-        
         resultado+="\n}";
-        
         try {
             String ruta = System.getProperty("user.dir") + "\\grafo.txt";
             File file = new File(ruta);
-            
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(resultado);

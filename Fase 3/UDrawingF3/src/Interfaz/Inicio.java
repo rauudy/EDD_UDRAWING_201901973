@@ -5,8 +5,10 @@
 package Interfaz;
 
 import Recursos.Cliente;
+import Recursos.Mensajero;
 import javax.swing.JOptionPane;
 import UDrawing.*;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 /**
  *
@@ -135,6 +137,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
+        /*
         String usuario = txtUser.getText();
         String contra = txtPass.getText();
         
@@ -162,6 +165,52 @@ public class Inicio extends javax.swing.JFrame {
                 }else{
                     JOptionPane.showMessageDialog(null, "User o Contraseña Incorrecto","INICIO",JOptionPane.ERROR_MESSAGE);
                 }
+        }*/
+        
+        String usuario = txtUser.getText();
+        String contra = txtPass.getText();
+
+        if(usuario.equals("ra") && contra.equals("2022")){
+            Admin a = new Admin();
+            a.setVisible(true);
+            dispose();
+        }else{
+            boolean cbus = false;
+            for(int i=0;i<Main.clientesC.size();i++){
+                Cliente cc = Main.clientesC.get(i);
+                String usuer = cc.getUsuario();
+                if(usuario.equals(usuer)){
+                    String pas = cc.getContraseña();
+                    BCrypt.Result result = BCrypt.verifyer().verify(contra.toCharArray(), pas);
+                    if(result.verified){
+                        Menu usu = new Menu();
+                        usu.setVisible(true);
+                        usu.lblClienteF.setText(cc.getNombre());
+                        usu.lblDestinoID.setText(String.valueOf(cc.getIdMuni()));
+                        for(int j= 0; j<Main.lugares.size();j++){
+                            if((Main.lugares.get(j)).getSucursal().equals("si")){
+                                String ll = (Main.lugares.get(j)).getId() + ". "+(Main.lugares.get(j)).getNombre();
+                                usu.comboSucursal.addItem(ll);
+                            }
+                        }
+                        for(int j= 0; j<Main.mensajeros.size();j++){
+                            Mensajero nn = Main.mensajeros.get(j);
+                            if(nn!=null){
+                                String ll = nn.getNombres()+ " - "+nn.getDpi();
+                                usu.comboMensajero.addItem(ll); 
+                            }                         
+                        }        
+                        cbus = true;                      
+                        dispose();
+                        JOptionPane.showMessageDialog(null, "Bienvenido " + cc.getNombre(),"Usuario",JOptionPane.INFORMATION_MESSAGE);
+                        Main.actual = cc;
+                    }
+                    break;
+                }
+            }
+            if(!cbus){
+                JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta","Inicio",JOptionPane.ERROR_MESSAGE);
+            }         
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 

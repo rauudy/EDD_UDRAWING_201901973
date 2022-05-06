@@ -21,6 +21,7 @@ import UDrawing.*;
  * @author DELL
  */
 public class Blockchain {
+    
     Nodo genesis;
     int index;
     
@@ -59,7 +60,7 @@ public class Blockchain {
             while(aux.next!=null){
                 aux = aux.next;
             }
-            return aux.info.hash;
+            return aux.info.getHash();
         }
     }
     
@@ -105,15 +106,11 @@ public class Blockchain {
         }
         
         ArrayList<Entrega> et = Main.entregas;
-        
         Bloque n = new Bloque(index,hora,previusH,nonce,rooth,hash,et);
         agregar(n);
-        
         Main.arbol = new Merkle();
         Main.entregas = new ArrayList<Entrega>();
-        
         generarJson(n);
-        
         index++;
     }
     
@@ -124,10 +121,9 @@ public class Blockchain {
         PrintWriter pw = null;
         try
         {
-            String ruta = System.getProperty("user.dir") + "\\blockchain\\Bloques\\"+n.index+".json";
+            String ruta = System.getProperty("user.dir") + "\\blockchain\\Bloques\\"+n.getIndex()+".json";
             fichero = new FileWriter(ruta);
             pw = new PrintWriter(fichero);
-
             pw.println(prettyGson.toJson(n));
 
         } catch (Exception e) {

@@ -5,53 +5,27 @@
  */
 package Recursos;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author DELL
  */
 public class Mensajero {
-    private long dpi;
-    private long telefono;
-    private String nombres;
-    private String licencia;
-    private String genero;
-    private String direccion;
+    
+    private String nombres,apellidos,licencia,genero,telefono,direccion;
+    private BigInteger dpi;
+    private Mensajero siguiente;
 
-    public Mensajero() {
-        this.dpi = dpi;
-        this.telefono = telefono;
+    public Mensajero(BigInteger dpi, String nombres, String apellidos, String licencia, String genero, String telefono, String direccion) {
         this.nombres = nombres;
+        this.apellidos = apellidos;
         this.licencia = licencia;
         this.genero = genero;
-        this.direccion = direccion;
-    }
-
-    /**
-     * @return the dpi
-     */
-    public long getDpi() {
-        return dpi;
-    }
-
-    /**
-     * @param dpi the dpi to set
-     */
-    public void setDpi(long dpi) {
-        this.dpi = dpi;
-    }
-
-    /**
-     * @return the telefono
-     */
-    public long getTelefono() {
-        return telefono;
-    }
-
-    /**
-     * @param telefono the telefono to set
-     */
-    public void setTelefono(long telefono) {
         this.telefono = telefono;
+        this.direccion = direccion;
+        this.dpi = dpi;
+        //this.siguiente = siguiente;
     }
 
     /**
@@ -66,6 +40,20 @@ public class Mensajero {
      */
     public void setNombres(String nombres) {
         this.nombres = nombres;
+    }
+
+    /**
+     * @return the apellidos
+     */
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    /**
+     * @param apellidos the apellidos to set
+     */
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     /**
@@ -97,6 +85,20 @@ public class Mensajero {
     }
 
     /**
+     * @return the telefono
+     */
+    public String getTelefono() {
+        return telefono;
+    }
+
+    /**
+     * @param telefono the telefono to set
+     */
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    /**
      * @return the direccion
      */
     public String getDireccion() {
@@ -109,6 +111,25 @@ public class Mensajero {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    /**
+     * @return the dpi
+     */
+    public BigInteger getDpi() {
+        return dpi;
+    }
+
+    /**
+     * @param dpi the dpi to set
+     */
+    public void setDpi(BigInteger dpi) {
+        this.dpi = dpi;
+    }
+
+    
+
+    
+
     
     
 }

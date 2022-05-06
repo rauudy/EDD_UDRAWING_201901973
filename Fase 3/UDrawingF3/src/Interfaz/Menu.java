@@ -6,7 +6,10 @@
 package Interfaz;
 
 import Estructuras.*;
+import Hash.*;
 import Recursos.Cliente;
+import Recursos.Mensajero;
+import Recursos.TbHash;
 import UDrawing.Main;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -15,6 +18,10 @@ import com.google.gson.JsonParser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,9 +42,14 @@ public class Menu extends javax.swing.JFrame {
      * Creates new form Menu
      */
     public Menu() {
-        super("Cliente");
+        super("Usuario");
         initComponents();
         setLocationRelativeTo(null);
+        lblDestinoID.setText(String.valueOf(Main.actual.getIdMuni()));
+        lblClienteF.setText(Main.actual.getNombre());
+        
+        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        lblFecha.setText(timeStamp);
     }
 
     /**
@@ -51,37 +63,160 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        btnMod = new javax.swing.JButton();
+        btnCargaLugar = new javax.swing.JButton();
+        btnCargaMensajeros = new javax.swing.JButton();
+        btnCargaRutas = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        comboSucursal = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        comboMensajero = new javax.swing.JComboBox<>();
+        lblDestinoID = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblClienteF = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("UDRAWING");
 
-        jButton1.setText("Clientes");
-
-        jButton2.setText("Lugares");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnMod.setText("Modificar Datos");
+        btnMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnModActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Mensajeros");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCargaLugar.setText("Lugares");
+        btnCargaLugar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCargaLugarActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Rutas");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnCargaMensajeros.setText("Mensajeros");
+        btnCargaMensajeros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnCargaMensajerosActionPerformed(evt);
             }
         });
+
+        btnCargaRutas.setText("Rutas");
+        btnCargaRutas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargaRutasActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setText("Operacion de Entrega");
+
+        jLabel2.setText("Sucursal:");
+
+        comboSucursal.setToolTipText("");
+        comboSucursal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSucursalActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Destino:");
+
+        jLabel5.setText("Mensajero:");
+
+        comboMensajero.setToolTipText("");
+
+        lblDestinoID.setBackground(new java.awt.Color(204, 204, 204));
+        lblDestinoID.setText("jLabel6");
+
+        jLabel7.setText("Fecha:");
+
+        lblFecha.setBackground(new java.awt.Color(204, 204, 204));
+        lblFecha.setText("jLabel8");
+
+        jLabel6.setText("Cliente:");
+
+        lblClienteF.setText("jLabel8");
+
+        jLabel9.setText("Ruta:");
+
+        jLabel10.setText("Ruta Optima");
+
+        jButton1.setText("Entregar");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel6)))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboMensajero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblDestinoID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblClienteF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jButton1)))
+                        .addGap(0, 95, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(comboSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(comboMensajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblDestinoID))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblFecha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblClienteF))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,30 +226,37 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnCargaRutas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCargaLugar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCargaMensajeros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(jLabel3)))
-                .addContainerGap(177, Short.MAX_VALUE))
+                        .addGap(54, 54, 54)
+                        .addComponent(btnMod))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(358, 358, 358)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(389, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(13, 13, 13)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnCargaLugar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCargaMensajeros)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addComponent(btnCargaRutas)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(btnMod)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -131,17 +273,17 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCargaLugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaLugarActionPerformed
         // TODO add your handling code here:
         analizarLugares();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCargaLugarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnCargaRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaRutasActionPerformed
         // TODO add your handling code here:
         analizarRutas();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnCargaRutasActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCargaMensajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaMensajerosActionPerformed
         try {
             // TODO add your handling code here:
             analizarMensajeros();
@@ -150,7 +292,18 @@ public class Menu extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCargaMensajerosActionPerformed
+
+    private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
+        // TODO add your handling code here:
+        ModCliente actual = new ModCliente();
+        actual.llenarlo(Main.actual.getDpi(), Main.actual.getNombre(), Main.actual.getUsuario(), Main.actual.getCorreo(), Main.actual.getContraseña(), Main.actual.getTelefono(), Main.actual.getDireccion(), Main.actual.getIdMuni());
+        actual.setVisible(true);
+    }//GEN-LAST:event_btnModActionPerformed
+
+    private void comboSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSucursalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboSucursalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,12 +341,27 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCargaLugar;
+    private javax.swing.JButton btnCargaMensajeros;
+    private javax.swing.JButton btnCargaRutas;
+    private javax.swing.JButton btnMod;
+    private javax.swing.JComboBox<String> comboMensajero;
+    private javax.swing.JComboBox<String> comboSucursal;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblClienteF;
+    private javax.swing.JLabel lblDestinoID;
+    private javax.swing.JLabel lblFecha;
     // End of variables declaration//GEN-END:variables
 
     public void cargar_cliente(File archivo) {
@@ -246,8 +414,13 @@ public class Menu extends javax.swing.JFrame {
                 String sucursal = job.get("sn_sucursal").toString();
                 System.out.println("Departamento: " + depa + ", Nombre: " + name + ", Sucursal: " + sucursal);
                 System.out.println("No." + (i + 1));
-                
+
                 System.out.println("");
+                
+                if (sucursal.equals("si")) {
+                    comboSucursal.addItem(""+depa+", "+ name);
+                } else {
+                }
                 
             }
         } catch (Exception e) {
@@ -265,21 +438,36 @@ public class Menu extends javax.swing.JFrame {
         Object ob = parser.parse(linea);
         JSONArray array = (JSONArray) ob;
         JSONObject job;
-        String dpi = "", names = "", lastnames = "", license = "", gender = "", address = "", phone = "";
+        String dpi = "", nombres = "", apellidos = "", licencia = "", genero = "", direccion = "", telefono = "";
+        //TablaHash tb = new TablaHash(array.size());
+        //TbHash hh = new TbHash(array.size());
+        Tabla tttt = new Tabla(array.size());
+        
         for (int i = 0; i < array.size(); i++) {
             System.out.println("* * M E N S A J E R O S * *");
             job = (JSONObject) array.get(i);
             dpi = job.get("dpi").toString();
-            names = job.get("nombres").toString();
-            lastnames = job.get("apellidos").toString();
-            license = job.get("tipo_licencia").toString();
-            gender = job.get("genero").toString();
-            address = job.get("direccion").toString();
-            phone = job.get("telefono").toString();
-            
-            System.out.println("Nombre: " + names + ", Licencia Tipo:" + license);
+            nombres = job.get("nombres").toString();
+            apellidos = job.get("apellidos").toString();
+            licencia = job.get("tipo_licencia").toString();
+            genero = job.get("genero").toString();
+            direccion = job.get("direccion").toString();
+            telefono = job.get("telefono").toString();
+            BigInteger dp = new BigInteger(dpi);
+
+            System.out.println("Nombre: " + nombres + ", Licencia Tipo:" + licencia);
             System.out.println("Numero Mensajero: " + (i + 1));
+
+            Mensajero n = new Mensajero(dp, nombres, apellidos, licencia, genero, telefono, direccion);
+            Men nn = new Men(dp, nombres, apellidos, licencia, genero, telefono, direccion);
+
+            comboMensajero.addItem(""+nombres+" "+ apellidos);
+            //tb.insertar(dp, n);
+            //tttt.add(nn);
+
         }
+        
+        
     }
 
     public void cargar_rutas(File archivo) {
@@ -294,7 +482,10 @@ public class Menu extends javax.swing.JFrame {
             Object obj = parser.parse(key);
             JSONArray array = (JSONArray) obj;
             System.out.println("Tamaño: " + array.size());
+
             Routes rut = new Routes();
+            ListaAdyacencia la = new ListaAdyacencia(array.size());
+
             for (int i = 0; i < array.size(); i++) {
                 System.out.println("* * R U T A * *");
                 job = (JSONObject) array.get(i);
@@ -305,11 +496,12 @@ public class Menu extends javax.swing.JFrame {
                 System.out.println("Inicio: " + inicio + ", Final: " + fin + ", Peso: " + peso);
                 System.out.println("Numero Lugar: " + (i + 1));
 
-                
                 rut.addRoutes(Integer.parseInt(inicio), Integer.parseInt(fin), Integer.parseInt(peso));
                 //System.out.println("CARGADO");
+                la.insertaArista(Integer.parseInt(inicio), Integer.parseInt(fin), Integer.parseInt(peso));
             }
             //rut.createGrafoMap("Admin");
+            //la.impMatrix();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -354,26 +546,25 @@ public class Menu extends javax.swing.JFrame {
         String ruta = fileChooser.getSelectedFile().getAbsolutePath();
         File f = new File(ruta);
         cargar_rutas(f);
+        //JOptionPane.showMessageDialog(null, "Rutas Generados Correctamente.", Main.actual.getUsuario(), JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     public void analizarLugares() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showOpenDialog(fileChooser);
         String ruta = fileChooser.getSelectedFile().getAbsolutePath();
         File f = new File(ruta);
         cargar_lugares(f);
+        //JOptionPane.showMessageDialog(null, "Lugares Generados Correctamente.", Main.actual.getUsuario(), JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     public void analizarMensajeros() throws FileNotFoundException, ParseException {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showOpenDialog(fileChooser);
         String ruta = fileChooser.getSelectedFile().getAbsolutePath();
         File f = new File(ruta);
         cargar_mensajeros(f);
+        //JOptionPane.showMessageDialog(null, "Mensajeros Generados Correctamente.", Main.actual.getUsuario(), JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    
-    
-    
 
 }

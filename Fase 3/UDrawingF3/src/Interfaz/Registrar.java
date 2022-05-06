@@ -211,7 +211,7 @@ public class Registrar extends javax.swing.JFrame {
                 long muni = Long.parseLong(txtMuni.getText());
                 String user = txtUser.getText();
                 Cliente nuevo = new Cliente(dpi,nombre,user,correo,pass,tel,direccion,muni);
-                Cliente prueba = nuevo;//corregir
+                Cliente prueba = Main.clientes.buscar(dpi);
                 if(prueba==null){
                     Main.clientes.insertar(nuevo);              
                     JOptionPane.showMessageDialog(null,"Usuario creado exitosamente.","CLIENTE",JOptionPane.INFORMATION_MESSAGE);

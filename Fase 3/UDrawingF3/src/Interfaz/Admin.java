@@ -33,6 +33,8 @@ public class Admin extends javax.swing.JFrame {
         super("EL ADMIN");
         initComponents();
         setLocationRelativeTo(null);
+        
+        
     }
 
     /**
@@ -260,6 +262,16 @@ public class Admin extends javax.swing.JFrame {
 
     private void btnVerArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerArbolBActionPerformed
         // TODO add your handling code here:
+        Main.clientes.graficar("Clientes");
+        try {
+            Thread.sleep(2*1000);
+         } catch (Exception e) {
+            System.out.println(e);
+         }
+        ImageIcon imgg = new ImageIcon(System.getProperty("user.dir") + "\\Clientes.png");
+        java.awt.Image imgfull = imgg.getImage().getScaledInstance(imagenMostrada.getWidth(),imagenMostrada.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        Icon full = new ImageIcon(imgfull);
+        imagenMostrada.setIcon(full);
         
     }//GEN-LAST:event_btnVerArbolBActionPerformed
 

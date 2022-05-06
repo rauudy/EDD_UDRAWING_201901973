@@ -147,6 +147,7 @@ public class Inicio extends javax.swing.JFrame {
         }else{
             long user = Long.parseLong(usuario);
             Cliente cl = Main.clientes.buscar(user);
+            //Cliente cl = Main.clientes.buscar22(usuario);
             
                 if(cl!=null){
                     //cl.imprimir();

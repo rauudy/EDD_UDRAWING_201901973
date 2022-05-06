@@ -5,110 +5,39 @@
  */
 package Block;
 
+import Recursos.Entrega;
+import java.util.ArrayList;
+
 /**
  *
  * @author DELL
  */
 public class Bloque {
-    private int index;
-    private String timestamp;
-    private int nonce;
-    private Data data;
-    private long previuoshash;
-    private String hash;
+    int index;
+    String timestamp;
+    int nonce;
+    ArrayList<Entrega> entregas;
+    String previusHash;
+    String rootMerkle;
+    String hash;
 
-    public Bloque() {
+    public Bloque(int index, String timestamp, String previusH, int nonce, String rootMerkle, String hash, ArrayList<Entrega> entregas) {
         this.index = index;
         this.timestamp = timestamp;
         this.nonce = nonce;
-        this.data = data;
-        this.previuoshash = previuoshash;
+        this.previusHash = previusH;
+        this.rootMerkle = rootMerkle;
         this.hash = hash;
+        this.entregas = entregas;
     }
 
-    /**
-     * @return the index
-     */
-    public int getIndex() {
-        return index;
+    public void imprimir() {
+        System.out.println("INDEX: " + index);
+        System.out.println("TIMESTAMP: " + timestamp);
+        System.out.println("NONCE: " + nonce);
+        System.out.println("PHASH: " + previusHash);
+        System.out.println("ROOTM: " + rootMerkle);
+        System.out.println("HASH: " + hash);
     }
-
-    /**
-     * @param index the index to set
-     */
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    /**
-     * @return the timestamp
-     */
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * @param timestamp the timestamp to set
-     */
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    /**
-     * @return the nonce
-     */
-    public int getNonce() {
-        return nonce;
-    }
-
-    /**
-     * @param nonce the nonce to set
-     */
-    public void setNonce(int nonce) {
-        this.nonce = nonce;
-    }
-
-    /**
-     * @return the data
-     */
-    public Data getData() {
-        return data;
-    }
-
-    /**
-     * @param data the data to set
-     */
-    public void setData(Data data) {
-        this.data = data;
-    }
-
-    /**
-     * @return the previuoshash
-     */
-    public long getPreviuoshash() {
-        return previuoshash;
-    }
-
-    /**
-     * @param previuoshash the previuoshash to set
-     */
-    public void setPreviuoshash(long previuoshash) {
-        this.previuoshash = previuoshash;
-    }
-
-    /**
-     * @return the hash
-     */
-    public String getHash() {
-        return hash;
-    }
-
-    /**
-     * @param hash the hash to set
-     */
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-    
     
 }

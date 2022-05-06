@@ -15,12 +15,9 @@ public class Tabla {
     private Lista[] empLinkedListArray;
     private int size;
 
-    // constructor
     public Tabla(int size) {
-        // inicializar
         this.empLinkedListArray = new Lista[size];
         this.size = size;
-        // Necesita inicializar cada lista vinculada
         for (int i = 0; i < size; i++) {
             empLinkedListArray[i] = new Lista();
         }
@@ -48,14 +45,9 @@ public class Tabla {
         }
     }
 
-    // Agrega emp a la tabla hash
     public void add(Men emp) {
-
-        // Seleccione la lista vinculada según la identificación del empleado
         int a = emp.dpi.intValue();
         int empLinkedListNO = hashFun(a);
-
-        // Añadir a la lista vinculada
         empLinkedListArray[empLinkedListNO].add(emp);
     }
 

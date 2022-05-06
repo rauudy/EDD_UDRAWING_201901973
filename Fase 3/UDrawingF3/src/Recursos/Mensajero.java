@@ -13,11 +13,17 @@ import java.math.BigInteger;
  */
 public class Mensajero {
     
-    private String nombres,apellidos,licencia,genero,telefono,direccion;
-    private BigInteger dpi;
-    private Mensajero siguiente;
+    private String nombres;
+    private String apellidos;
+    //Mensajero siguiente;
+    private String licencia;
+    private String genero;
+    private String telefono;
+    private String direccion;
+    private long dpi;
+    private int entregas = 0;
 
-    public Mensajero(BigInteger dpi, String nombres, String apellidos, String licencia, String genero, String telefono, String direccion) {
+    public Mensajero(long dpi, String nombres, String apellidos, String licencia, String genero, String telefono, String direccion) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.licencia = licencia;
@@ -115,18 +121,34 @@ public class Mensajero {
     /**
      * @return the dpi
      */
-    public BigInteger getDpi() {
+    public long getDpi() {
         return dpi;
     }
 
     /**
      * @param dpi the dpi to set
      */
-    public void setDpi(BigInteger dpi) {
+    public void setDpi(long dpi) {
         this.dpi = dpi;
     }
 
-    
+    public void entregar(){
+        setEntregas(getEntregas() + 1);
+    }
+
+    /**
+     * @return the entregas
+     */
+    public int getEntregas() {
+        return entregas;
+    }
+
+    /**
+     * @param entregas the entregas to set
+     */
+    public void setEntregas(int entregas) {
+        this.entregas = entregas;
+    }
 
     
 

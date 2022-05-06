@@ -7,8 +7,7 @@ package Interfaz;
 
 import Estructuras.*;
 import Hash.*;
-import Recursos.Cliente;
-import Recursos.Mensajero;
+import Recursos.*;
 import Recursos.TbHash;
 import UDrawing.Main;
 import com.google.gson.JsonArray;
@@ -20,7 +19,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -64,9 +65,6 @@ public class Menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnMod = new javax.swing.JButton();
-        btnCargaLugar = new javax.swing.JButton();
-        btnCargaMensajeros = new javax.swing.JButton();
-        btnCargaRutas = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -79,8 +77,6 @@ public class Menu extends javax.swing.JFrame {
         lblFecha = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblClienteF = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,29 +91,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnCargaLugar.setText("Lugares");
-        btnCargaLugar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargaLugarActionPerformed(evt);
-            }
-        });
-
-        btnCargaMensajeros.setText("Mensajeros");
-        btnCargaMensajeros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargaMensajerosActionPerformed(evt);
-            }
-        });
-
-        btnCargaRutas.setText("Rutas");
-        btnCargaRutas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargaRutasActionPerformed(evt);
-            }
-        });
-
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Operacion de Entrega");
 
         jLabel2.setText("Sucursal:");
@@ -147,11 +123,12 @@ public class Menu extends javax.swing.JFrame {
 
         lblClienteF.setText("jLabel8");
 
-        jLabel9.setText("Ruta:");
-
-        jLabel10.setText("Ruta Optima");
-
         jButton1.setText("Entregar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -164,9 +141,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel7)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel9)
-                        .addComponent(jLabel6)))
+                    .addComponent(jLabel6))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(comboMensajero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -174,15 +149,14 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblClienteF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jButton1)))
+                        .addComponent(jLabel1)
                         .addGap(0, 95, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(117, 117, 117)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,11 +183,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(lblClienteF))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -225,45 +195,35 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnCargaRutas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCargaLugar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCargaMensajeros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(29, 29, 29)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(btnMod))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(358, 358, 358)
+                        .addGap(125, 125, 125)
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(389, Short.MAX_VALUE))
+                        .addGap(140, 140, 140)
+                        .addComponent(btnMod)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(btnCargaLugar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCargaMensajeros)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCargaRutas)
-                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnMod)
-                .addContainerGap())
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,27 +232,6 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCargaLugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaLugarActionPerformed
-        // TODO add your handling code here:
-        analizarLugares();
-    }//GEN-LAST:event_btnCargaLugarActionPerformed
-
-    private void btnCargaRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaRutasActionPerformed
-        // TODO add your handling code here:
-        analizarRutas();
-    }//GEN-LAST:event_btnCargaRutasActionPerformed
-
-    private void btnCargaMensajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaMensajerosActionPerformed
-        try {
-            // TODO add your handling code here:
-            analizarMensajeros();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnCargaMensajerosActionPerformed
 
     private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
         // TODO add your handling code here:
@@ -304,6 +243,55 @@ public class Menu extends javax.swing.JFrame {
     private void comboSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSucursalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboSucursalActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yy::HH:mm:ss");
+        if(comboSucursal.getSelectedItem() == null || comboMensajero.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(null, "No Suficientes Datos.","Cliente",JOptionPane.ERROR_MESSAGE);
+        }else{
+            
+            String sucursal = comboSucursal.getSelectedItem()+"";
+            String mensajero = comboMensajero.getSelectedItem()+"";
+            
+            String[] ids = sucursal.split("\\.");         
+            String[] idm = mensajero.split("-");
+            
+            int idsuc = Integer.parseInt(ids[0]);
+            long dpim = Long.parseLong(idm[1].substring(1));
+            
+            String sede = "";
+            for(Lugar lug :Main.lugares){
+                if(lug.getId() == idsuc){
+                    sede = lug.getNombre() + ", " + lug.getDepartamento();
+                }
+            }
+             
+            String men = "";
+            for (Mensajero mm : Main.mensajeros) {
+                if(mm!=null){
+                   if(mm.getDpi()==dpim){
+                        men = mm.getNombres()+ mm.getApellidos();
+                        mm.entregar();
+                    } 
+                }          
+            }
+            String hora = dtf.format(LocalDateTime.now());
+            String solicitud = sede+Main.actual.getDireccion()+hora+Main.actual.getNombre()+men;
+            Main.arbol.agregar(solicitud);
+            Entrega nentrega = new Entrega(sede,Main.actual.getDireccion(),hora,Main.actual.getNombre(),men);
+            Main.entregas.add(nentrega);
+            
+            for(Cliente cliente :Main.clientesC){
+                if(cliente.getDpi()==Main.actual.getDpi()){
+                    cliente.solicitar();
+                    Main.actual = cliente;
+                    break;
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Solicitud realizada correctamente","Cliente",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,22 +329,17 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCargaLugar;
-    private javax.swing.JButton btnCargaMensajeros;
-    private javax.swing.JButton btnCargaRutas;
     private javax.swing.JButton btnMod;
     private javax.swing.JComboBox<String> comboMensajero;
     private javax.swing.JComboBox<String> comboSucursal;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblClienteF;
@@ -404,9 +387,9 @@ public class Menu extends javax.swing.JFrame {
             key = "" + js.get("Lugares");
             Object obj = parser.parse(key);
             JSONArray array = (JSONArray) obj;
-            System.out.println("Tamaño: " + array.size());
+            //System.out.println("Tamaño: " + array.size());
             for (int i = 0; i < array.size(); i++) {
-                System.out.println("-----Lugar------");
+                System.out.println("-----**LUGAR**------");
                 job = (JSONObject) array.get(i);
                 String id = job.get("id").toString();
                 String name = job.get("nombre").toString();
@@ -454,11 +437,12 @@ public class Menu extends javax.swing.JFrame {
             direccion = job.get("direccion").toString();
             telefono = job.get("telefono").toString();
             BigInteger dp = new BigInteger(dpi);
+            
 
             System.out.println("Nombre: " + nombres + ", Licencia Tipo:" + licencia);
             System.out.println("Numero Mensajero: " + (i + 1));
 
-            Mensajero n = new Mensajero(dp, nombres, apellidos, licencia, genero, telefono, direccion);
+            Mensajero n = new Mensajero(Long.parseLong(dpi), nombres, apellidos, licencia, genero, telefono, direccion);
             Men nn = new Men(dp, nombres, apellidos, licencia, genero, telefono, direccion);
 
             comboMensajero.addItem(""+nombres+" "+ apellidos);
@@ -484,7 +468,7 @@ public class Menu extends javax.swing.JFrame {
             System.out.println("Tamaño: " + array.size());
 
             Routes rut = new Routes();
-            ListaAdyacencia la = new ListaAdyacencia(array.size());
+            //ListaAdyacencia la = new ListaAdyacencia(array.size());
 
             for (int i = 0; i < array.size(); i++) {
                 System.out.println("* * R U T A * *");
@@ -498,7 +482,7 @@ public class Menu extends javax.swing.JFrame {
 
                 rut.addRoutes(Integer.parseInt(inicio), Integer.parseInt(fin), Integer.parseInt(peso));
                 //System.out.println("CARGADO");
-                la.insertaArista(Integer.parseInt(inicio), Integer.parseInt(fin), Integer.parseInt(peso));
+                //la.insertaArista(Integer.parseInt(inicio), Integer.parseInt(fin), Integer.parseInt(peso));
             }
             //rut.createGrafoMap("Admin");
             //la.impMatrix();

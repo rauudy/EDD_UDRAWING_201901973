@@ -20,6 +20,7 @@ public class Cliente {
     private String correo;
     private String contraseña;
     private String direccion;
+    int solucitudes = 0;
     
 
     public Cliente(long dpi, String nombre, String usuario, String correo, String contraseña, long telefono, String direccion, long idMuni) {
@@ -157,7 +158,9 @@ public class Cliente {
         //imagenes.mostrarImgs(men);
     }
 
-    
+    public void solicitar(){
+        solucitudes += 1;
+    }
 
    
     

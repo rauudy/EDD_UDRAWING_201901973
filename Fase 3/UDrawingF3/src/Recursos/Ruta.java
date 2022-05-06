@@ -14,7 +14,7 @@ public class Ruta {
     private int fin;
     private int peso;
 
-    public Ruta() {
+    public Ruta(int inicio, int fin, int peso) {
         this.inicio = inicio;
         this.fin = fin;
         this.peso = peso;
@@ -63,7 +63,12 @@ public class Ruta {
     }
     
     
-    
+    public void imprimir(){
+        System.out.println("----------------------");
+        System.out.println("inicio: " + inicio);
+        System.out.println("final: " + fin);
+        System.out.println("peso: " + peso);
+    }
     
     
 }

@@ -5,151 +5,141 @@
  */
 package Estructuras;
 
+import Recursos.Ruta;
+import UDrawing.Main;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import Estructuras.Lista;
+import Estructuras.Lista.Nodo;
+
+
 /**
  *
  * @author DELL
  */
 public class ListaAdyacencia {
 
-    private final int MAXIMO_VERTICES;
-    private final int MAXIMO_ARISTAS;
-    private int aristas;
-    private int matrix[][];
-    
-    public ListaAdyacencia(int nroVertices, int nroAristas) {
-        MAXIMO_VERTICES = nroVertices;
-        MAXIMO_ARISTAS = nroAristas;
+    Lista vertices;
 
-        this.aristas = 0;
+    public class Vertice {
 
-        matrix = new int[MAXIMO_VERTICES][MAXIMO_VERTICES];
+        int vert;
+        Lista destinos;
 
-        for (int i = 0; i < getMAX_VERTICES(); i++) {
-            for (int j = 0; j < getMAX_VERTICES(); j++) {
-                matrix[i][j] = 0;
-            }
+        public Vertice(int vert) {
+            this.vert = vert;
+            destinos = new Lista();
+        }
+
+        public void agregarDestino(Destino des) {
+            destinos.add(des);
         }
     }
 
-    //---------------------------------------------------
-    
-    public ListaAdyacencia(int nroVertices) {
-        this(nroVertices, nroVertices);
-    }
+    public class Destino {
 
-    public int getMAX_VERTICES() {
-        return MAXIMO_VERTICES;
-    }
+        int des;
+        int peso;
 
-    public int getMAX_ARISTAS() {
-        return MAXIMO_ARISTAS;
-    }
-    
-    public void insertaArista(int v1, int v2, int dist)
-            throws ArrayIndexOutOfBoundsException, UnsupportedOperationException {
-        if (v1 >= MAXIMO_VERTICES || v2 >= MAXIMO_VERTICES) {
-            throw new ArrayIndexOutOfBoundsException(
-                    "Vertices inválidos, fuera de rango" + "nRango de vertices: 0 - " + (getMAX_VERTICES() - 1));
-        } else if (aristas == MAXIMO_ARISTAS) {
-            throw new UnsupportedOperationException("No se puede añadir más aristas");
-        } else {
-            matrix[v1][v2] = dist;
-        }
-    }
-    
-    public boolean existeArista(int v1, int v2) {
-        if (v1 >= MAXIMO_VERTICES || v2 >= MAXIMO_VERTICES) {
-            throw new ArrayIndexOutOfBoundsException(
-                    "Vertices inválidos, fuera de rango" + "nRango de vertices: 0 - " + (getMAX_VERTICES() - 1));
-        } else if (matrix[v1][v2] != 0) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Eliminar arista
-     *
-     * @param v1 vertice1
-     * @param v2 vertice2
-     */
-    public void eliminaArista(int v1, int v2) {
-        if (v1 >= MAXIMO_VERTICES || v2 >= MAXIMO_VERTICES) {
-            throw new ArrayIndexOutOfBoundsException(
-                    "Vertices inválidos, fuera de rango" + "nRango de vertices: 0 - " + (getMAX_VERTICES() - 1));
-        } else if (matrix[v1][v2] == 0) {
-            System.err.println("La arista NO existe");
-        } else {
-            matrix[v1][v2] = 0;
+        public Destino(int des, int peso) {
+            this.des = des;
+            this.peso = peso;
         }
     }
 
-    public void borrarGrafo() {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                matrix[i][j] = 0;
-            }
-        }
+    public ListaAdyacencia() {
+        vertices = new Lista();
     }
 
-    public void impMatrix() {
-        System.out.print(" ");
-        for (int i = 0; i < MAXIMO_VERTICES; i++) {
-            System.out.printf("  %3d", i);
-        }
-        System.out.println();
-        for (int i = 0; i < MAXIMO_VERTICES; i++) {
-            System.out.printf(" %3d", i);
-            for (int j = 0; j < MAXIMO_VERTICES; j++) {
-                System.out.printf(" %3d", matrix[i][j]);
-            }
-            System.out.println();
-        }
-    }
-
-// ----- Operaciones para obtener Lista de Adyacencia ----- //
-    public boolean grafoVerticesAdyacentes(int v) {
-        int auxiliar = 0;
-        boolean estavacia = true;
-
-        while (auxiliar < MAXIMO_VERTICES && estavacia) {
-            if (matrix[v][auxiliar] == 1) {
-                estavacia = false;
+    public void generar(Lista rutas) {
+        Nodo aux = rutas.raiz;
+        while (aux != null) {
+            Ruta nruta = (Ruta) aux.info;
+            if (vertices.existeVertice(nruta.getInicio())) {
+                Destino nDestino = new Destino(nruta.getFin(), nruta.getPeso());
+                addDestino(nruta.getInicio(), nDestino);
             } else {
-                auxiliar = auxiliar + 1;
+                Vertice nVertice = new Vertice(nruta.getInicio());
+                Destino nDestino = new Destino(nruta.getFin(), nruta.getPeso());
+                nVertice.agregarDestino(nDestino);
+                vertices.add(nVertice);
             }
-        }
 
-        return estavacia;
-    }
-
-    public int primeroListaAdy(int v) throws RuntimeException {
-        int auxiliar = 0;
-        boolean estavacia = true;
-
-        while (auxiliar < MAXIMO_VERTICES && estavacia) {
-            if (matrix[v][auxiliar] == 1) {
-                estavacia = false;
+            if (vertices.existeVertice(nruta.getFin())) {
+                Destino nDestino = new Destino(nruta.getInicio(), nruta.getPeso());
+                addDestino(nruta.getFin(), nDestino);
             } else {
-                auxiliar = auxiliar + 1;
+                Vertice nVertice = new Vertice(nruta.getFin());
+                Destino nDestino = new Destino(nruta.getInicio(), nruta.getPeso());
+                nVertice.agregarDestino(nDestino);
+                vertices.add(nVertice);
             }
-        }
 
-        if (auxiliar == MAXIMO_VERTICES) {
-            throw new RuntimeException("La lista de Adyacencia esta vacía");
+            aux = aux.next;
         }
-        return auxiliar;
     }
 
-    public int proxAdy(int v, int ady) {
-        int proximo = ady + 1;
-        while (proximo < MAXIMO_VERTICES && matrix[v][proximo] == 0) {
-            proximo = proximo + 1;
+    public void addDestino(int d, Destino n) {
+        Nodo aux = vertices.raiz;
+        while (aux != null) {
+            Vertice miVertice = (Vertice) aux.info;
+            if (miVertice.vert == d) {
+                miVertice.agregarDestino(n);
+            }
+            aux = aux.next;
         }
-        if (proximo == MAXIMO_VERTICES) {
-            return -1;
+    }
+
+    public void imprimir() {
+        Nodo aux = vertices.raiz;
+        while (aux != null) {
+            Vertice miVertice = (Vertice) aux.info;
+            String a = "" + miVertice.vert;
+            Nodo auxiliar = miVertice.destinos.raiz;
+            while (auxiliar != null) {
+                Destino b = (Destino) auxiliar.info;
+                a += "->" + b.des;
+                auxiliar = auxiliar.next;
+            }
+            System.out.println(a);
+            aux = aux.next;
         }
-        return proximo;
+    }
+
+    public void graficar() {
+        String resultado = "digraph G{\nlabel=\"Lista De Adyacencia\";\nnode[shape=square];\nrankdir=\"LR\";\n";
+        String nodos = "";
+        String conexiones = "";
+        Nodo aux = vertices.raiz;
+        while (aux != null) {
+            Vertice nv = (Vertice) aux.info;
+            nodos += "N" + aux.hashCode() + "[label=\"" + nv.vert + "\",style=\"filled\", fillcolor=\"#A4EEFB\"];\n";
+            String anterior = "N" + aux.hashCode();
+
+            Nodo destino = nv.destinos.raiz;
+
+            while (destino != null) {
+                nodos += "\nN" + destino.hashCode() + "[label=\"" + ((Destino) destino.info).des + "\"];";
+                conexiones += anterior + "->N" + destino.hashCode() + ";\n";
+                anterior = "N" + destino.hashCode();
+                destino = destino.next;
+            }
+            aux = aux.next;
+        }
+        resultado += nodos + conexiones;
+        resultado += "\n}";
+        try {
+            String ruta = System.getProperty("user.dir") + "\\adyacencia.txt";
+            File file = new File(ruta);
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(resultado);
+            bw.close();
+            Main.graficarDot("adyacencia");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
